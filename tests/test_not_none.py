@@ -48,6 +48,11 @@ class TestNotNone(unittest.TestCase):
             self.assertTrue(ua.browser is not None)
             self.assertTrue(ua.browser_version is not None)
 
+    def test_platform_6(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='android', browser='chrome')
+            self.assertTrue(ua.browser is not None)
+            self.assertTrue(ua.browser_version is not None)
 
 if __name__ == '__main__':
     unittest.main()
