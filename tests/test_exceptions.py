@@ -6,6 +6,7 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
+from src.ua_generator import exceptions
 
 
 def raised_call():
@@ -18,10 +19,10 @@ def raised_call_2():
 
 class TestExceptions(unittest.TestCase):
     def test_value_error(self):
-        self.assertRaises(ValueError, raised_call)
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_2(self):
-        self.assertRaises(ValueError, raised_call_2)
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call_2)
 
 
 if __name__ == '__main__':

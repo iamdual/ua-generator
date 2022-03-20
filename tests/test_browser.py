@@ -29,6 +29,12 @@ class TestBrowser(unittest.TestCase):
             ua = ua_generator.generate(platform=('windows', 'linux'), browser='safari')
             self.assertTrue(ua.browser == 'chrome')
 
+    def test_browser_5(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform=('macos', 'linux'), browser='safari')
+            self.assertTrue((ua.platform == 'macos' and ua.browser == 'safari') or
+                            (ua.platform == 'linux' and ua.browser == 'chrome'))
+
 
 if __name__ == '__main__':
     unittest.main()

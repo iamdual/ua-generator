@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-from . import utils
+from . import utils, exceptions
 from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
 from .data import generator
 
@@ -27,7 +27,7 @@ class UserAgent:
     def find_device(self):
         if self.device is not None:
             if not utils.contains_multiple(self.device, devices):
-                raise ValueError('No device type found: {}'.format(self.device))
+                raise exceptions.InvalidArgumentError('No device type found: {}'.format(self.device))
             else:
                 self.device = utils.choice(self.device)
                 return self.device
@@ -44,7 +44,7 @@ class UserAgent:
     def find_platform(self):
         if self.platform is not None:
             if not utils.contains_multiple(self.platform, platforms):
-                raise ValueError('No platform found: {}'.format(self.platform))
+                raise exceptions.InvalidArgumentError('No platform found: {}'.format(self.platform))
             else:
                 self.platform = utils.choice(self.platform)
                 return self.platform
@@ -61,7 +61,7 @@ class UserAgent:
     def find_browser(self):
         if self.browser is not None:
             if not utils.contains_multiple(self.browser, browsers):
-                raise ValueError('No browser found: {}'.format(self.browser))
+                raise exceptions.InvalidArgumentError('No browser found: {}'.format(self.browser))
             else:
                 self.browser = utils.choice(self.browser)
 
