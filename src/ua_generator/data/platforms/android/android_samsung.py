@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 import string
 
-from src.ua_generator import utils
+from .... import utils
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
