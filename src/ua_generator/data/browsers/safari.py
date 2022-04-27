@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/Google_Chrome_version_history
+# https://en.wikipedia.org/wiki/Safari_version_history
 versions = {
     '8': {'minor_range': (0, 0), 'webkit': '600.1.4'},
     '9': {'minor_range': (0, 0), 'webkit': '600.1.4'},
