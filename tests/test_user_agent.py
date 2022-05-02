@@ -50,7 +50,7 @@ class TestUserAgent(unittest.TestCase):
             self.assertIsNotNone(ua.browser_version)
 
     def test_user_agent_not_contains_brackets(self):
-        brackets = re.compile('{(d|s|v)}')
+        brackets = re.compile('{(d|s|v|build|chrome|firefox|safari|webkit|windows|android|ios|macos|linux)}')
         for i in range(0, 200):
             ua = ua_generator.generate()
             self.assertNotRegex(ua.text, brackets)
