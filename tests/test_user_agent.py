@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-import unittest
+import unittest, re
 
 import src.ua_generator as ua_generator
 
@@ -48,6 +48,12 @@ class TestUserAgent(unittest.TestCase):
             self.assertIsNotNone(ua.platform_version)
             self.assertIsNotNone(ua.browser)
             self.assertIsNotNone(ua.browser_version)
+
+    def test_user_agent_not_contains_brackets(self):
+        brackets = re.compile('{(d|s|v)}')
+        for i in range(0, 200):
+            ua = ua_generator.generate()
+            self.assertNotRegex(ua.text, brackets)
 
 
 if __name__ == '__main__':

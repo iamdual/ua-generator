@@ -33,12 +33,32 @@ versions = {
         'build_number': ('NDE63{s}', 'NMF26{s}', 'NMF27{s}', 'N2G47{s}', 'NHG47{s}', 'NJH34{s}', 'NKG47{s}',
                          'NOF27{s}', 'N6F26{s}', 'N4F27{s}', 'N8I11{s}', 'NGI55{s}', 'N9F27{s}')
     },
-    '8.0': {'minor_range': (0, 5)},
-    '8.1': {'minor_range': (0, 7)},
-    '9.0': {'minor_range': (0, 0)},
-    '10.0': {'minor_range': (0, 0)},
-    '11.0': {'minor_range': (0, 0)},
-    '12.0': {'minor_range': (0, 0)}
+    '8.0': {
+        'minor_range': (0, 5),
+        'build_number': ('OPR6.{d}.{v}', 'OPR1.{d}.{v}', 'OPR4.{d}.{v}', 'OPR5.{d}.{v}', 'OPD1.{d}.{v}')
+    },
+    '8.1': {
+        'minor_range': (0, 7),
+        'build_number': ('OPM1.{d}.{v}', 'OPM2.{d}.{v}', 'OPM3.{d}.{v}', 'OPM5.{d}.{v}')
+    },
+    '9.0': {
+        'minor_range': (0, 0),
+        'build_number': ('PPR1.{d}.{v}', 'PPR2.{d}.{v}', 'PD1A.{d}.{v}', 'PQ1A.{d}.{v}', 'PQ2A.{d}.{v}', 'PQ3A.{d}.{v}')
+    },
+    '10.0': {
+        'minor_range': (0, 0),
+        'build_number': ('QP1A.{d}.{v}', 'QQ1A.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1C.{d}.{v}', 'PQ2A.{d}.{v}', 'QQ1D.{d}.{v}'
+                         'QQ2A.{d}.{v}', 'QQ3A.{d}.{v}', 'QD4A.{d}.{v}')
+    },
+    '11.0': {
+        'minor_range': (0, 0),
+        'build_number': ('RP1A.{d}.{v}', 'RD1A.{d}.{v}', 'RQ1A.{d}.{v}', 'RQ1C.{d}.{v}', 'RQ1D.{d}.{v}', 'RQ2A.{d}.{v}',
+                         'RQ3A.{d}.{v}', 'RD2A.{d}.{v}')
+    },
+    '12.0': {
+        'minor_range': (0, 0),
+        'build_number': ('SP1A.{d}.{v}', 'SD1A.{d}.{v}', 'SQ1A.{d}.{v}', 'SQ1D.{d}.{v}')
+    },
 }
 
 # https://firmware.gem-flash.com/index.php?a=downloads&b=folder&id=980
@@ -151,6 +171,9 @@ def get_version():
             if 'build_number' in props:
                 build_number = utils.choice(props['build_number'])
                 build_number = build_number.replace('{s}', '{}'.format(random.choice(string.ascii_uppercase)))
+                build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(
+                    random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
+                build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
             return {'major': major, 'minor': minor, 'build_number': build_number, 'device_name': device_name}
         i = i + 1

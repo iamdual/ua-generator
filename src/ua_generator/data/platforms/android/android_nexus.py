@@ -56,10 +56,10 @@ def get_version():
             device_name = utils.choice(device_names)
 
             build_number = utils.choice(props['build_number'])
+            build_number = build_number.replace('{s}', '{}'.format(random.choice(string.ascii_uppercase)))
             build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(
                 random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
             build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
-            build_number = build_number.replace('{s}', '{}'.format(random.choice(string.ascii_uppercase)))
 
             return {'major': major, 'minor': minor, 'build_number': build_number, 'device_name': device_name}
         i = i + 1
