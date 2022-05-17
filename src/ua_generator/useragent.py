@@ -94,8 +94,9 @@ class ClientHints:
     def __init__(self, _gen: generator.Generator):
         self.mobile = self.ch_mobile(_gen.platform)
         self.platform = self.ch_platform(_gen.platform)
-        self.versions = self.ch_brands(_gen)
-        self.full_versions = self.ch_brands(_gen, full_versions=True)
+        self.platform_version = formats.version(_gen.platform_version)
+        self.brands = self.ch_brands(_gen)
+        self.brands_full_versions = self.ch_brands(_gen, full_versions=True)
 
     def ch_mobile(self, platform: str):
         if utils.contains(('ios', 'android'), platform):
@@ -130,4 +131,4 @@ class ClientHints:
         return ', '.join(serialized)
 
     def __str__(self):
-        return self.versions
+        return self.brands
