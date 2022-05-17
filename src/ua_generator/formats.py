@@ -14,3 +14,7 @@ def version(version_dict, strip_zero=False):
         v_str += '.' + str(version_dict['minor'])
 
     return v_str
+
+
+def major_version(version_dict):
+    return str(version_dict['major']).split('.', 1)[0]
