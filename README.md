@@ -41,9 +41,9 @@ print(ua.ch.brands) # " Not A;Brand";v="99"
 print(ua.ch.mobile) # ?0
 
 ua = ua_generator.generate(platform=('ios', 'macos'), browser='chrome')
-print(ua.text)     # Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/80.0.3987.44 Mobile/15E148 Safari/537.36
-print(ua.platform) # ios
-print(ua.browser)  # chrome
+print(ua.text)      # Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/80.0.3987.44 Mobile/15E148 Safari/537.36
+print(ua.platform)  # ios
+print(ua.browser)   # chrome
 print(ua.ch.brands) # " Not A;Brand";v="99", "Chromium";v="80", "Google Chrome";v="80"
 print(ua.ch.mobile) # ?1
 ```
