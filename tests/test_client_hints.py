@@ -6,7 +6,6 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
-from src.ua_generator import data
 
 
 class TestClientHints(unittest.TestCase):
