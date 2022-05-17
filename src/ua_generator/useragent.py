@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-from . import utils, exceptions
+from . import utils, formats, exceptions
 from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
 from .data import generator
 
@@ -16,6 +16,7 @@ class UserAgent:
         self.browser = None
         self.browser_version = None
         self.text = None
+        self.ch: ClientHints = None
 
     def generate(self, device=None, platform=None, browser=None):
         self.device = device
@@ -83,6 +84,50 @@ class UserAgent:
         self.platform_version = ua.platform_version
         self.browser_version = ua.browser_version
         self.text = ua.user_agent
+        self.ch = ClientHints(ua)
 
     def __str__(self):
         return self.text
+
+
+class ClientHints:
+    def __init__(self, _gen: generator.Generator):
+        self.mobile = self.ch_mobile(_gen.platform)
+        self.platform = self.ch_platform(_gen.platform)
+        self.versions = self.ch_brands(_gen)
+        self.full_versions = self.ch_brands(_gen, full_versions=True)
+
+    def ch_mobile(self, platform: str):
+        if utils.contains(('ios', 'android'), platform):
+            return '?1'
+        return '?0'
+
+    def ch_platform(self, platform: str):
+        if platform == 'ios':
+            return 'iOS'
+        elif platform == 'macos':
+            return 'macOS'
+        return platform.title()
+
+    def ch_brands(self, _gen: generator.Generator, full_versions=False):
+        brand_list = [{'brand': ' Not A;Brand', 'version': '99'}]
+
+        if full_versions:
+            browser_version = formats.version(_gen.browser_version)
+        else:
+            browser_version = formats.major_version(_gen.browser_version)
+
+        if _gen.browser == 'chrome':
+            brand_list.append({'brand': 'Chromium', 'version': browser_version})
+            brand_list.append({'brand': 'Google Chrome', 'version': browser_version})
+
+        return self.serialize_brand_list(brand_list)
+
+    def serialize_brand_list(self, brand_list: list):
+        serialized = []
+        for _dict in brand_list:
+            serialized.append('"' + _dict['brand'] + '";v="' + _dict['version'] + '"')
+        return ', '.join(serialized)
+
+    def __str__(self):
+        return self.versions
