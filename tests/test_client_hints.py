@@ -13,7 +13,13 @@ class TestClientHints(unittest.TestCase):
         for i in range(0, 100):
             ua = ua_generator.generate(browser='chrome', platform='macos')
             self.assertIsNotNone(ua.ch)
-            self.assertTrue(ua.ch.platform, 'macOS')
+            self.assertEqual(ua.ch.platform, '"macOS"')
+
+    def test_ch_platform_2(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(browser='chrome', platform='linux')
+            self.assertIsNotNone(ua.ch)
+            self.assertEqual(ua.ch.platform, '"Linux"')
 
     def test_ch_platform_version(self):
         for i in range(0, 100):
@@ -34,13 +40,13 @@ class TestClientHints(unittest.TestCase):
             self.assertIsNotNone(ua.ch)
             self.assertEqual(ua.ch.mobile, '?0')
 
-    def test_ch_versions(self):
+    def test_ch_brands(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser='chrome', platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(ua.ch.brands.startswith('" Not A;Brand";v="99", "Chromium";v="'))
 
-    def test_ch_full_versions(self):
+    def test_ch_brands_full_versions(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser='chrome', platform='windows')
             self.assertIsNotNone(ua.ch)

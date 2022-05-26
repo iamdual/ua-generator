@@ -94,7 +94,7 @@ class ClientHints:
     def __init__(self, _gen: generator.Generator):
         self.mobile = self.ch_mobile(_gen.platform)
         self.platform = self.ch_platform(_gen.platform)
-        self.platform_version = formats.version(_gen.platform_version)
+        self.platform_version = self.ch_platform_version(_gen.platform_version)
         self.brands = self.ch_brands(_gen)
         self.brands_full_versions = self.ch_brands(_gen, full_versions=True)
 
@@ -105,10 +105,15 @@ class ClientHints:
 
     def ch_platform(self, platform: str):
         if platform == 'ios':
-            return 'iOS'
+            platform = 'iOS'
         elif platform == 'macos':
-            return 'macOS'
-        return platform.title()
+            platform = 'macOS'
+        else:
+            platform = platform.title()
+        return '"' + platform + '"'
+
+    def ch_platform_version(self, platform_version):
+        return '"' + formats.version(platform_version) + '"'
 
     def ch_brands(self, _gen: generator.Generator, full_versions=False):
         brand_list = [{'brand': ' Not A;Brand', 'version': '99'}]
