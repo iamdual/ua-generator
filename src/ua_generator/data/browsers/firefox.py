@@ -45,7 +45,8 @@ versions = {
     '96': {'minor_range': (0, 0)},
     '97': {'minor_range': (0, 0)},
     '98': {'minor_range': (0, 0)},
-    '99': {'minor_range': (0, 0)},
+    '99': {'minor_range': (0, 1)},
+    '100': {'minor_range': (0, 2)},
 }
 
 
