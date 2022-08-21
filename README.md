@@ -26,7 +26,7 @@ There are three different parameters to the generate user-agent by the certain c
 ```python
 device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
-browser = ('chrome', 'firefox', 'safari')
+browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
 
 All of the parameters are optional, and the types can be choose multiple.

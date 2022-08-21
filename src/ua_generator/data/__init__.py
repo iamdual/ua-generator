@@ -10,4 +10,4 @@ platforms = ('windows', 'macos', 'ios', 'linux', 'android')
 platforms_desktop = ('windows', 'macos', 'linux')
 platforms_mobile = ('ios', 'android')
 
-browsers = ('chrome', 'firefox', 'safari', 'edge')
+browsers = ('chrome', 'edge', 'firefox', 'safari')
