@@ -96,7 +96,6 @@ class ClientHints:
         self.platform = self.ch_platform(_gen.platform)
         self.platform_version = self.ch_platform_version(_gen.platform_version)
         self.brands = self.ch_brands(_gen)
-        self.brands_full_versions = self.ch_brands(_gen, full_versions=True)
 
     def ch_mobile(self, platform: str):
         if utils.contains(('ios', 'android'), platform):
@@ -115,17 +114,17 @@ class ClientHints:
     def ch_platform_version(self, platform_version):
         return '"' + formats.version(platform_version) + '"'
 
-    def ch_brands(self, _gen: generator.Generator, full_versions=False):
+    def ch_brands(self, _gen: generator.Generator):
         brand_list = [{'brand': ' Not A;Brand', 'version': '99'}]
-
-        if full_versions:
-            browser_version = formats.version(_gen.browser_version)
-        else:
-            browser_version = formats.major_version(_gen.browser_version)
+        browser_version = formats.major_version(_gen.browser_version)
 
         if _gen.browser == 'chrome':
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Google Chrome', 'version': browser_version})
+
+        if _gen.browser == 'edge':
+            brand_list.append({'brand': 'Chromium', 'version': browser_version})
+            brand_list.append({'brand': 'Microsoft Edge', 'version': browser_version})
 
         return self.serialize_brand_list(brand_list)
 

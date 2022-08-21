@@ -14,7 +14,7 @@ versions = {
     '12': {'minor_range': (0, 1), 'webkit': '605.1.15'},
     '13': {'minor_range': (0, 1), 'webkit': '605.1.15'},
     '14': {'minor_range': (0, 1), 'webkit': '605.1.15'},
-    '15': {'minor_range': (0, 4), 'webkit': '605.1.15'},
+    '15': {'minor_range': (0, 5), 'webkit': '605.1.15'},
 }
 
 

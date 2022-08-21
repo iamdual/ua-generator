@@ -46,12 +46,6 @@ class TestClientHints(unittest.TestCase):
             self.assertIsNotNone(ua.ch)
             self.assertTrue(ua.ch.brands.startswith('" Not A;Brand";v="99", "Chromium";v="'))
 
-    def test_ch_brands_full_versions(self):
-        for i in range(0, 100):
-            ua = ua_generator.generate(browser='chrome', platform='windows')
-            self.assertIsNotNone(ua.ch)
-            self.assertTrue(ua.ch.brands_full_versions.startswith('" Not A;Brand";v="99", "Chromium";v="'))
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -13,7 +13,7 @@ versions = {
     '12': {'minor_range': (0, 5)},
     '13': {'minor_range': (0, 7)},
     '14': {'minor_range': (0, 8)},
-    '15': {'minor_range': (0, 5)},
+    '15': {'minor_range': (0, 6)},
 }
 
 
