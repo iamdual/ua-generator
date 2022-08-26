@@ -10,7 +10,7 @@ A random user-agent generator for Python >= 3.6
 
 # Installing
 ```bash
-pip3 install ua-generator
+pip3 install -U ua-generator
 ```
 
 # Basic usage
