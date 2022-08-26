@@ -90,12 +90,15 @@ class UserAgent:
         return self.text
 
 
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version-List
 class ClientHints:
     def __init__(self, _gen: generator.Generator):
         self.mobile = self.ch_mobile(_gen.platform)
         self.platform = self.ch_platform(_gen.platform)
         self.platform_version = self.ch_platform_version(_gen.platform_version)
         self.brands = self.ch_brands(_gen)
+        self.brands_full_version_list = self.ch_brands(_gen, full_version_list=True)
 
     def ch_mobile(self, platform: str):
         if utils.contains(('ios', 'android'), platform):
@@ -114,15 +117,18 @@ class ClientHints:
     def ch_platform_version(self, platform_version):
         return '"' + formats.version(platform_version) + '"'
 
-    def ch_brands(self, _gen: generator.Generator):
+    def ch_brands(self, _gen: generator.Generator, full_version_list: bool = False):
         brand_list = [{'brand': ' Not A;Brand', 'version': '99'}]
-        browser_version = formats.major_version(_gen.browser_version)
+
+        if full_version_list:
+            browser_version = formats.version(_gen.browser_version)
+        else:
+            browser_version = formats.major_version(_gen.browser_version)
 
         if _gen.browser == 'chrome':
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Google Chrome', 'version': browser_version})
-
-        if _gen.browser == 'edge':
+        elif _gen.browser == 'edge':
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Microsoft Edge', 'version': browser_version})
 
