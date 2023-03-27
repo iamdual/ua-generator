@@ -7,19 +7,6 @@ import random
 
 # https://en.wikipedia.org/wiki/Google_Chrome_version_history
 versions = {
-    '76.0.3809': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '77.0.3865': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '78.0.3904': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '79.0.3945': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '80.0.3987': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '81.0.4044': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '83.0.4103': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '84.0.4147': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '85.0.4183': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '86.0.4240': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '87.0.4280': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '88.0.4324': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '89.0.4389': {'minor_range': (0, 255), 'webkit': '537.36'},
     '90.0.4430': {'minor_range': (0, 255), 'webkit': '537.36'},
     '91.0.4472': {'minor_range': (0, 255), 'webkit': '537.36'},
     '92.0.4515': {'minor_range': (0, 255), 'webkit': '537.36'},
@@ -33,7 +20,16 @@ versions = {
     '100.0.4896': {'minor_range': (0, 255), 'webkit': '537.36'},
     '101.0.4951': {'minor_range': (0, 255), 'webkit': '537.36'},
     '102.0.5005': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '103.0.0': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '103.0.5060': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '104.0.5112': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '105.0.5195': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '106.0.5249': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '107.0.5304': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '108.0.5359': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '109.0.5414': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '110.0.5481': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '111.0.5563': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '112.0.5615': {'minor_range': (0, 255), 'webkit': '537.36'},
 }
 
 

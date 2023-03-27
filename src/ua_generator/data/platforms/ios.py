@@ -7,13 +7,24 @@ import random
 
 # https://en.wikipedia.org/wiki/IOS_version_history
 versions = {
-    '9': {'minor_range': (0, 3)},
-    '10': {'minor_range': (0, 3)},
-    '11': {'minor_range': (0, 4)},
-    '12': {'minor_range': (0, 5)},
-    '13': {'minor_range': (0, 7)},
-    '14': {'minor_range': (0, 8)},
-    '15': {'minor_range': (0, 6)},
+    '14.0': {'minor_range': (0, 1)},
+    '14.1': {'minor_range': (0, 0)},
+    '14.2': {'minor_range': (0, 1)},
+    '14.3': {'minor_range': (0, 0)},
+    '14.4': {'minor_range': (0, 2)},
+    '14.5': {'minor_range': (0, 1)},
+    '14.6': {'minor_range': (0, 0)},
+    '14.7': {'minor_range': (0, 1)},
+    '14.8': {'minor_range': (0, 1)},
+    '15.0': {'minor_range': (0, 2)},
+    '15.1': {'minor_range': (0, 1)},
+    '15.2': {'minor_range': (0, 1)},
+    '15.3': {'minor_range': (0, 1)},
+    '15.4': {'minor_range': (0, 1)},
+    '15.5': {'minor_range': (0, 0)},
+    '15.6': {'minor_range': (0, 1)},
+    '15.7': {'minor_range': (0, 4)},
+    '16.4': {'minor_range': (0, 0)},
 }
 
 

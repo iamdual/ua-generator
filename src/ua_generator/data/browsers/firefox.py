@@ -33,6 +33,15 @@ versions = {
     '101.0': {'minor_range': (0, 1)},
     '102.0': {'minor_range': (0, 6)},
     '103.0': {'minor_range': (0, 2)},
+    '104.0': {'minor_range': (0, 2)},
+    '105.0': {'minor_range': (0, 3)},
+    '106.0': {'minor_range': (0, 5)},
+    '107.0': {'minor_range': (0, 1)},
+    '108.0': {'minor_range': (0, 2)},
+    '109.0': {'minor_range': (0, 1)},
+    '110.0': {'minor_range': (0, 1)},
+    '111.0': {'minor_range': (0, 1)},
+    '112.0': {'minor_range': (0, 0)},
 }
 
 

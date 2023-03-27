@@ -22,11 +22,14 @@ versions = {
     '5.12': {'minor_range': (0, 19)},
     '5.13': {'minor_range': (0, 19)},
     '5.14': {'minor_range': (0, 21)},
-    '5.15': {'minor_range': (0, 28)},
-    '5.16': {'minor_range': (0, 14)},
-    '5.17': {'minor_range': (0, 11)},
-    '5.18': {'minor_range': (0, 16)},
-    '5.19': {'minor_range': (0, 1)},
+    '5.15': {'minor_range': (0, 103)},
+    '5.16': {'minor_range': (0, 20)},
+    '5.17': {'minor_range': (0, 15)},
+    '5.18': {'minor_range': (0, 19)},
+    '5.19': {'minor_range': (0, 17)},
+    '6.0': {'minor_range': (0, 19)},
+    '6.1': {'minor_range': (0, 20)},
+    '6.2': {'minor_range': (0, 8)},
 }
 
 

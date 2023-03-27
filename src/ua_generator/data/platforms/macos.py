@@ -5,6 +5,9 @@ License: Apache License 2.0
 """
 import random
 
+# User agent cap on macOS
+# https://groups.google.com/a/chromium.org/g/blink-dev/c/hAI4QoX6rEo/m/qQNPThr0AAAJ
+
 # https://en.wikipedia.org/wiki/MacOS_version_history
 versions = {
     '10.8': {'minor_range': (0, 8)},
@@ -25,6 +28,11 @@ versions = {
     '12.3': {'minor_range': (0, 1)},
     '12.4': {'minor_range': (0, 0)},
     '12.5': {'minor_range': (0, 1)},
+    '12.6': {'minor_range': (0, 4)},
+    '13.0': {'minor_range': (0, 1)},
+    '13.1': {'minor_range': (0, 0)},
+    '13.2': {'minor_range': (0, 1)},
+    '13.3': {'minor_range': (0, 0)},
 }
 
 

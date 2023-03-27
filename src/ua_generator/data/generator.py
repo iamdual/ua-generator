@@ -124,26 +124,22 @@ class Generator:
 
         elif self.platform == 'macos':
             if self.browser == 'chrome':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}'
-                template = template.replace('{macos}', formats.version(self.platform_version, strip_zero=True).replace('.', '_'))
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}'
                 template = template.replace('{webkit}', self.browser_version['webkit'])
                 template = template.replace('{chrome}', formats.version(self.browser_version))
                 return template
             if self.browser == 'edge':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}'
-                template = template.replace('{macos}', formats.version(self.platform_version, strip_zero=True).replace('.', '_'))
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}'
                 template = template.replace('{webkit}', self.browser_version['webkit'])
                 template = template.replace('{chrome}', formats.version(self.browser_version))
                 return template
             if self.browser == 'safari':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
-                template = template.replace('{macos}', formats.version(self.platform_version, strip_zero=True).replace('.', '_'))
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
                 template = template.replace('{webkit}', self.browser_version['webkit'])
                 template = template.replace('{safari}', formats.version(self.browser_version))
                 return template
             if self.browser == 'firefox':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}; rv:{firefox}) Gecko/20100101 Firefox/{firefox}'
-                template = template.replace('{macos}', formats.version(self.platform_version, strip_zero=True).replace('.', '_'))
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:{firefox}) Gecko/20100101 Firefox/{firefox}'
                 template = template.replace('{firefox}', formats.version(self.browser_version, strip_zero=True))
                 return template
 
