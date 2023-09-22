@@ -10,9 +10,6 @@ import random
 
 # https://en.wikipedia.org/wiki/MacOS_version_history
 versions = {
-    '10.8': {'minor_range': (0, 8)},
-    '10.9': {'minor_range': (0, 5)},
-    '10.10': {'minor_range': (0, 5)},
     '10.11': {'minor_range': (0, 6)},
     '10.12': {'minor_range': (0, 6)},
     '10.13': {'minor_range': (0, 6)},
@@ -32,7 +29,10 @@ versions = {
     '13.0': {'minor_range': (0, 1)},
     '13.1': {'minor_range': (0, 0)},
     '13.2': {'minor_range': (0, 1)},
-    '13.3': {'minor_range': (0, 0)},
+    '13.3': {'minor_range': (0, 1)},
+    '13.4': {'minor_range': (0, 1)},
+    '13.5': {'minor_range': (0, 2)},
+    '13.6': {'minor_range': (0, 0)},
 }
 
 

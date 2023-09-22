@@ -7,11 +7,6 @@ import random
 
 # https://en.wikipedia.org/wiki/Firefox_version_history
 versions = {
-    '78': {'minor_range': (0, 15)},
-    '79': {'minor_range': (0, 0)},
-    '80': {'minor_range': (0, 1)},
-    '81': {'minor_range': (0, 2)},
-    '82': {'minor_range': (0, 3)},
     '83': {'minor_range': (0, 0)},
     '84': {'minor_range': (0, 2)},
     '85': {'minor_range': (0, 2)},
@@ -42,6 +37,11 @@ versions = {
     '110.0': {'minor_range': (0, 1)},
     '111.0': {'minor_range': (0, 1)},
     '112.0': {'minor_range': (0, 0)},
+    '113.0': {'minor_range': (0, 1)},
+    '114.0': {'minor_range': (0, 1)},
+    '115.0': {'minor_range': (0, 1)},
+    '116.0': {'minor_range': (0, 1)},
+    '117.0': {'minor_range': (0, 1)},
 }
 
 

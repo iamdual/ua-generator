@@ -7,13 +7,6 @@ import random
 
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
 versions = {
-    '88.0.705': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '89.0.774': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '90.0.818': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '91.0.864': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '92.0.902': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '93.0.961': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '94.0.992': {'minor_range': (0, 99), 'webkit': '537.36'},
     '95.0.1020': {'minor_range': (0, 99), 'webkit': '537.36'},
     '96.0.1054': {'minor_range': (0, 99), 'webkit': '537.36'},
     '97.0.1072': {'minor_range': (0, 99), 'webkit': '537.36'},
@@ -32,6 +25,13 @@ versions = {
     '109.0.1518': {'minor_range': (0, 99), 'webkit': '537.36'},
     '110.0.1587': {'minor_range': (0, 99), 'webkit': '537.36'},
     '111.0.1661': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '112.0.1722': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '113.0.1774': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '114.0.1823': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '115.0.1901': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '116.0.1938': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '117.0.2045': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '118.0.2088': {'minor_range': (0, 99), 'webkit': '537.36'},
 }
 
 
