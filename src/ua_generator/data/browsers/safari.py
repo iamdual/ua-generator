@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/Safari_version_history
+# https://developer.apple.com/documentation/safari-release-notes
 versions = {
     '8': {'minor_range': (0, 0), 'webkit': '600.5.17'},
     '9': {'minor_range': (0, 0), 'webkit': '601.1.46'},
@@ -14,8 +14,9 @@ versions = {
     '12': {'minor_range': (0, 1), 'webkit': '605.1.15'},
     '13': {'minor_range': (0, 1), 'webkit': '605.1.15'},
     '14': {'minor_range': (0, 1), 'webkit': '605.1.15'},
-    '15': {'minor_range': (0, 5), 'webkit': '605.1.15'},
-    '16': {'minor_range': (0, 5), 'webkit': '605.1.15'},
+    '15': {'minor_range': (0, 6), 'webkit': '605.1.15'},
+    '16': {'minor_range': (0, 6), 'webkit': '605.1.15'},
+    '17': {'minor_range': (0, 0), 'webkit': '605.1.15'},
 }
 
 

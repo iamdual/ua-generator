@@ -5,17 +5,9 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/Firefox_version_history
+# https://www.mozilla.org/en-US/firefox/releases/
 versions = {
-    '83': {'minor_range': (0, 0)},
-    '84': {'minor_range': (0, 2)},
-    '85': {'minor_range': (0, 2)},
-    '86': {'minor_range': (0, 1)},
-    '87': {'minor_range': (0, 0)},
-    '88': {'minor_range': (0, 1)},
-    '89': {'minor_range': (0, 2)},
-    '90': {'minor_range': (0, 2)},
-    '91.0': {'minor_range': (0, 13)},
+    '91.0': {'minor_range': (0, 2)},
     '92.0': {'minor_range': (0, 1)},
     '93.0': {'minor_range': (0, 0)},
     '94.0': {'minor_range': (0, 2)},
@@ -39,9 +31,10 @@ versions = {
     '112.0': {'minor_range': (0, 0)},
     '113.0': {'minor_range': (0, 1)},
     '114.0': {'minor_range': (0, 1)},
-    '115.0': {'minor_range': (0, 1)},
-    '116.0': {'minor_range': (0, 1)},
+    '115.0': {'minor_range': (0, 3)},
+    '116.0': {'minor_range': (0, 3)},
     '117.0': {'minor_range': (0, 1)},
+    '118.0': {'minor_range': (0, 1)},
 }
 
 

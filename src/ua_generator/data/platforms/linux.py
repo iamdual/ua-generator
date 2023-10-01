@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/Linux_kernel_version_history
+# https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/
 versions = {
     '5.0': {'minor_range': (0, 21)},
     '5.1': {'minor_range': (0, 21)},
@@ -32,7 +32,7 @@ versions = {
     '6.2': {'minor_range': (0, 16)},
     '6.3': {'minor_range': (0, 13)},
     '6.4': {'minor_range': (0, 15)},
-    '6.5': {'minor_range': (0, 4)},
+    '6.5': {'minor_range': (0, 5)},
 }
 
 

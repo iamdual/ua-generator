@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/Google_Chrome_version_history
+# https://chromereleases.googleblog.com/search/label/Stable%20updates
 versions = {
     '90.0.4430': {'minor_range': (0, 255), 'webkit': '537.36'},
     '91.0.4472': {'minor_range': (0, 255), 'webkit': '537.36'},

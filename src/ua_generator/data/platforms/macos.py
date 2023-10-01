@@ -8,7 +8,7 @@ import random
 # User agent cap on macOS
 # https://groups.google.com/a/chromium.org/g/blink-dev/c/hAI4QoX6rEo/m/qQNPThr0AAAJ
 
-# https://en.wikipedia.org/wiki/MacOS_version_history
+# https://support.apple.com/en-us/HT201222
 versions = {
     '10.11': {'minor_range': (0, 6)},
     '10.12': {'minor_range': (0, 6)},
@@ -32,7 +32,7 @@ versions = {
     '13.3': {'minor_range': (0, 1)},
     '13.4': {'minor_range': (0, 1)},
     '13.5': {'minor_range': (0, 2)},
-    '13.6': {'minor_range': (0, 0)},
+    '14.0': {'minor_range': (0, 1)},
 }
 
 

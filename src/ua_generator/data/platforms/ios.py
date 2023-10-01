@@ -5,7 +5,8 @@ License: Apache License 2.0
 """
 import random
 
-# https://en.wikipedia.org/wiki/IOS_version_history
+# https://developer.apple.com/documentation/ios-ipados-release-notes
+# https://support.apple.com/en-us/HT201222
 versions = {
     '14.0': {'minor_range': (0, 1)},
     '14.1': {'minor_range': (0, 0)},
@@ -15,7 +16,6 @@ versions = {
     '14.5': {'minor_range': (0, 1)},
     '14.6': {'minor_range': (0, 0)},
     '14.7': {'minor_range': (0, 1)},
-    '14.8': {'minor_range': (0, 1)},
     '15.0': {'minor_range': (0, 2)},
     '15.1': {'minor_range': (0, 1)},
     '15.2': {'minor_range': (0, 1)},
@@ -23,9 +23,8 @@ versions = {
     '15.4': {'minor_range': (0, 1)},
     '15.5': {'minor_range': (0, 0)},
     '15.6': {'minor_range': (0, 1)},
-    '15.7': {'minor_range': (0, 4)},
     '16.4': {'minor_range': (0, 1)},
-    '16.5': {'minor_range': (0, 1)},
+    '16.5': {'minor_range': (0, 2)},
     '16.6': {'minor_range': (0, 1)},
     '17.0': {'minor_range': (0, 2)},
 }
