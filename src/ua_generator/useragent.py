@@ -101,7 +101,7 @@ class ClientHints:
         self.brands_full_version_list = self.ch_brands(_gen, full_version_list=True)
 
     def ch_mobile(self, platform: str):
-        if utils.contains(('ios', 'android'), platform):
+        if utils.contains(platforms_mobile, platform):
             return '?1'
         return '?0'
 
