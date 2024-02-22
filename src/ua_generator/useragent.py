@@ -118,7 +118,7 @@ class ClientHints:
         return '"' + formats.version(platform_version) + '"'
 
     def ch_brands(self, _gen: generator.Generator, full_version_list: bool = False):
-        brand_list = [{'brand': ' Not A;Brand', 'version': '99'}]
+        brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
 
         if full_version_list:
             browser_version = formats.version(_gen.browser_version)

@@ -44,7 +44,7 @@ class TestClientHints(unittest.TestCase):
         for i in range(0, 100):
             ua = ua_generator.generate(browser='chrome', platform='windows')
             self.assertIsNotNone(ua.ch)
-            self.assertTrue(ua.ch.brands.startswith('" Not A;Brand";v="99"'))
+            self.assertTrue(ua.ch.brands.startswith('"Not A(Brand";v="99"'))
             self.assertTrue('Chromium' in ua.ch.brands)
             self.assertTrue('Google Chrome' in ua.ch.brands)
 
@@ -52,7 +52,7 @@ class TestClientHints(unittest.TestCase):
         for i in range(0, 100):
             ua = ua_generator.generate(browser='edge', platform='windows')
             self.assertIsNotNone(ua.ch)
-            self.assertTrue(ua.ch.brands_full_version_list.startswith('" Not A;Brand";v="99"'))
+            self.assertTrue(ua.ch.brands_full_version_list.startswith('"Not A(Brand";v="99"'))
             self.assertTrue('Chromium' in ua.ch.brands_full_version_list)
             self.assertTrue('Microsoft Edge' in ua.ch.brands_full_version_list)
 
