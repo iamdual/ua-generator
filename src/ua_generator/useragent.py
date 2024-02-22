@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-from . import utils, formats, exceptions
+from . import utils, formats, serialization, exceptions
 from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
 from .data import generator
 
@@ -94,16 +94,14 @@ class UserAgent:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version-List
 class ClientHints:
     def __init__(self, _gen: generator.Generator):
-        self.mobile = self.ch_mobile(_gen.platform)
-        self.platform = self.ch_platform(_gen.platform)
-        self.platform_version = self.ch_platform_version(_gen.platform_version)
-        self.brands = self.ch_brands(_gen)
-        self.brands_full_version_list = self.ch_brands(_gen, full_version_list=True)
+        self.mobile = serialization.ch_bool(self.ch_mobile(_gen.platform))
+        self.platform = serialization.ch_string(self.ch_platform(_gen.platform))
+        self.platform_version = serialization.ch_string(self.ch_platform_version(_gen.platform_version))
+        self.brands = serialization.ch_brand_list(self.ch_brands(_gen))
+        self.brands_full_version_list = serialization.ch_brand_list(self.ch_brands(_gen, full_version_list=True))
 
     def ch_mobile(self, platform: str):
-        if utils.contains(platforms_mobile, platform):
-            return '?1'
-        return '?0'
+        return utils.contains(platforms_mobile, platform)
 
     def ch_platform(self, platform: str):
         if platform == 'ios':
@@ -112,10 +110,10 @@ class ClientHints:
             platform = 'macOS'
         else:
             platform = platform.title()
-        return '"' + platform + '"'
+        return platform
 
     def ch_platform_version(self, platform_version):
-        return '"' + formats.version(platform_version) + '"'
+        return formats.version(platform_version)
 
     def ch_brands(self, _gen: generator.Generator, full_version_list: bool = False):
         brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
@@ -132,13 +130,7 @@ class ClientHints:
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Microsoft Edge', 'version': browser_version})
 
-        return self.serialize_brand_list(brand_list)
-
-    def serialize_brand_list(self, brand_list: list):
-        serialized = []
-        for _dict in brand_list:
-            serialized.append('"' + _dict['brand'] + '";v="' + _dict['version'] + '"')
-        return ', '.join(serialized)
+        return brand_list
 
     def __str__(self):
         return self.brands
