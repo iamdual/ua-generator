@@ -44,13 +44,17 @@ versions = {
     },
     '13.0': {
         'minor_range': (0, 0),
-        'build_number': ('TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')
+        'build_number': ('TQ3A.{d}.{v}', 'TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')
+    },
+    '14.0': {
+        'minor_range': (0, 0),
+        'build_number': ('UP1A.{d}.{v}', 'UD1A.{d}.{v}', 'UQ1A.{d}.{v}')
     },
 }
 
 device_names = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
                 'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
-                'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro')
+                'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro')
 
 
 def get_version():

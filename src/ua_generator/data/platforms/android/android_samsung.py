@@ -11,53 +11,32 @@ from .... import utils
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
 versions = {
-    '5.0': {
-        'minor_range': (0, 3),
-        'build_number': ('LRX21{s}', 'LRX22{s}')
-    },
-    '5.1': {
-        'minor_range': (0, 1),
-        'build_number': ('LMY47{s}', 'LMY48{s}', 'LYZ28{s}', 'LVY48{s}', 'LMY49{s}')
-    },
-    '6.0': {
-        'minor_range': (0, 1),
-        'build_number': ('MRA58{s}', 'MRA59{s}', 'MDA89{s}', 'MDB08{s}', 'MMB29{s}', 'MXC14{s}', 'MHC19{s}',
-                         'MOB30{s}', 'M5C14{s}', 'MTC19{s}', 'MMB30{s}', 'MXC89{s}', 'MTC20{s}', 'MOB31{s}')
-    },
-    '7.0': {
-        'minor_range': (0, 0),
-        'build_number': ('NRD90{s}', 'NRD91{s}', 'NBD91{s}', 'N5D91{s}', 'NBD92{s}')
-    },
-    '7.1': {
-        'minor_range': (0, 2),
-        'build_number': ('NDE63{s}', 'NMF26{s}', 'NMF27{s}', 'N2G47{s}', 'NHG47{s}', 'NJH34{s}', 'NKG47{s}',
-                         'NOF27{s}', 'N6F26{s}', 'N4F27{s}', 'N8I11{s}', 'NGI55{s}', 'N9F27{s}')
-    },
     '8.0': {
         'minor_range': (0, 5),
-        'build_number': ('OPR6.{d}.{v}', 'OPR1.{d}.{v}', 'OPR4.{d}.{v}', 'OPR5.{d}.{v}', 'OPD1.{d}.{v}')
+        'build_number': ('OPR1.{d}.{v}', 'OPR2.{d}.{v}', 'OPR3.{d}.{v}', 'OPR4.{d}.{v}', 'OPR5.{d}.{v}',
+                         'OPR6.{d}.{v}', 'OPD1.{d}.{v}', 'OPD2.{d}.{v}', 'OPD3.{d}.{v}')
     },
     '8.1': {
         'minor_range': (0, 7),
-        'build_number': ('OPM1.{d}.{v}', 'OPM2.{d}.{v}', 'OPM3.{d}.{v}', 'OPM5.{d}.{v}')
+        'build_number': ('OPM1.{d}.{v}', 'OPM2.{d}.{v}', 'OPM3.{d}.{v}', 'OPM4.{d}.{v}', 'OPM5.{d}.{v}')
     },
     '9.0': {
         'minor_range': (0, 0),
-        'build_number': ('PPR1.{d}.{v}', 'PPR2.{d}.{v}', 'PD1A.{d}.{v}', 'PQ1A.{d}.{v}', 'PQ2A.{d}.{v}', 'PQ3A.{d}.{v}')
+        'build_number': ('PPR1.{d}.{v}', 'PPR2.{d}.{v}', 'PD1A.{d}.{v}', 'PQ1A.{d}.{v}', 'PQ2A.{d}.{v}',
+                         'PQ3A.{d}.{v}', 'PQ3B.{d}.{v}', 'QQ2A.{d}.{v}')
     },
     '10.0': {
         'minor_range': (0, 0),
-        'build_number': ('QP1A.{d}.{v}', 'QQ1A.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1C.{d}.{v}', 'PQ2A.{d}.{v}', 'QQ1D.{d}.{v}',
-                         'QQ2A.{d}.{v}', 'QQ3A.{d}.{v}', 'QD4A.{d}.{v}')
+        'build_number': ('QD1A.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1C.{d}.{v}', 'QQ1D.{d}.{v}', 'QQ2A.{d}.{v}')
     },
     '11.0': {
         'minor_range': (0, 0),
-        'build_number': ('RP1A.{d}.{v}', 'RD1A.{d}.{v}', 'RQ1A.{d}.{v}', 'RQ1C.{d}.{v}', 'RQ1D.{d}.{v}', 'RQ2A.{d}.{v}',
-                         'RQ3A.{d}.{v}', 'RD2A.{d}.{v}')
+        'build_number': ('RP1A.{d}.{v}', 'RP1B.{d}.{v}', 'RP1C.{d}.{v}', 'RP1D.{d}.{v}', 'RD1A.{d}.{v}',
+                         'RD1B.{d}.{v}', 'RQAA.{d}.{v}', 'RQ3A.{d}.{v}', 'RQ1D.{d}.{v}')
     },
     '12.0': {
         'minor_range': (0, 0),
-        'build_number': ('SP1A.{d}.{v}', 'SD1A.{d}.{v}', 'SQ1A.{d}.{v}', 'SQ1D.{d}.{v}')
+        'build_number': ('SP1A.{d}.{v}', 'SD1A.{d}.{v}', 'SQ1D.{d}.{v}', 'SQ1A.{d}.{v}', 'SQ1D.{d}.{v}')
     },
     '12.1': {
         'minor_range': (0, 0),
@@ -65,7 +44,11 @@ versions = {
     },
     '13.0': {
         'minor_range': (0, 0),
-        'build_number': ('TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')
+        'build_number': ('TQ3A.{d}.{v}', 'TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')
+    },
+    '14.0': {
+        'minor_range': (0, 0),
+        'build_number': ('UP1A.{d}.{v}', 'UD1A.{d}.{v}', 'UQ1A.{d}.{v}')
     },
 }
 
@@ -116,57 +99,58 @@ device_names = ('SM-G390Y', 'SM-G390Y', 'SM-G525F', 'SM-G9006W', 'SM-G9209K', 'S
                 'SM-G850FQ', 'SM-G850K', 'SM-G850M', 'SM-G850S', 'SM-G850W', 'SM-G850X',
                 'SM-G850Y', 'SM-G860P', 'SM-G870A', 'SM-G870D', 'SM-G870F', 'SM-G870F0',
                 'SM-G870W', 'SM-G8750', 'SM-G8850', 'SM-G8858', 'SM-G885F', 'SM-G885K',
-                'SM-G885L', 'SM-G885S', 'SM-G885X', 'SM-G885Y', 'SM-G8870', 'SM-G887F',
-                'SM-G887N', 'SM-G888N0', 'SM-G889A', 'SM-G889G', 'SM-G890A', 'SM-G891',
-                'SM-G891A', 'SM-G892A', 'SM-G892A', 'SM-G892U', 'SM-G9006V', 'SM-G9008V',
-                'SM-G9009D', 'SM-G900A', 'SM-G900AZ', 'SM-G900F', 'SM-G900FD', 'SM-G900FQ',
-                'SM-G900H', 'SM-G900I', 'SM-G900J', 'SM-G900K', 'SM-G900L', 'SM-G900M',
-                'SM-G900MD', 'SM-G900P', 'SM-G900R4', 'SM-G900R6', 'SM-G900R7', 'SM-G900S',
-                'SM-G900T', 'SM-G900T1', 'SM-G900T3', 'SM-G900V', 'SM-G900W8', 'SM-G901F',
-                'SM-G903M', 'SM-G903W', 'SM-G906K', 'SM-G906L', 'SM-G906S', 'SM-G906SKL',
-                'SM-G9092', 'SM-G9098', 'SM-G9198', 'SM-G9200', 'SM-G9208', 'SM-G9209',
-                'SM-G9209', 'SM-G920A', 'SM-G920AZ', 'SM-G920F', 'SM-G920FQ', 'SM-G920G1',
-                'SM-G920I', 'SM-G920K', 'SM-G920L', 'SM-G920P', 'SM-G920R4', 'SM-G920R6',
-                'SM-G920R7', 'SM-G920S', 'SM-G920T', 'SM-G920T1', 'SM-G920V', 'SM-G920W8',
-                'SM-G920X', 'SM-G925', 'SM-G9250', 'SM-G925A', 'SM-G925F', 'SM-G925FQ',
-                'SM-G925I', 'SM-G925ID', 'SM-G925K', 'SM-G925L', 'SM-G925P', 'SM-G925R4',
-                'SM-G925R6', 'SM-G925R7', 'SM-G925S', 'SM-G925T', 'SM-G925V', 'SM-G925W8',
-                'SM-G925X', 'SM-G925X', 'SM-G925Z', 'SM-G9280', 'SM-G9287', 'SM-G9287C',
-                'SM-G928A', 'SM-G928C', 'SM-G928F', 'SM-G928G', 'SM-G928i', 'SM-G928K',
-                'SM-G928L', 'SM-G928N', 'SM-G928N0', 'SM-G928P', 'SM-G928R4', 'SM-G928S',
-                'SM-G928T', 'SM-G928V', 'SM-G928W8', 'SM-G928X', 'SM-G9298', 'SM-G9300',
-                'SM-G9308', 'SM-G930A', 'SM-G930AZ', 'SM-G930F', 'SM-G930FD', 'SM-G930K',
-                'SM-G930L', 'SM-G930P', 'SM-G930R4', 'SM-G930R6', 'SM-G930R7', 'SM-G930S',
-                'SM-G930SKL', 'SM-G930T', 'SM-G930T1', 'SM-G930U', 'SM-G930V', 'SM-G930VC',
-                'SM-G930VL', 'SM-G930W', 'SM-G930W8', 'SM-G930X', 'SM-G9350', 'SM-G935A',
-                'SM-G935AU', 'SM-G935D', 'SM-G935F', 'SM-G935FD', 'SM-G935J', 'SM-G935K',
-                'SM-G935L', 'SM-G935P', 'SM-G935R4', 'SM-G935R6', 'SM-G935R7', 'SM-G935S',
-                'SM-G935T', 'SM-G935T1', 'SM-G935U', 'SM-G935V', 'SM-G935VC', 'SM-G935W',
-                'SM-G935W8', 'SM-G935X', 'SM-G950', 'SM-G9500', 'SM-G9508', 'SM-G950D',
-                'SM-G950F', 'SM-G950FD', 'SM-G950J', 'SM-G950N', 'SM-G950U', 'SM-G950U1',
-                'SM-G950W', 'SM-G950X', 'SM-G950XC', 'SM-G955', 'SM-G9550', 'SM-G9558',
-                'SM-G955F', 'SM-G955FD', 'SM-G955J', 'SM-G955N', 'SM-G955U', 'SM-G955U1',
-                'SM-G955W', 'SM-G955X', 'SM-G955XU', 'SM-G9600', 'SM-G9608', 'SM-G960F',
-                'SM-G960FD', 'SM-G960L', 'SM-G960N', 'SM-G960U', 'SM-G960U1', 'SM-G960US',
-                'SM-G960UX', 'SM-G960W', 'SM-G960X', 'SM-G960XU', 'SM-G9650', 'SM-G965F',
-                'SM-G965FD', 'SM-G965J', 'SM-G965N', 'SM-G965U', 'SM-G965U1', 'SM-G965UX',
-                'SM-G965W', 'SM-G965X', 'SM-G965XU', 'SM-G9700', 'SM-G9708', 'SM-G970F',
-                'SM-G970FD', 'SM-G970N', 'SM-G970U', 'SM-G970U1', 'SM-G970W', 'SM-G970X',
-                'SM-G970XC', 'SM-G970XN', 'SM-G970XU', 'SM-G9730', 'SM-G9730Z', 'SM-G9738',
-                'SM-G973C', 'SM-G973D', 'SM-G973F', 'SM-G973J', 'SM-G973N', 'SM-G973U',
-                'SM-G973U1', 'SM-G973W', 'SM-G973XC', 'SM-G973XN', 'SM-G973XU', 'SM-G9750',
-                'SM-G9758', 'SM-G975F', 'SM-G975FD', 'SM-G975N', 'SM-G975U', 'SM-G975U1',
-                'SM-G975W', 'SM-G975XC', 'SM-G975XN', 'SM-G975XU', 'SM-G977B', 'SM-G977N',
-                'SM-G977P', 'SM-G977T', 'SM-G977U', 'SM-G97xF', 'SM-G980A', 'SM-G980F',
-                'SM-G9810', 'SM-G981A', 'SM-G981B', 'SM-G981C', 'SM-G981N', 'SM-G981U',
-                'SM-G981U1', 'SM-G981V', 'SM-G981W', 'SM-G985F', 'SM-G985X', 'SM-G9860',
-                'SM-G986B', 'SM-G986N', 'SM-G986U', 'SM-G986U1', 'SM-G986W', 'SM-G9880',
-                'SM-G988B', 'SM-G988BR', 'SM-G988N', 'SM-G988U', 'SM-G988U1', 'SM-G988W',
-                'SM-G990B', 'SM-G990B2', 'SM-G990E', 'SM-G990U', 'SM-G990U1', 'SM-G9910',
+                'SM-G885L', 'SM-G885S', 'SM-G885X', 'SM-G885Y', 'SM-G8870', 'SM-G8870',
+                'SM-G887F', 'SM-G887N', 'SM-G888N0', 'SM-G889A', 'SM-G889G', 'SM-G890A',
+                'SM-G891', 'SM-G891A', 'SM-G892A', 'SM-G892A', 'SM-G892U', 'SM-G9006V',
+                'SM-G9008V', 'SM-G9009D', 'SM-G900A', 'SM-G900AZ', 'SM-G900F', 'SM-G900FD',
+                'SM-G900FQ', 'SM-G900H', 'SM-G900I', 'SM-G900J', 'SM-G900K', 'SM-G900L',
+                'SM-G900M', 'SM-G900MD', 'SM-G900P', 'SM-G900R4', 'SM-G900R6', 'SM-G900R7',
+                'SM-G900S', 'SM-G900T', 'SM-G900T1', 'SM-G900T3', 'SM-G900V', 'SM-G900W8',
+                'SM-G901F', 'SM-G903M', 'SM-G903W', 'SM-G906K', 'SM-G906L', 'SM-G906S',
+                'SM-G906SKL', 'SM-G9092', 'SM-G9098', 'SM-G9198', 'SM-G9200', 'SM-G9208',
+                'SM-G9209', 'SM-G9209', 'SM-G920A', 'SM-G920AZ', 'SM-G920F', 'SM-G920FQ',
+                'SM-G920G1', 'SM-G920I', 'SM-G920K', 'SM-G920L', 'SM-G920P', 'SM-G920R4',
+                'SM-G920R6', 'SM-G920R7', 'SM-G920S', 'SM-G920T', 'SM-G920T1', 'SM-G920V',
+                'SM-G920W8', 'SM-G920X', 'SM-G925', 'SM-G9250', 'SM-G925A', 'SM-G925F',
+                'SM-G925FQ', 'SM-G925I', 'SM-G925ID', 'SM-G925K', 'SM-G925L', 'SM-G925P',
+                'SM-G925R4', 'SM-G925R6', 'SM-G925R7', 'SM-G925S', 'SM-G925T', 'SM-G925V',
+                'SM-G925W8', 'SM-G925X', 'SM-G925X', 'SM-G925Z', 'SM-G9280', 'SM-G9287',
+                'SM-G9287C', 'SM-G928A', 'SM-G928C', 'SM-G928F', 'SM-G928G', 'SM-G928i',
+                'SM-G928K', 'SM-G928L', 'SM-G928N', 'SM-G928N0', 'SM-G928P', 'SM-G928R4',
+                'SM-G928S', 'SM-G928T', 'SM-G928V', 'SM-G928W8', 'SM-G928X', 'SM-G9298',
+                'SM-G9300', 'SM-G9308', 'SM-G930A', 'SM-G930AZ', 'SM-G930F', 'SM-G930FD',
+                'SM-G930K', 'SM-G930L', 'SM-G930P', 'SM-G930R4', 'SM-G930R6', 'SM-G930R7',
+                'SM-G930S', 'SM-G930SKL', 'SM-G930T', 'SM-G930T1', 'SM-G930U', 'SM-G930V',
+                'SM-G930VC', 'SM-G930VL', 'SM-G930W', 'SM-G930W8', 'SM-G930X', 'SM-G9350',
+                'SM-G935A', 'SM-G935AU', 'SM-G935D', 'SM-G935F', 'SM-G935FD', 'SM-G935J',
+                'SM-G935K', 'SM-G935L', 'SM-G935P', 'SM-G935R4', 'SM-G935R6', 'SM-G935R7',
+                'SM-G935S', 'SM-G935T', 'SM-G935T1', 'SM-G935U', 'SM-G935V', 'SM-G935VC',
+                'SM-G935W', 'SM-G935W8', 'SM-G935X', 'SM-G950', 'SM-G9500', 'SM-G9508',
+                'SM-G950D', 'SM-G950F', 'SM-G950FD', 'SM-G950J', 'SM-G950N', 'SM-G950U',
+                'SM-G950U1', 'SM-G950W', 'SM-G950X', 'SM-G950XC', 'SM-G955', 'SM-G9550',
+                'SM-G9558', 'SM-G955F', 'SM-G955FD', 'SM-G955J', 'SM-G955N', 'SM-G955U',
+                'SM-G955U1', 'SM-G955W', 'SM-G955X', 'SM-G955XU', 'SM-G9600', 'SM-G9608',
+                'SM-G960F', 'SM-G960FD', 'SM-G960L', 'SM-G960N', 'SM-G960U', 'SM-G960U1',
+                'SM-G960US', 'SM-G960UX', 'SM-G960W', 'SM-G960X', 'SM-G960XU', 'SM-G9650',
+                'SM-G965F', 'SM-G965FD', 'SM-G965J', 'SM-G965N', 'SM-G965U', 'SM-G965U1',
+                'SM-G965UX', 'SM-G965W', 'SM-G965X', 'SM-G965XU', 'SM-G9700', 'SM-G9708',
+                'SM-G970F', 'SM-G970FD', 'SM-G970N', 'SM-G970U', 'SM-G970U1', 'SM-G970W',
+                'SM-G970X', 'SM-G970XC', 'SM-G970XN', 'SM-G970XU', 'SM-G9730', 'SM-G9730Z',
+                'SM-G9738', 'SM-G973C', 'SM-G973D', 'SM-G973F', 'SM-G973J', 'SM-G973N',
+                'SM-G973U', 'SM-G973U1', 'SM-G973W', 'SM-G973XC', 'SM-G973XN', 'SM-G973XU',
+                'SM-G9750', 'SM-G9758', 'SM-G9758', 'SM-G975F', 'SM-G975FD', 'SM-G975N',
+                'SM-G975U', 'SM-G975U1', 'SM-G975W', 'SM-G975XC', 'SM-G975XN', 'SM-G975XU',
+                'SM-G977B', 'SM-G977N', 'SM-G977P', 'SM-G977T', 'SM-G977U', 'SM-G97xF',
+                'SM-G980A', 'SM-G980F', 'SM-G9810', 'SM-G9810-FIX', 'SM-G981A', 'SM-G981B',
+                'SM-G981C', 'SM-G981N', 'SM-G981U', 'SM-G981U1', 'SM-G981V', 'SM-G981W',
+                'SM-G985F', 'SM-G985X', 'SM-G9860', 'SM-G986B', 'SM-G986N', 'SM-G986U',
+                'SM-G986U1', 'SM-G986W', 'SM-G9880', 'SM-G9880-FIX', 'SM-G988B', 'SM-G988BR',
+                'SM-G988N', 'SM-G988U', 'SM-G988U1', 'SM-G988W', 'SM-G990B', 'SM-G990B2',
+                'SM-G990E', 'SM-G990U', 'SM-G990U-FIX', 'SM-G990U1', 'SM-G990U2', 'SM-G9910',
                 'SM-G991B', 'SM-G991BR', 'SM-G991N', 'SM-G991XU', 'SM-G9960', 'SM-G9968',
-                'SM-G996B', 'SM-G996BR', 'SM-G996N', 'SM-G996X', 'SM-G996XU', 'SM-G9980',
-                'SM-G9988', 'SM-G998B', 'SM-G998N', 'SM-G998X', 'SM-G998XU', 'SM-J730F',
-                'SM-M017F',)
+                'SM-G996B', 'SM-G996B-FIX', 'SM-G996BR', 'SM-G996N', 'SM-G996X', 'SM-G996XU',
+                'SM-G9980', 'SM-G9988', 'SM-G998B', 'SM-G998N', 'SM-G998X', 'SM-G998XU',
+                'SM-J730F', 'SM-M017F',)
 
 
 def get_version():

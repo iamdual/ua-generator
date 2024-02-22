@@ -26,7 +26,10 @@ versions = {
     '16.4': {'minor_range': (0, 1)},
     '16.5': {'minor_range': (0, 2)},
     '16.6': {'minor_range': (0, 1)},
-    '17.0': {'minor_range': (0, 2)},
+    '17.0': {'minor_range': (0, 3)},
+    '17.1': {'minor_range': (0, 2)},
+    '17.2': {'minor_range': (0, 1)},
+    '17.3': {'minor_range': (0, 1)},
 }
 
 
