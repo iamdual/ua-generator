@@ -14,6 +14,7 @@ pip3 install -U ua-generator
 ```
 
 # Basic usage
+
 ```python
 import ua_generator
 
@@ -34,18 +35,22 @@ All of the parameters are optional, and the types can be choose multiple.
 import ua_generator
 
 ua = ua_generator.generate(device='desktop', browser='firefox')
-print(ua.text)      # Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:85.0) Gecko/20100101 Firefox/85.0
-print(ua.platform)  # linux
-print(ua.browser)   # firefox
-print(ua.ch.brands) # " Not A;Brand";v="99"
+print(ua.text) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0.1) Gecko/20100101 Firefox/121.0.1
+print(ua.platform) # macos
+print(ua.browser) # firefox
+print(ua.ch.brands) # "Not A(Brand";v="99"
 print(ua.ch.mobile) # ?0
+print(ua.ch.platform) # "macOS"
+print(ua.ch.platform_version) # "14.0.1"
 
 ua = ua_generator.generate(platform=('ios', 'macos'), browser='chrome')
-print(ua.text)      # Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/80.0.3987.44 Mobile/15E148 Safari/537.36
-print(ua.platform)  # ios
-print(ua.browser)   # chrome
-print(ua.ch.brands) # " Not A;Brand";v="99", "Chromium";v="80", "Google Chrome";v="80"
+print(ua.text) # Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_2 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/119.0.6045.176 Mobile/15E148 Safari/537.36
+print(ua.platform) # ios
+print(ua.browser) # chrome
+print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="119", "Google Chrome";v="119"
 print(ua.ch.mobile) # ?1
+print(ua.ch.platform) # "iOS"
+print(ua.ch.platform_version) # "17.0.2"
 ```
 
 # Author
