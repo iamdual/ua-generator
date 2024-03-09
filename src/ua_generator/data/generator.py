@@ -14,11 +14,11 @@ class Generator:
         self.platform = platform
         self.browser = browser
 
-        self.platform_version = self.generate_platform_version()
-        self.browser_version = self.generate_browser_version()
-        self.user_agent = self.generate_user_agent()
+        self.platform_version = self.__platform_version()
+        self.browser_version = self.__browser_version()
+        self.user_agent = self.__user_agent()
 
-    def generate_platform_version(self):
+    def __platform_version(self):
         if self.platform == 'windows':
             return windows.get_version()
         elif self.platform == 'macos':
@@ -30,7 +30,7 @@ class Generator:
         elif self.platform == 'android':
             return android.get_version()
 
-    def generate_browser_version(self):
+    def __browser_version(self):
         if self.browser == 'chrome':
             return chrome.get_version()
         elif self.browser == 'safari':
@@ -40,7 +40,7 @@ class Generator:
         elif self.browser == 'edge':
             return edge.get_version()
 
-    def generate_user_agent(self):
+    def __user_agent(self):
         if self.platform == 'windows':
             if self.browser == 'chrome':
                 template = utils.choice((

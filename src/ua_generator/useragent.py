@@ -22,10 +22,10 @@ class UserAgent:
         self.device = device
         self.platform = platform
         self.browser = browser
-        self.complete()
+        self.__complete()
         return self
 
-    def find_device(self):
+    def __find_device(self):
         if self.device is not None:
             if not utils.contains_multiple(self.device, devices):
                 raise exceptions.InvalidArgumentError('No device type found: {}'.format(self.device))
@@ -42,7 +42,7 @@ class UserAgent:
 
         return self.device
 
-    def find_platform(self):
+    def __find_platform(self):
         if self.platform is not None:
             if not utils.contains_multiple(self.platform, platforms):
                 raise exceptions.InvalidArgumentError('No platform found: {}'.format(self.platform))
@@ -59,7 +59,7 @@ class UserAgent:
 
         return self.platform
 
-    def find_browser(self):
+    def __find_browser(self):
         if self.browser is not None:
             if not utils.contains_multiple(self.browser, browsers):
                 raise exceptions.InvalidArgumentError('No browser found: {}'.format(self.browser))
@@ -75,10 +75,10 @@ class UserAgent:
 
         return self.browser
 
-    def complete(self):
-        self.device = self.find_device()
-        self.platform = self.find_platform()
-        self.browser = self.find_browser()
+    def __complete(self):
+        self.device = self.__find_device()
+        self.platform = self.__find_platform()
+        self.browser = self.__find_browser()
 
         ua = generator.Generator(device=self.device, platform=self.platform, browser=self.browser)
         self.platform_version = ua.platform_version
@@ -94,16 +94,16 @@ class UserAgent:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version-List
 class ClientHints:
     def __init__(self, _gen: generator.Generator):
-        self.mobile = serialization.ch_bool(self.ch_mobile(_gen.platform))
-        self.platform = serialization.ch_string(self.ch_platform(_gen.platform))
-        self.platform_version = serialization.ch_string(self.ch_platform_version(_gen.platform_version))
-        self.brands = serialization.ch_brand_list(self.ch_brands(_gen))
-        self.brands_full_version_list = serialization.ch_brand_list(self.ch_brands(_gen, full_version_list=True))
+        self.mobile = serialization.ch_bool(self.__mobile(_gen.platform))
+        self.platform = serialization.ch_string(self.__platform(_gen.platform))
+        self.platform_version = serialization.ch_string(self.__platform_version(_gen.platform_version))
+        self.brands = serialization.ch_brand_list(self.__brands(_gen))
+        self.brands_full_version_list = serialization.ch_brand_list(self.__brands(_gen, full_version_list=True))
 
-    def ch_mobile(self, platform: str):
+    def __mobile(self, platform: str):
         return utils.contains(platforms_mobile, platform)
 
-    def ch_platform(self, platform: str):
+    def __platform(self, platform: str):
         if platform == 'ios':
             platform = 'iOS'
         elif platform == 'macos':
@@ -112,10 +112,10 @@ class ClientHints:
             platform = platform.title()
         return platform
 
-    def ch_platform_version(self, platform_version):
+    def __platform_version(self, platform_version):
         return formats.version(platform_version)
 
-    def ch_brands(self, _gen: generator.Generator, full_version_list: bool = False):
+    def __brands(self, _gen: generator.Generator, full_version_list: bool = False):
         brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
 
         if full_version_list:
