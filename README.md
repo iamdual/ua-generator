@@ -23,17 +23,19 @@ print(ua) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/604.1.38 
 ```
 
 # Customization
-There are three different parameters to the generate user-agent by the certain conditions.
+There are three different parameters to the generate user-agent by the certain conditions. All of the parameters are optional, and the types can be choose multiple.
+
 ```python
 device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
 
-All of the parameters are optional, and the types can be choose multiple.
+Customized user-agent generation:
 ```python
 import ua_generator
 
+# Sample 1
 ua = ua_generator.generate(device='desktop', browser='firefox')
 print(ua.text) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0.1) Gecko/20100101 Firefox/121.0.1
 print(ua.platform) # macos
@@ -43,6 +45,7 @@ print(ua.ch.mobile) # ?0
 print(ua.ch.platform) # "macOS"
 print(ua.ch.platform_version) # "14.0.1"
 
+# Sample 2
 ua = ua_generator.generate(platform=('ios', 'macos'), browser='chrome')
 print(ua.text) # Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_2 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/119.0.6045.176 Mobile/15E148 Safari/537.36
 print(ua.platform) # ios
@@ -51,6 +54,42 @@ print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="119", "Google Chrome";
 print(ua.ch.mobile) # ?1
 print(ua.ch.platform) # "iOS"
 print(ua.ch.platform_version) # "17.0.2"
+```
+
+You can also obtain a dictionary of headers:
+```python
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+
+# This will return a dictionary containing the generated user-agent:
+print(ua.headers.get())
+{
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.43 Safari/537.36',
+    'sec-ch-ua': '"Not A(Brand";v="99", "Chromium";v="103", "Google Chrome";v="103"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"macOS"'
+}
+
+# Extending the "Client Hints" by a value of the "Accept-CH" header:
+print(ua.headers.accept_ch('Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List'))
+print(ua.headers.get())
+{
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.94 Safari/537.36',
+    'sec-ch-ua': '"Not A(Brand";v="99", "Chromium";v="122", "Google Chrome";v="122"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"macOS"',
+    'sec-ch-ua-platform-version': '"14.1.0"',
+    'sec-ch-ua-full-version-list': '"Not A(Brand";v="99", "Chromium";v="122.0.6261.94", "Google Chrome";v="122.0.6261.94"'
+}
+```
+
+Integrating into the [requests](https://pypi.org/project/requests/):
+```python
+import requests
+import ua_generator
+
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+r = requests.get("https://httpbin.org/get", headers=ua.headers.get())
+print(r.text)
 ```
 
 # Author
