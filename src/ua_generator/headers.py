@@ -13,7 +13,7 @@ class Headers:
     def __init__(self, gen: Generator, ch: ClientHints):
         self.__generator = gen
         self.__client_hints = ch
-        self.__headers: dict[str, str] = {
+        self.__headers = {
             'user-agent': gen.user_agent,
         }
 
@@ -43,5 +43,5 @@ class Headers:
         for hint in requested_hints:
             self.add(hint.strip().lower())
 
-    def get(self) -> dict[str, str]:
+    def get(self):
         return self.__headers
