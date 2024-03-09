@@ -5,8 +5,9 @@ License: Apache License 2.0
 """
 from . import utils, exceptions
 from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
-from .data import generator
+from .data.generator import Generator
 from .client_hints import ClientHints
+from .headers import Headers
 
 
 class UserAgent:
@@ -18,9 +19,8 @@ class UserAgent:
 
         # Type hinting only
         self.text: str
-        self.platform_version: dict
-        self.browser_version: dict
         self.ch: ClientHints
+        self.headers: Headers
 
     def __find_device(self):
         if self.device is not None:
@@ -77,9 +77,10 @@ class UserAgent:
         self.platform = self.__find_platform()
         self.browser = self.__find_browser()
 
-        ua = generator.Generator(device=self.device, platform=self.platform, browser=self.browser)
+        ua = Generator(device=self.device, platform=self.platform, browser=self.browser)
         self.text = ua.user_agent
         self.ch = ClientHints(ua)
+        self.headers = Headers(ua, self.ch)
 
     def __str__(self):
         return self.text
