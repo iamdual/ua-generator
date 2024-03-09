@@ -66,7 +66,7 @@ class ClientHints:
         elif name == 'platform':
             self.__cache[name] = serialization.ch_string(self.__platform())
         elif name == 'platform_version':
-            self.__cache[name] = serialization.ch_bool(self.__platform_version())
+            self.__cache[name] = serialization.ch_string(self.__platform_version())
         elif name == 'brands':
             self.__cache[name] = serialization.ch_brand_list(self.__brands())
         elif name == 'brands_full_version_list':
