@@ -7,4 +7,4 @@ from . import user_agent
 
 
 def generate(**kwargs):
-    return user_agent.UserAgent().generate(**kwargs)
+    return user_agent.UserAgent(**kwargs)
