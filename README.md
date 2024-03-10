@@ -3,12 +3,14 @@
 A random user-agent generator for Python >= 3.6
 
 # Features
-* No external user-agent list. No downloads.
-* Templates are hardcoded into the code.
-* Platform and browser versions are based on real releases.
-* Client hints (Sec-CH-UA fields).
+
+- No external user-agent list. No downloads.
+- Templates are hardcoded into the code.
+- Platform and browser versions are based on real releases.
+- Client hints (Sec-CH-UA fields).
 
 # Installing
+
 ```bash
 pip3 install -U ua-generator
 ```
@@ -23,6 +25,7 @@ print(ua) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/604.1.38 
 ```
 
 # Customization
+
 **There are three different parameters to the generate user-agent by the certain conditions.**
 
 ```python
@@ -30,9 +33,9 @@ device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
-*All of the parameters are optional, and the types can be set multiple times by using a tuple.*
-
+_All of the parameters are optional, and the types can be set more than one by using a tuple._
 ## Customized user-agent generation:
+
 ```python
 import ua_generator
 
@@ -58,6 +61,7 @@ print(ua.ch.platform_version) # "17.0.2"
 ```
 
 # Headers
+
 ```python
 ua = ua_generator.generate(browser=('chrome', 'edge'))
 
@@ -84,17 +88,45 @@ print(ua.headers.get())
 ```
 
 ## Integrating into the [requests](https://pypi.org/project/requests/):
+
 ```python
 import requests
 import ua_generator
 
 ua = ua_generator.generate(browser=('chrome', 'edge'))
-r = requests.get("https://httpbin.org/get", headers=ua.headers.get())
+r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
 print(r.text)
 ```
 
+## Integrating into the [httpx](https://pypi.org/project/httpx/):
+
+```python
+import httpx
+import ua_generator
+
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+client = httpx.Client(headers=ua.headers.get())
+r = client.get('https://httpbin.org/get')
+print(r.text)
+```
+
+## Integrating into the [urllib](https://docs.python.org/3/library/urllib.request.html):
+
+```python
+import urllib.request
+import ua_generator
+
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+request = urllib.request.Request('https://httpbin.org/get', headers=ua.headers.get())
+handler = urllib.request.urlopen(request)
+response = handler.read().decode('utf-8')
+print(response)
+```
+
 # Issues
-You can create an issue [from here](https://github.com/iamdual/ua-generator/issues) if you are experiencing a problem. 
+
+You can create an issue [from here](https://github.com/iamdual/ua-generator/issues) if you are experiencing a problem.
 
 # Author
+
 Ekin Karadeniz (iamdual@icloud.com)
