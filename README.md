@@ -47,7 +47,9 @@ print(ua.browser) # chrome
 print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="108", "Google Chrome";v="108"
 print(ua.ch.mobile) # ?0
 print(ua.ch.platform) # "Windows"
-print(ua.ch.platform_version) # "10.0"
+print(ua.ch.platform_version) # "13.0.0"
+print(ua.ch.bitness) # "64"
+print(ua.ch.architecture) # "x86"
 
 # Example 2:
 ua = ua_generator.generate(platform=('ios', 'macos'), browser='chrome')
@@ -58,6 +60,8 @@ print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="119", "Google Chrome";
 print(ua.ch.mobile) # ?1
 print(ua.ch.platform) # "iOS"
 print(ua.ch.platform_version) # "17.0.2"
+print(ua.ch.bitness) # "64"
+print(ua.ch.architecture) # "arm"
 ```
 
 # Headers
