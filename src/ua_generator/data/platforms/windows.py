@@ -14,4 +14,4 @@ versions = (
 
 
 def get_version():
-    return {'major': random.choice(versions)}
+    return {'major': random.choice(versions), 'minor': '0'}

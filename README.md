@@ -33,9 +33,7 @@ device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
-
 _All of the parameters are optional, and the types can be set more than one by using a tuple._
-
 ## Customized user-agent generation:
 
 ```python

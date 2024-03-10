@@ -34,9 +34,30 @@ class TestHeaders(unittest.TestCase):
     def test_accept_ch(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser=('chrome', 'edge'))
+
             ua.headers.accept_ch('Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List')
             self.assertTrue('sec-ch-ua-platform-version' in ua.headers.get())
             self.assertTrue('sec-ch-ua-full-version-list' in ua.headers.get())
+
+            ua.headers.accept_ch('Sec-CH-UA-Bitness, Sec-CH-UA-Arch')
+            self.assertTrue('sec-ch-ua-bitness' in ua.headers.get())
+            self.assertTrue('sec-ch-ua-arch' in ua.headers.get())
+            self.assertFalse('sec-ch-ua-platform-version' in ua.headers.get())
+            self.assertFalse('sec-ch-ua-full-version-list' in ua.headers.get())
+
+    def test_reset(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(browser=('chrome', 'edge'))
+
+            ua.headers.add('sec-ch-ua-bitness')
+            self.assertTrue('user-agent' in ua.headers.get())
+            self.assertTrue('sec-ch-ua' in ua.headers.get())
+            self.assertTrue('sec-ch-ua-bitness' in ua.headers.get())
+
+            ua.headers.reset()
+            self.assertTrue('user-agent' in ua.headers.get())
+            self.assertTrue('sec-ch-ua' in ua.headers.get())
+            self.assertFalse('sec-ch-ua-bitness' in ua.headers.get())
 
     def test_accept_ch_not_exists(self):
         for i in range(0, 100):

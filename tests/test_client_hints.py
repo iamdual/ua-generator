@@ -28,6 +28,13 @@ class TestClientHints(unittest.TestCase):
             self.assertTrue(type(ua.ch.platform_version) is str)
             self.assertTrue(len(ua.ch.platform_version) > 0)
 
+    def test_ch_platform_version_windows(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='windows')
+            self.assertIsNotNone(ua.ch)
+            self.assertTrue(type(ua.ch.platform_version) is str)
+            self.assertEqual(len(ua.ch.platform_version.split('.')), 3)
+
     def test_ch_mobile(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser=('chrome', 'edge'), platform='android')
@@ -55,6 +62,18 @@ class TestClientHints(unittest.TestCase):
             self.assertTrue(ua.ch.brands_full_version_list.startswith('"Not A(Brand";v="99"'))
             self.assertTrue('Chromium' in ua.ch.brands_full_version_list)
             self.assertTrue('Microsoft Edge' in ua.ch.brands_full_version_list)
+
+    def test_ch_bitness(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(browser=('chrome', 'edge'))
+            self.assertIsNotNone(ua.ch)
+            self.assertIn(ua.ch.bitness, ('"32"', '"64"'))
+
+    def test_ch_architecture(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(browser=('chrome', 'edge'))
+            self.assertIsNotNone(ua.ch)
+            self.assertIn(ua.ch.architecture, ('"arm"', '"x86"'))
 
 
 if __name__ == '__main__':
