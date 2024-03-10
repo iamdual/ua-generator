@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
-from . import formats, serialization
+from . import formats, serialization, utils
 from .data import platforms_mobile
 from .data import generator
 
@@ -17,6 +17,8 @@ class ClientHints:
     platform_version: str
     brands: str
     brands_full_version_list: str
+    bitness: str
+    architecture: str
 
     def __init__(self, gen: generator.Generator):
         self.__generator = gen
@@ -38,6 +40,9 @@ class ClientHints:
         return platform
 
     def __platform_version(self):
+        if self.__generator.platform == 'windows' and formats.major_version(self.__generator.platform_version) == '10':
+            return utils.choice(('10.0.0', '13.0.0'))
+
         return formats.version(self.__generator.platform_version)
 
     def __brands(self, full_version_list: bool = False):
@@ -57,6 +62,20 @@ class ClientHints:
 
         return brand_list
 
+    def __bitness(self):
+        if self.__generator.platform == 'android':
+            return utils.choice(('32', '64', '32', '32'))
+
+        return '64'
+
+    def __architecture(self):
+        if self.__generator.platform == 'android' or self.__generator.platform == 'ios':
+            return 'arm'
+        elif self.__generator.platform == 'macos':
+            return utils.choice(('arm', 'x86', 'arm', 'arm'))
+
+        return 'x86'
+
     def __getattr__(self, name):
         if name in self.__cache:
             return self.__cache[name]
@@ -71,6 +90,10 @@ class ClientHints:
             self.__cache[name] = serialization.ch_brand_list(self.__brands())
         elif name == 'brands_full_version_list':
             self.__cache[name] = serialization.ch_brand_list(self.__brands(full_version_list=True))
+        elif name == 'bitness':
+            self.__cache[name] = serialization.ch_string(self.__bitness())
+        elif name == 'architecture':
+            self.__cache[name] = serialization.ch_string(self.__architecture())
 
         return self.__cache[name]
 
