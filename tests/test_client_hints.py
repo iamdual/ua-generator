@@ -6,24 +6,25 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
+from src.ua_generator.data import browsers_support_ch
 
 
 class TestClientHints(unittest.TestCase):
     def test_ch_platform(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'), platform='macos')
+            ua = ua_generator.generate(browser=browsers_support_ch, platform='macos')
             self.assertIsNotNone(ua.ch)
             self.assertEqual(ua.ch.platform, '"macOS"')
 
     def test_ch_platform_2(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'), platform='linux')
+            ua = ua_generator.generate(browser=browsers_support_ch, platform='linux')
             self.assertIsNotNone(ua.ch)
             self.assertEqual(ua.ch.platform, '"Linux"')
 
     def test_ch_platform_version(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'))
+            ua = ua_generator.generate(browser=browsers_support_ch)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
             self.assertTrue(len(ua.ch.platform_version) > 0)
@@ -37,13 +38,13 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_mobile(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'), platform='android')
+            ua = ua_generator.generate(browser=browsers_support_ch, platform='android')
             self.assertIsNotNone(ua.ch)
             self.assertEqual(ua.ch.mobile, '?1')
 
     def test_ch_non_mobile(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'), platform='windows')
+            ua = ua_generator.generate(browser=browsers_support_ch, platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertEqual(ua.ch.mobile, '?0')
 
@@ -65,13 +66,13 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_bitness(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'))
+            ua = ua_generator.generate(browser=browsers_support_ch)
             self.assertIsNotNone(ua.ch)
             self.assertIn(ua.ch.bitness, ('"32"', '"64"'))
 
     def test_ch_architecture(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome', 'edge'))
+            ua = ua_generator.generate(browser=browsers_support_ch)
             self.assertIsNotNone(ua.ch)
             self.assertIn(ua.ch.architecture, ('"arm"', '"x86"'))
 

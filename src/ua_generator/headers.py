@@ -3,6 +3,7 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
+from .data import browsers_support_ch
 from .data.generator import Generator
 from .client_hints import ClientHints
 
@@ -23,7 +24,7 @@ class Headers:
         }
 
         # https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints#low_entropy_hints
-        if self.__generator.browser in ('chrome', 'edge'):
+        if self.__generator.browser in browsers_support_ch:
             self.add('sec-ch-ua')
             self.add('sec-ch-ua-mobile')
             self.add('sec-ch-ua-platform')
@@ -49,6 +50,9 @@ class Headers:
 
     def accept_ch(self, val: str):
         self.reset()
+
+        if self.__generator.browser not in browsers_support_ch:
+            return
 
         requested_hints = val.split(',')
         for hint in requested_hints:
