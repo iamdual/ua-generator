@@ -46,6 +46,10 @@ class TestHeaders(unittest.TestCase):
             self.assertFalse('sec-ch-ua-platform-version' in ua.headers.get())
             self.assertFalse('sec-ch-ua-full-version-list' in ua.headers.get())
 
+            ua.headers.accept_ch('Sec-CH-UA-Model, Sec-CH-UA-WoW64')
+            self.assertTrue('sec-ch-ua-model' in ua.headers.get())
+            self.assertTrue('sec-ch-ua-wow64' in ua.headers.get())
+
     def test_reset(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser=browsers_support_ch)

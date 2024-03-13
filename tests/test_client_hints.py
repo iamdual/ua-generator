@@ -80,7 +80,26 @@ class TestClientHints(unittest.TestCase):
         for i in range(0, 100):
             ua = ua_generator.generate(platform='android', browser='chrome')
             self.assertIsNotNone(ua.ch)
-            self.assertTrue(ua.ch.model != '')
+            self.assertTrue(ua.ch.model != '""')
+            self.assertTrue(len(ua.ch.model) > 2)
+
+    def test_ch_model_2(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='linux', browser='firefox')
+            self.assertIsNotNone(ua.ch)
+            self.assertTrue(ua.ch.model == '""')
+
+    def test_ch_wow64(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='windows')
+            self.assertIsNotNone(ua.ch)
+            self.assertEqual(ua.ch.wow64, '?1')
+
+    def test_ch_wow64_2(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='linux')
+            self.assertIsNotNone(ua.ch)
+            self.assertEqual(ua.ch.wow64, '?0')
 
 
 if __name__ == '__main__':
