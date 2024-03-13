@@ -7,7 +7,8 @@ A random user-agent generator for Python >= 3.6
 - No external user-agent list. No downloads.
 - Templates are hardcoded into the code.
 - Platform and browser versions are based on real releases.
-- Client hints (Sec-CH-UA fields).
+- Client Hints (Sec-CH-UA fields).
+- Easy to integrate into HTTP libraries.
 
 # Installing
 
@@ -99,7 +100,12 @@ import ua_generator
 
 ua = ua_generator.generate(browser=('chrome', 'edge'))
 r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
-print(r.text)
+
+# or, usage with requests.Session():
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+s = requests.Session()
+s.headers.update(ua.headers.get())
+r = s.get('https://httpbin.org/get')
 ```
 
 ## Integrating into the [httpx](https://pypi.org/project/httpx/):
@@ -109,9 +115,12 @@ import httpx
 import ua_generator
 
 ua = ua_generator.generate(browser=('chrome', 'edge'))
-client = httpx.Client(headers=ua.headers.get())
-r = client.get('https://httpbin.org/get')
-print(r.text)
+r = httpx.get('https://httpbin.org/get', headers=ua.headers.get())
+
+# or, usage with httpx.Client():
+ua = ua_generator.generate(browser=('chrome', 'edge'))
+c = httpx.Client(headers=ua.headers.get())
+r = c.get('https://httpbin.org/get')
 ```
 
 ## Integrating into the [urllib](https://docs.python.org/3/library/urllib.request.html):
@@ -124,7 +133,6 @@ ua = ua_generator.generate(browser=('chrome', 'edge'))
 request = urllib.request.Request('https://httpbin.org/get', headers=ua.headers.get())
 handler = urllib.request.urlopen(request)
 response = handler.read().decode('utf-8')
-print(response)
 ```
 
 # Issues
