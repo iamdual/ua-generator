@@ -20,6 +20,7 @@ class ClientHints:
     bitness: str
     architecture: str
     model: str
+    wow64: str
 
     def __init__(self, gen: generator.Generator):
         self.__generator = gen
@@ -83,6 +84,9 @@ class ClientHints:
 
         return ''
 
+    def __wow64(self):
+        return self.__generator.platform == 'windows'
+
     def __getattr__(self, name):
         if name in self.__cache:
             return self.__cache[name]
@@ -103,6 +107,8 @@ class ClientHints:
             self.__cache[name] = serialization.ch_string(self.__architecture())
         elif name == 'model':
             self.__cache[name] = serialization.ch_string(self.__model())
+        elif name == 'wow64':
+            self.__cache[name] = serialization.ch_bool(self.__wow64())
 
         return self.__cache[name]
 

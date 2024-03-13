@@ -49,6 +49,8 @@ class Headers:
             self.__headers[key] = self.__client_hints.architecture
         elif key == 'sec-ch-ua-model':
             self.__headers[key] = self.__client_hints.model
+        elif key == 'sec-ch-ua-wow64':
+            self.__headers[key] = self.__client_hints.wow64
 
     def accept_ch(self, val: str):
         self.reset()
