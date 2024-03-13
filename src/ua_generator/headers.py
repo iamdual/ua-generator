@@ -13,10 +13,11 @@ class Headers:
     def __init__(self, gen: Generator, ch: ClientHints):
         self.__generator = gen
         self.__client_hints = ch
+        self.__is_generated = False
         self.__headers = {}
-        self.reset()
 
     def reset(self):
+        self.__is_generated = True
         self.__headers = {
             'user-agent': self.__generator.user_agent,
         }
@@ -28,6 +29,9 @@ class Headers:
             self.add('sec-ch-ua-platform')
 
     def add(self, key: str):
+        if not self.__is_generated:
+            self.reset()
+
         if key == 'sec-ch-ua':
             self.__headers[key] = self.__client_hints.brands
         elif key == 'sec-ch-ua-full-version-list':
@@ -44,13 +48,14 @@ class Headers:
             self.__headers[key] = self.__client_hints.architecture
 
     def accept_ch(self, val: str):
-        if self.__generator.browser not in ('chrome', 'edge'):
-            return
-
         self.reset()
+
         requested_hints = val.split(',')
         for hint in requested_hints:
             self.add(hint.strip().lower())
 
     def get(self):
+        if not self.__is_generated:
+            self.reset()
+
         return self.__headers
