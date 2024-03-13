@@ -95,24 +95,24 @@ class Generator:
 
         elif self.platform == 'android' and self.device == 'mobile':
             if self.browser == 'chrome':
-                template = 'Mozilla/5.0 (Linux; Android {android}{device}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit}'
+                template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit}'
                 template = template.replace('{android}', self.platform_version['major'].replace('.0', ''))
-                if 'device_name' in self.platform_version and self.platform_version['device_name']:
-                    template = template.replace('{device}', '; ' + self.platform_version['device_name'])
+                if 'platform_model' in self.platform_version and self.platform_version['platform_model']:
+                    template = template.replace('{model}', '; ' + self.platform_version['platform_model'])
                 if 'build_number' in self.platform_version and self.platform_version['build_number']:
                     template = template.replace('{build}', '; Build/' + self.platform_version['build_number'])
-                template = template.replace('{build}', '').replace('{device}', '')
+                template = template.replace('{build}', '').replace('{model}', '')
                 template = template.replace('{webkit}', self.browser_version['webkit'])
                 template = template.replace('{chrome}', formats.version(self.browser_version))
                 return template
             if self.browser == 'edge':
-                template = 'Mozilla/5.0 (Linux; Android {android}{device}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit} EdgA/{chrome}'
+                template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit} EdgA/{chrome}'
                 template = template.replace('{android}', self.platform_version['major'].replace('.0', ''))
-                if 'device_name' in self.platform_version and self.platform_version['device_name']:
-                    template = template.replace('{device}', '; ' + self.platform_version['device_name'])
+                if 'platform_model' in self.platform_version and self.platform_version['platform_model']:
+                    template = template.replace('{model}', '; ' + self.platform_version['platform_model'])
                 if 'build_number' in self.platform_version and self.platform_version['build_number']:
                     template = template.replace('{build}', '; Build/' + self.platform_version['build_number'])
-                template = template.replace('{build}', '').replace('{device}', '')
+                template = template.replace('{build}', '').replace('{model}', '')
                 template = template.replace('{webkit}', self.browser_version['webkit'])
                 template = template.replace('{chrome}', formats.version(self.browser_version))
                 return template

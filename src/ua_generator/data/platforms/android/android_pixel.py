@@ -52,7 +52,7 @@ versions = {
     },
 }
 
-device_names = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
+platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
                 'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
                 'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro')
 
@@ -63,12 +63,12 @@ def get_version():
     for major, props in versions.items():
         if choice == i:
             minor = random.randint(int(props['minor_range'][0]), int(props['minor_range'][1]))
-            device_name = utils.choice(device_names)
+            platform_model = utils.choice(platform_models)
 
             build_number = utils.choice(props['build_number'])
             build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(
                 random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
             build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
-            return {'major': major, 'minor': minor, 'build_number': build_number, 'device_name': device_name}
+            return {'major': major, 'minor': minor, 'build_number': build_number, 'platform_model': platform_model}
         i = i + 1

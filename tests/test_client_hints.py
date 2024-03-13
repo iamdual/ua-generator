@@ -76,6 +76,12 @@ class TestClientHints(unittest.TestCase):
             self.assertIsNotNone(ua.ch)
             self.assertIn(ua.ch.architecture, ('"arm"', '"x86"'))
 
+    def test_ch_model(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(platform='android', browser='chrome')
+            self.assertIsNotNone(ua.ch)
+            self.assertTrue(ua.ch.model != '')
+
 
 if __name__ == '__main__':
     unittest.main()

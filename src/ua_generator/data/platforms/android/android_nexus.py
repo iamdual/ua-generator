@@ -44,7 +44,7 @@ versions = {
     }
 }
 
-device_names = ('Nexus 5', 'Nexus 5X', 'Nexus 6', 'Nexus 6P', 'Nexus 9')
+platform_models = ('Nexus 5', 'Nexus 5X', 'Nexus 6', 'Nexus 6P', 'Nexus 9')
 
 
 def get_version():
@@ -53,7 +53,7 @@ def get_version():
     for major, props in versions.items():
         if choice == i:
             minor = random.randint(int(props['minor_range'][0]), int(props['minor_range'][1]))
-            device_name = utils.choice(device_names)
+            platform_model = utils.choice(platform_models)
 
             build_number = utils.choice(props['build_number'])
             build_number = build_number.replace('{s}', '{}'.format(random.choice(string.ascii_uppercase)))
@@ -61,5 +61,5 @@ def get_version():
                 random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
             build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
-            return {'major': major, 'minor': minor, 'build_number': build_number, 'device_name': device_name}
+            return {'major': major, 'minor': minor, 'build_number': build_number, 'platform_model': platform_model}
         i = i + 1

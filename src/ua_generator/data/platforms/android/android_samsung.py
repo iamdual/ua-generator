@@ -54,7 +54,7 @@ versions = {
 
 # https://firmware.gem-flash.com/index.php?a=downloads&b=folder&id=980
 # https://gist.github.com/iamdual/4f7c5a6d9ac1e0de8272fb062cf2aaad
-device_names = ('SM-G390Y', 'SM-G390Y', 'SM-G525F', 'SM-G9006W', 'SM-G9209K', 'SM-316U',
+platform_models = ('SM-G390Y', 'SM-G390Y', 'SM-G525F', 'SM-G9006W', 'SM-G9209K', 'SM-316U',
                 'SM-318ML', 'SM-318MZ', 'SM-318MZ', 'SM-360GY', 'SM-G110B', 'SM-G110H',
                 'SM-G110M', 'SM-G130BT', 'SM-G130BU', 'SM-G130E', 'SM-G130H', 'SM-G130HN',
                 'SM-G130M', 'SM-G130U', 'SM-G150N0', 'SM-G150NK', 'SM-G150NL', 'SM-G150NS',
@@ -159,7 +159,7 @@ def get_version():
     for major, props in versions.items():
         if choice == i:
             minor = random.randint(int(props['minor_range'][0]), int(props['minor_range'][1]))
-            device_name = utils.choice(device_names)
+            platform_model = utils.choice(platform_models)
 
             build_number = None
             if 'build_number' in props:
@@ -169,5 +169,5 @@ def get_version():
                     random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
                 build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
-            return {'major': major, 'minor': minor, 'build_number': build_number, 'device_name': device_name}
+            return {'major': major, 'minor': minor, 'build_number': build_number, 'platform_model': platform_model}
         i = i + 1

@@ -9,7 +9,7 @@ from .data import generator
 
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version-List
+# https://wicg.github.io/ua-client-hints/#http-ua-hints
 class ClientHints:
     # Type hinting only
     mobile: str
@@ -19,6 +19,7 @@ class ClientHints:
     brands_full_version_list: str
     bitness: str
     architecture: str
+    model: str
 
     def __init__(self, gen: generator.Generator):
         self.__generator = gen
@@ -76,6 +77,12 @@ class ClientHints:
 
         return 'x86'
 
+    def __model(self):
+        if 'platform_model' in self.__generator.platform_version:
+            return self.__generator.platform_version['platform_model']
+
+        return ''
+
     def __getattr__(self, name):
         if name in self.__cache:
             return self.__cache[name]
@@ -94,6 +101,8 @@ class ClientHints:
             self.__cache[name] = serialization.ch_string(self.__bitness())
         elif name == 'architecture':
             self.__cache[name] = serialization.ch_string(self.__architecture())
+        elif name == 'model':
+            self.__cache[name] = serialization.ch_string(self.__model())
 
         return self.__cache[name]
 
