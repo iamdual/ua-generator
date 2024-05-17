@@ -35,7 +35,10 @@ versions = {
     '120.0': {'minor_range': (0, 1)},
     '121.0': {'minor_range': (0, 1)},
     '122.0': {'minor_range': (0, 1)},
-    '123.0': {'minor_range': (0, 0)},
+    '123.0': {'minor_range': (0, 1)},
+    '124.0': {'minor_range': (0, 2)},
+    '125.0': {'minor_range': (1, 3)},
+    '126.0': {'minor_range': (0, 0)},
 }
 
 
