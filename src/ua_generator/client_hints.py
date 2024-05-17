@@ -53,19 +53,22 @@ class ClientHints:
     def get_brands(self, full_version_list: bool = False):
         brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
 
-        if full_version_list:
-            browser_version = formats.version(self.__generator.browser_version)
-        else:
-            browser_version = formats.major_version(self.__generator.browser_version)
-
         if self.__generator.browser == 'chrome':
+            browser_version = self.get_browser_version(full_version=full_version_list)
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Google Chrome', 'version': browser_version})
         elif self.__generator.browser == 'edge':
+            browser_version = self.get_browser_version(full_version=full_version_list)
             brand_list.append({'brand': 'Chromium', 'version': browser_version})
             brand_list.append({'brand': 'Microsoft Edge', 'version': browser_version})
 
         return brand_list
+
+    def get_browser_version(self, full_version: bool = True):
+        if full_version:
+            return formats.version(self.__generator.browser_version)
+        else:
+            return formats.major_version(self.__generator.browser_version)
 
     def get_bitness(self):
         if self.__generator.platform == 'android':
