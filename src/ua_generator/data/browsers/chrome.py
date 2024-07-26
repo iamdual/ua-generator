@@ -7,16 +7,6 @@ import random
 
 # https://chromereleases.googleblog.com/search/label/Stable%20updates
 versions = {
-    '90.0.4430': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '91.0.4472': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '92.0.4515': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '93.0.4577': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '94.0.4606': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '95.0.4638': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '96.0.4664': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '97.0.4692': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '98.0.4758': {'minor_range': (0, 255), 'webkit': '537.36'},
-    '99.0.4844': {'minor_range': (0, 255), 'webkit': '537.36'},
     '100.0.4896': {'minor_range': (0, 255), 'webkit': '537.36'},
     '101.0.4951': {'minor_range': (0, 255), 'webkit': '537.36'},
     '102.0.5005': {'minor_range': (0, 255), 'webkit': '537.36'},
@@ -42,6 +32,8 @@ versions = {
     '123.0.6312': {'minor_range': (0, 255), 'webkit': '537.36'},
     '124.0.6367': {'minor_range': (0, 255), 'webkit': '537.36'},
     '125.0.6422': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '126.0.6478': {'minor_range': (0, 255), 'webkit': '537.36'},
+    '127.0.6533': {'minor_range': (0, 255), 'webkit': '537.36'},
 }
 
 

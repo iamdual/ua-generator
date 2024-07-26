@@ -7,8 +7,6 @@ import random
 
 # https://developer.apple.com/documentation/safari-release-notes
 versions = {
-    '8': {'minor_range': (0, 0), 'webkit': '600.5.17'},
-    '9': {'minor_range': (0, 0), 'webkit': '601.1.46'},
     '10': {'minor_range': (0, 0), 'webkit': '602.4.8'},
     '11': {'minor_range': (0, 0), 'webkit': '604.1.38'},
     '12': {'minor_range': (0, 1), 'webkit': '605.1.15'},
@@ -16,7 +14,7 @@ versions = {
     '14': {'minor_range': (0, 1), 'webkit': '605.1.15'},
     '15': {'minor_range': (0, 6), 'webkit': '605.1.15'},
     '16': {'minor_range': (0, 6), 'webkit': '605.1.15'},
-    '17': {'minor_range': (0, 5), 'webkit': '605.1.15'},
+    '17': {'minor_range': (0, 6), 'webkit': '605.1.15'},
 }
 
 

@@ -7,12 +7,6 @@ import random
 
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
 versions = {
-    '95.0.1020': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '96.0.1054': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '97.0.1072': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '98.0.1108': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '99.0.1141': {'minor_range': (0, 99), 'webkit': '537.36'},
-    '99.0.1146': {'minor_range': (0, 99), 'webkit': '537.36'},
     '100.0.1185': {'minor_range': (0, 99), 'webkit': '537.36'},
     '101.0.1210': {'minor_range': (0, 99), 'webkit': '537.36'},
     '102.0.1245': {'minor_range': (0, 99), 'webkit': '537.36'},
@@ -39,6 +33,8 @@ versions = {
     '123.0.2420': {'minor_range': (0, 99), 'webkit': '537.36'},
     '124.0.2478': {'minor_range': (0, 99), 'webkit': '537.36'},
     '125.0.2535': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '126.0.2592': {'minor_range': (0, 99), 'webkit': '537.36'},
+    '127.0.2651': {'minor_range': (0, 99), 'webkit': '537.36'},
 }
 
 
