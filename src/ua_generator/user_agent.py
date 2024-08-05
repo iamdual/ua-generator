@@ -4,9 +4,10 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 from . import utils, exceptions
-from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
-from .data.generator import Generator
+from .data import platforms, browsers  # TODO: fix the error triggering when moving this to bottom
 from .client_hints import ClientHints
+from .data import devices, platforms_desktop, platforms_mobile
+from .data.generator import Generator
 from .headers import Headers
 
 

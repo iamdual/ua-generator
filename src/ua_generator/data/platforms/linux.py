@@ -4,45 +4,45 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 import random
+from typing import List
+
+from ..version import Version
 
 # https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/
-versions = {
-    '5.0': {'minor_range': (0, 21)},
-    '5.1': {'minor_range': (0, 21)},
-    '5.2': {'minor_range': (0, 20)},
-    '5.3': {'minor_range': (0, 18)},
-    '5.4': {'minor_range': (0, 184)},
-    '5.5': {'minor_range': (0, 19)},
-    '5.6': {'minor_range': (0, 19)},
-    '5.7': {'minor_range': (0, 19)},
-    '5.8': {'minor_range': (0, 18)},
-    '5.9': {'minor_range': (0, 16)},
-    '5.10': {'minor_range': (0, 105)},
-    '5.11': {'minor_range': (0, 22)},
-    '5.12': {'minor_range': (0, 19)},
-    '5.13': {'minor_range': (0, 19)},
-    '5.14': {'minor_range': (0, 21)},
-    '5.15': {'minor_range': (0, 103)},
-    '5.16': {'minor_range': (0, 20)},
-    '5.17': {'minor_range': (0, 15)},
-    '5.18': {'minor_range': (0, 19)},
-    '5.19': {'minor_range': (0, 17)},
-    '6.0': {'minor_range': (0, 19)},
-    '6.1': {'minor_range': (0, 78)},
-    '6.2': {'minor_range': (0, 16)},
-    '6.3': {'minor_range': (0, 13)},
-    '6.4': {'minor_range': (0, 16)},
-    '6.5': {'minor_range': (0, 13)},
-    '6.6': {'minor_range': (0, 17)},
-    '6.7': {'minor_range': (0, 5)},
-}
+versions: List[Version] = [
+    Version(major=5, minor=0, build=(0, 21)),
+    Version(major=5, minor=1, build=(0, 21)),
+    Version(major=5, minor=2, build=(0, 20)),
+    Version(major=5, minor=3, build=(0, 18)),
+    Version(major=5, minor=4, build=(0, 184)),
+    Version(major=5, minor=5, build=(0, 19)),
+    Version(major=5, minor=6, build=(0, 19)),
+    Version(major=5, minor=7, build=(0, 19)),
+    Version(major=5, minor=8, build=(0, 18)),
+    Version(major=5, minor=9, build=(0, 16)),
+    Version(major=5, minor=10, build=(0, 105)),
+    Version(major=5, minor=11, build=(0, 22)),
+    Version(major=5, minor=12, build=(0, 19)),
+    Version(major=5, minor=13, build=(0, 19)),
+    Version(major=5, minor=14, build=(0, 21)),
+    Version(major=5, minor=15, build=(0, 103)),
+    Version(major=5, minor=16, build=(0, 20)),
+    Version(major=5, minor=17, build=(0, 15)),
+    Version(major=5, minor=18, build=(0, 19)),
+    Version(major=5, minor=19, build=(0, 17)),
+    Version(major=6, minor=0, build=(0, 19)),
+    Version(major=6, minor=1, build=(0, 78)),
+    Version(major=6, minor=2, build=(0, 16)),
+    Version(major=6, minor=3, build=(0, 13)),
+    Version(major=6, minor=4, build=(0, 16)),
+    Version(major=6, minor=5, build=(0, 13)),
+    Version(major=6, minor=6, build=(0, 17)),
+    Version(major=6, minor=7, build=(0, 5)),
+]
+
+version_weights = [1.0] * len(versions)
 
 
-def get_version():
-    choice = random.randint(0, len(versions) - 1)
-    i = 0
-    for major, props in versions.items():
-        if choice == i:
-            minor = random.randint(int(props['minor_range'][0]), int(props['minor_range'][1]))
-            return {'major': major, 'minor': minor}
-        i = i + 1
+def get_version() -> Version:
+    choice: List[Version] = random.choices(versions, weights=version_weights, k=1)
+    return choice[0]

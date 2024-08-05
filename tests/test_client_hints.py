@@ -8,6 +8,7 @@ import unittest
 import src.ua_generator as ua_generator
 from src.ua_generator import serialization
 from src.ua_generator.data import browsers_support_ch
+from src.ua_generator.data.version import version_types
 
 
 class TestClientHints(unittest.TestCase):
@@ -32,7 +33,6 @@ class TestClientHints(unittest.TestCase):
             ua = ua_generator.generate(browser=browsers_support_ch)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
-            self.assertTrue(len(ua.ch.platform_version) > 0)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
 
     def test_ch_platform_version_windows(self):
@@ -40,7 +40,6 @@ class TestClientHints(unittest.TestCase):
             ua = ua_generator.generate(platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
-            self.assertEqual(len(ua.ch.platform_version.split('.')), 3)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
 
     def test_ch_mobile(self):

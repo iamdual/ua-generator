@@ -4,71 +4,54 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
-import string
+from typing import List
 
-from .... import utils
+from ...version import Version, AndroidVersion
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
-versions = {
-    '8.0': {
-        'minor_range': (0, 5),
-        'build_number': ('OPR1.{d}.{v}', 'OPR2.{d}.{v}', 'OPR3.{d}.{v}', 'OPR4.{d}.{v}', 'OPR5.{d}.{v}',
-                         'OPR6.{d}.{v}', 'OPD1.{d}.{v}', 'OPD2.{d}.{v}', 'OPD3.{d}.{v}')
-    },
-    '8.1': {
-        'minor_range': (0, 7),
-        'build_number': ('OPM1.{d}.{v}', 'OPM2.{d}.{v}', 'OPM3.{d}.{v}', 'OPM4.{d}.{v}', 'OPM5.{d}.{v}')
-    },
-    '9.0': {
-        'minor_range': (0, 0),
-        'build_number': ('PPR1.{d}.{v}', 'PPR2.{d}.{v}', 'PD1A.{d}.{v}', 'PQ1A.{d}.{v}', 'PQ2A.{d}.{v}',
-                         'PQ3A.{d}.{v}', 'PQ3B.{d}.{v}', 'QQ2A.{d}.{v}')
-    },
-    '10.0': {
-        'minor_range': (0, 0),
-        'build_number': ('QD1A.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1C.{d}.{v}', 'QQ1D.{d}.{v}', 'QQ2A.{d}.{v}')
-    },
-    '11.0': {
-        'minor_range': (0, 0),
-        'build_number': ('RP1A.{d}.{v}', 'RP1B.{d}.{v}', 'RP1C.{d}.{v}', 'RP1D.{d}.{v}', 'RD1A.{d}.{v}',
-                         'RD1B.{d}.{v}', 'RQAA.{d}.{v}', 'RQ3A.{d}.{v}', 'RQ1D.{d}.{v}')
-    },
-    '12.0': {
-        'minor_range': (0, 0),
-        'build_number': ('SP1A.{d}.{v}', 'SD1A.{d}.{v}', 'SQ1D.{d}.{v}', 'SQ1A.{d}.{v}', 'SQ1D.{d}.{v}')
-    },
-    '12.1': {
-        'minor_range': (0, 0),
-        'build_number': ('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')
-    },
-    '13.0': {
-        'minor_range': (0, 0),
-        'build_number': ('TQ3A.{d}.{v}', 'TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')
-    },
-    '14.0': {
-        'minor_range': (0, 0),
-        'build_number': ('UP1A.{d}.{v}', 'UD1A.{d}.{v}', 'UQ1A.{d}.{v}')
-    },
-}
+versions: List[AndroidVersion] = [
+    AndroidVersion(version=Version(major=8, minor=0, build=(0, 5)),
+                   build_numbers=('OPR1.{d}.{v}', 'OPR2.{d}.{v}', 'OPR3.{d}.{v}', 'OPR4.{d}.{v}', 'OPR5.{d}.{v}',
+                                  'OPR6.{d}.{v}', 'OPD1.{d}.{v}', 'OPD2.{d}.{v}', 'OPD3.{d}.{v}')),
+    AndroidVersion(version=Version(major=8, minor=1, build=(0, 7)),
+                   build_numbers=('OPM1.{d}.{v}', 'OPM2.{d}.{v}', 'OPM3.{d}.{v}', 'OPM4.{d}.{v}', 'OPM5.{d}.{v}')),
+    AndroidVersion(version=Version(major=9, minor=0, build=0),
+                   build_numbers=('PPR1.{d}.{v}', 'PPR2.{d}.{v}', 'PD1A.{d}.{v}', 'PQ1A.{d}.{v}', 'PQ2A.{d}.{v}',
+                                  'PQ3A.{d}.{v}', 'PQ3B.{d}.{v}', 'QQ2A.{d}.{v}')),
+    AndroidVersion(version=Version(major=10, minor=0, build=0),
+                   build_numbers=('QD1A.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1C.{d}.{v}', 'QQ1D.{d}.{v}', 'QQ2A.{d}.{v}')),
+    AndroidVersion(version=Version(major=11, minor=0, build=0),
+                   build_numbers=('RP1A.{d}.{v}', 'RP1B.{d}.{v}', 'RP1C.{d}.{v}', 'RP1D.{d}.{v}', 'RD1A.{d}.{v}',
+                                  'RD1B.{d}.{v}', 'RQAA.{d}.{v}', 'RQ3A.{d}.{v}', 'RQ1D.{d}.{v}')),
+    AndroidVersion(version=Version(major=12, minor=0, build=0),
+                   build_numbers=('SP1A.{d}.{v}', 'SD1A.{d}.{v}', 'SQ1D.{d}.{v}', 'SQ1A.{d}.{v}', 'SQ1D.{d}.{v}')),
+    AndroidVersion(version=Version(major=12, minor=1, build=0),
+                   build_numbers=('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')),
+    AndroidVersion(version=Version(major=13, minor=0, build=0),
+                   build_numbers=('TQ3A.{d}.{v}', 'TQ2A.{d}.{v}', 'TP1A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}')),
+    AndroidVersion(version=Version(major=14, minor=0, build=0),
+                   build_numbers=('UP1A.{d}.{v}', 'UD1A.{d}.{v}', 'UQ1A.{d}.{v}')),
+]
 
 platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
-                'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
-                'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro')
+                   'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
+                   'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro')
+
+version_weights = [1.0] * len(versions)
+version_weights[-1] = 10.0
+version_weights[-2] = 9.0
+version_weights[-2] = 8.0
 
 
-def get_version():
-    choice = random.randint(0, len(versions) - 1)
-    i = 0
-    for major, props in versions.items():
-        if choice == i:
-            minor = random.randint(int(props['minor_range'][0]), int(props['minor_range'][1]))
-            platform_model = utils.choice(platform_models)
+def get_version() -> AndroidVersion:
+    choice: List[AndroidVersion] = random.choices(versions, weights=version_weights, k=1)
 
-            build_number = utils.choice(props['build_number'])
-            build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(
-                random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
-            build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
+    build_number = choice[0].build_number
+    build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(
+        random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
+    build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
-            return {'major': major, 'minor': minor, 'build_number': build_number, 'platform_model': platform_model}
-        i = i + 1
+    choice[0].build_number = build_number
+    choice[0].platform_model = random.choice(platform_models)
+    return choice[0]

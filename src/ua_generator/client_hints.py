@@ -5,9 +5,9 @@ License: Apache License 2.0
 """
 from random import Random
 
-from . import formats, serialization
-from .data import platforms_mobile
-from .data import generator
+from . import serialization
+from .data import generator, platforms_mobile
+from .data.version import AndroidVersion, WindowsVersion
 
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA
@@ -44,11 +44,10 @@ class ClientHints:
         return platform
 
     def get_platform_version(self):
-        if self.__generator.platform == 'windows' and formats.major_version(self.__generator.platform_version) == '10':
-            _random = Random(self.__generator.user_agent)
-            return _random.choice(('10.0.0', '13.0.0'))
+        if type(self.__generator.platform_version) is WindowsVersion and self.__generator.platform_version.major == 10:
+            return str(self.__generator.platform_version.ch_platform)
 
-        return formats.version(self.__generator.platform_version)
+        return str(self.__generator.platform_version)
 
     def get_brands(self, full_version_list: bool = False):
         brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
@@ -66,9 +65,9 @@ class ClientHints:
 
     def get_browser_version(self, full_version: bool = True):
         if full_version:
-            return formats.version(self.__generator.browser_version)
+            return str(self.__generator.browser_version)
         else:
-            return formats.major_version(self.__generator.browser_version)
+            return str(self.__generator.browser_version.major)
 
     def get_bitness(self):
         if self.__generator.platform == 'android':
@@ -87,8 +86,8 @@ class ClientHints:
         return 'x86'
 
     def get_model(self):
-        if 'platform_model' in self.__generator.platform_version:
-            return self.__generator.platform_version['platform_model']
+        if type(self.__generator.platform_version) is AndroidVersion:
+            return self.__generator.platform_version.platform_model
 
         return ''
 
