@@ -44,13 +44,13 @@ class ClientHints:
         return platform
 
     def get_platform_version(self):
-        if type(self.__generator.platform_version) is WindowsVersion and self.__generator.platform_version.major == 10:
-            return str(self.__generator.platform_version.ch_platform)
+        if type(self.__generator.platform_version) is WindowsVersion:
+            return self.__generator.platform_version.ch_platform.format(partitions=3)
 
         return str(self.__generator.platform_version)
 
     def get_brands(self, full_version_list: bool = False):
-        brand_list = [{'brand': 'Not A(Brand', 'version': '99'}]
+        brand_list = [{'brand': 'Not A(Brand', 'version': '99.0.0.0' if full_version_list else '99'}]
 
         if self.__generator.browser == 'chrome':
             browser_version = self.get_browser_version(full_version=full_version_list)

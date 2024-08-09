@@ -1,0 +1,80 @@
+"""
+Random User-Agent
+Copyright: 2024 Ekin Karadeniz (github.com/iamdual)
+License: Apache License 2.0 
+"""
+import unittest
+
+from src.ua_generator.data.version import Version, WindowsVersion, AndroidVersion, ChromiumVersion
+
+
+class TestVersion(unittest.TestCase):
+    def test_version(self):
+        version = Version(major=1, minor=2, build=3, patch=4)
+        self.assertEqual(version.format(), '1.2.3.4')
+        self.assertEqual(version.format(partitions=4), '1.2.3.4')
+        self.assertEqual(version.format(partitions=3), '1.2.3')
+        self.assertEqual(version.format(partitions=2), '1.2')
+        self.assertEqual(version.format(partitions=1), '1')
+
+    def test_version_2(self):
+        version = Version(major=1, minor=2, build=3)
+        self.assertEqual(version.format(), '1.2.3')
+        self.assertEqual(version.format(partitions=4), '1.2.3.0')
+        self.assertEqual(version.format(partitions=3), '1.2.3')
+        self.assertEqual(version.format(partitions=2), '1.2')
+        self.assertEqual(version.format(partitions=1), '1')
+
+    def test_version_3(self):
+        version = Version(major=1, minor=2, patch=4)
+        self.assertEqual(version.format(), '1.2.0.4')
+        self.assertEqual(version.format(partitions=4), '1.2.0.4')
+        self.assertEqual(version.format(partitions=3), '1.2.0')
+        self.assertEqual(version.format(partitions=2), '1.2')
+        self.assertEqual(version.format(partitions=1), '1')
+
+    def test_version_4(self):
+        version = Version(major=0, build=3)
+        self.assertEqual(version.format(), '0.0.3')
+        self.assertEqual(version.format(partitions=4), '0.0.3.0')
+        self.assertEqual(version.format(partitions=3), '0.0.3')
+        self.assertEqual(version.format(partitions=2), '0.0')
+        self.assertEqual(version.format(partitions=1), '0')
+
+    def test_version_5(self):
+        version = Version(major=1, minor=2)
+        self.assertEqual(version.format(), '1.2')
+        self.assertEqual(version.format(partitions=3), '1.2.0')
+
+    def test_version_6(self):
+        version = Version(major=1)
+        self.assertEqual(version.format(), '1')
+        self.assertEqual(version.format(partitions=2), '1.0')
+
+    def test_version_range(self):
+        version = Version(build=(90, 100))
+        self.assertTrue(version.build >= 90 and version.build <= 100)
+
+    def test_version_windows(self):
+        version = WindowsVersion(version=Version(major=10, minor=0), ch_platform=Version(major=1, minor=2))
+        self.assertEqual(version.format(partitions=4), '10.0.0.0')
+        self.assertEqual(version.ch_platform.format(partitions=4), '1.2.0.0')
+
+    def test_version_windows_range(self):
+        version = WindowsVersion(version=Version(major=10, minor=0), ch_platform=Version(major=(1, 10)))
+        self.assertEqual(version.format(partitions=4), '10.0.0.0')
+        self.assertTrue(version.ch_platform.major >= 1 and version.ch_platform.major <= 10)
+
+    def test_version_android(self):
+        version = AndroidVersion(version=Version(major=14, minor=0, build=0), build_numbers=('foo', 'foo'))
+        self.assertEqual(version.format(partitions=4), '14.0.0.0')
+        self.assertEqual(version.build_number, 'foo')
+
+    def test_version_chromium(self):
+        version = ChromiumVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(537, 36))
+        self.assertEqual(version.format(partitions=4), '1.2.3.4')
+        self.assertEqual(version.webkit.format(), '537.36')
+
+
+if __name__ == '__main__':
+    unittest.main()

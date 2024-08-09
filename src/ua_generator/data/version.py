@@ -19,15 +19,18 @@ class Version:
             (major, minor, build, patch)
         )
 
+    def format(self, partitions=None) -> str:
+        if partitions == 4 or (partitions is None and self.patch is not None):
+            return "%d.%d.%d.%d" % (self.major or 0, self.minor or 0, self.build or 0, self.patch or 0)
+        if partitions == 3 or (partitions is None and self.build is not None):
+            return "%d.%d.%d" % (self.major or 0, self.minor or 0, self.build or 0)
+        if partitions == 2 or (partitions is None and self.minor is not None):
+            return "%d.%d" % (self.major or 0, self.minor or 0)
+
+        return "%d" % self.major or 0
+
     def __str__(self):
-        if self.patch is not None:
-            return "%d.%d.%d.%d" % (self.major, self.minor, self.build, self.patch)
-        if self.build is not None:
-            return "%d.%d.%d" % (self.major, self.minor, self.build)
-        if self.minor is not None:
-            return "%d.%d" % (self.major, self.minor)
-        if self.major is not None:
-            return "%d" % (self.major)
+        return self.format()
 
 
 class ChromiumVersion(Version):
@@ -53,7 +56,7 @@ class WindowsVersion(Version):
 
     def __init__(self, version: Version, ch_platform: Version):
         super().__init__(version.major, version.minor, version.build, version.patch)
-        self.webkit = ch_platform
+        self.ch_platform = ch_platform
 
 
 version_types = (
