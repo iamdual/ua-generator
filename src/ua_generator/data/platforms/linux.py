@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ..version import Version
+from ...options import Options
 
 # https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/
 versions: List[Version] = [
@@ -40,9 +41,11 @@ versions: List[Version] = [
     Version(major=6, minor=7, build=(0, 5)),
 ]
 
-version_weights = [1.0] * len(versions)
 
+def get_version(options: Options) -> Version:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
 
-def get_version() -> Version:
-    choice: List[Version] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[Version] = random.choices(versions, weights=weights, k=1)
     return choice[0]

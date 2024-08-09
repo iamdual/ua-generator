@@ -8,6 +8,7 @@ import string
 from typing import List
 
 from ...version import Version, AndroidVersion
+from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
@@ -19,7 +20,7 @@ versions: List[AndroidVersion] = [
     AndroidVersion(version=Version(major=6, minor=0, build=(0, 1)),
                    build_numbers=('MRA58{s}', 'MRA59{s}', 'MDA89{s}', 'MDB08{s}', 'MMB29{s}', 'MXC14{s}', 'MHC19{s}',
                                   'MOB30{s}', 'M5C14{s}', 'MTC19{s}', 'MMB30{s}', 'MXC89{s}', 'MTC20{s}', 'MOB31{s}')),
-    AndroidVersion(version=Version(major=7, minor=0, build=(0, 0)),
+    AndroidVersion(version=Version(major=7, minor=0, build=0),
                    build_numbers=('NRD90{s}', 'NRD91{s}', 'NBD91{s}', 'N5D91{s}', 'NBD92{s}')),
     AndroidVersion(version=Version(major=7, minor=1, build=(0, 2)),
                    build_numbers=('NDE63{s}', 'NMF26{s}', 'NMF27{s}', 'N2G47{s}', 'NHG47{s}', 'NJH34{s}', 'NKG47{s}',
@@ -33,16 +34,17 @@ versions: List[AndroidVersion] = [
 
 platform_models = ('Nexus 5', 'Nexus 5X', 'Nexus 6', 'Nexus 6P', 'Nexus 9')
 
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 10.0
-version_weights[-2] = 9.0
-version_weights[-2] = 8.0
-version_weights[-3] = 8.0
-version_weights[-4] = 8.0
 
+def get_version(options: Options) -> AndroidVersion:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        weights[-1] = 10.0
+        weights[-2] = 9.0
+        weights[-3] = 8.0
+        weights[-4] = 8.0
 
-def get_version() -> AndroidVersion:
-    choice: List[AndroidVersion] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
 
     build_number = choice[0].build_number
     build_number = build_number.replace('{s}', '{}'.format(random.choice(string.ascii_uppercase)))

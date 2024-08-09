@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ..version import Version, ChromiumVersion
+from ...options import Options
 
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
 versions: List[ChromiumVersion] = [
@@ -40,12 +41,14 @@ versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=127, minor=0, build=2651, patch=(0, 99))),
 ]
 
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 10.0
-version_weights[-2] = 9.0
-version_weights[-2] = 8.0
 
+def get_version(options: Options) -> ChromiumVersion:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        weights[-1] = 10.0
+        weights[-2] = 9.0
+        weights[-3] = 8.0
 
-def get_version() -> ChromiumVersion:
-    choice: List[ChromiumVersion] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[ChromiumVersion] = random.choices(versions, weights=weights, k=1)
     return choice[0]

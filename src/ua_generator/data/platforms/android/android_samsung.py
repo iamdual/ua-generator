@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ...version import Version, AndroidVersion
+from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
@@ -134,16 +135,18 @@ platform_models = ('SM-G390Y', 'SM-G390Y', 'SM-G525F', 'SM-G9006W', 'SM-G9209K',
                    'SM-G9980', 'SM-G9988', 'SM-G998B', 'SM-G998N', 'SM-G998X', 'SM-G998XU',
                    'SM-J730F', 'SM-M017F',)
 
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 10.0
-version_weights[-2] = 9.0
-version_weights[-2] = 8.0
-version_weights[-3] = 8.0
-version_weights[-4] = 8.0
 
+def get_version(options: Options) -> AndroidVersion:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        weights[-1] = 10.0
+        weights[-2] = 9.0
+        weights[-3] = 8.0
+        weights[-4] = 8.0
+        weights[-5] = 8.0
 
-def get_version() -> AndroidVersion:
-    choice: List[AndroidVersion] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
 
     build_number = choice[0].build_number
     build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(

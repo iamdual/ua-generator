@@ -6,13 +6,15 @@ License: Apache License 2.0
 from .browsers import chrome, safari, firefox, edge
 from .platforms import ios, android, linux, windows, macos
 from .. import utils, exceptions
+from ..options import Options
 
 
 class Generator:
-    def __init__(self, device, platform, browser):
+    def __init__(self, device, platform, browser, options: Options):
         self.device = device
         self.platform = platform
         self.browser = browser
+        self.options = options
 
         self.platform_version = self.__platform_version()
         self.browser_version = self.__browser_version()
@@ -20,25 +22,25 @@ class Generator:
 
     def __platform_version(self):
         if self.platform == 'windows':
-            return windows.get_version()
+            return windows.get_version(options=self.options)
         elif self.platform == 'macos':
-            return macos.get_version()
+            return macos.get_version(options=self.options)
         elif self.platform == 'ios':
-            return ios.get_version()
+            return ios.get_version(options=self.options)
         elif self.platform == 'linux':
-            return linux.get_version()
+            return linux.get_version(options=self.options)
         elif self.platform == 'android':
-            return android.get_version()
+            return android.get_version(options=self.options)
 
     def __browser_version(self):
         if self.browser == 'chrome':
-            return chrome.get_version()
+            return chrome.get_version(options=self.options)
         elif self.browser == 'safari':
-            return safari.get_version()
+            return safari.get_version(options=self.options)
         elif self.browser == 'firefox':
-            return firefox.get_version()
+            return firefox.get_version(options=self.options)
         elif self.browser == 'edge':
-            return edge.get_version()
+            return edge.get_version(options=self.options)
 
     def __user_agent(self):
         if self.platform == 'windows':

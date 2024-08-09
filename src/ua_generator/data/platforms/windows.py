@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ..version import Version, WindowsVersion
+from ...options import Options
 
 # https://learn.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version
 # https://learn.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11
@@ -18,12 +19,14 @@ versions: List[WindowsVersion] = [
     WindowsVersion(version=Version(major=10, minor=0), ch_platform=Version(major=13)),
 ]
 
-# https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 7.0
-version_weights[-2] = 10.0
 
+def get_version(options: Options) -> WindowsVersion:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        # https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide
+        weights[-1] = 7.0
+        weights[-2] = 10.0
 
-def get_version() -> WindowsVersion:
-    choice: List[WindowsVersion] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[WindowsVersion] = random.choices(versions, weights=weights, k=1)
     return choice[0]

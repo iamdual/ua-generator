@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ...version import Version, AndroidVersion
+from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
@@ -38,14 +39,16 @@ platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL'
                    'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
                    'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro')
 
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 10.0
-version_weights[-2] = 9.0
-version_weights[-2] = 8.0
 
+def get_version(options: Options) -> AndroidVersion:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        weights[-1] = 10.0
+        weights[-2] = 9.0
+        weights[-3] = 8.0
 
-def get_version() -> AndroidVersion:
-    choice: List[AndroidVersion] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
 
     build_number = choice[0].build_number
     build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(

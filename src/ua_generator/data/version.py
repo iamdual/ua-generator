@@ -15,7 +15,8 @@ class Version:
                  patch: Union[int, tuple] = None):
         self.major, self.minor, self.build, self.patch = map(
             lambda x:
-            random.choice(x) if isinstance(x, tuple) else x,
+            # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
+            random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
         )
 

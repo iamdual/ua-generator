@@ -7,6 +7,7 @@ import random
 from typing import List
 
 from ..version import Version
+from ...options import Options
 
 # https://www.mozilla.org/en-US/firefox/releases/
 versions: List[Version] = [
@@ -23,14 +24,14 @@ versions: List[Version] = [
     Version(major=113, minor=0, build=(0, 2)),
     Version(major=114, minor=0, build=(0, 2)),
     Version(major=115, minor=0, build=(0, 3)),
-    Version(major=115, minor=1, build=(0, 0)),
+    Version(major=115, minor=1, build=0),
     Version(major=115, minor=2, build=(0, 1)),
     Version(major=115, minor=3, build=(0, 1)),
-    Version(major=115, minor=4, build=(0, 0)),
-    Version(major=115, minor=5, build=(0, 0)),
-    Version(major=115, minor=6, build=(0, 0)),
-    Version(major=115, minor=7, build=(0, 0)),
-    Version(major=115, minor=8, build=(0, 0)),
+    Version(major=115, minor=4, build=0),
+    Version(major=115, minor=5, build=0),
+    Version(major=115, minor=6, build=0),
+    Version(major=115, minor=7, build=0),
+    Version(major=115, minor=8, build=0),
     Version(major=116, minor=0, build=(0, 3)),
     Version(major=117, minor=0, build=(0, 1)),
     Version(major=118, minor=0, build=(0, 2)),
@@ -41,17 +42,19 @@ versions: List[Version] = [
     Version(major=123, minor=0, build=(0, 1)),
     Version(major=124, minor=0, build=(0, 2)),
     Version(major=125, minor=0, build=(1, 3)),
-    Version(major=126, minor=0, build=(0, 0)),
+    Version(major=126, minor=0, build=0),
     Version(major=127, minor=0, build=(0, 2)),
     Version(major=128, minor=0, build=(0, 2)),
 ]
 
-version_weights = [1.0] * len(versions)
-version_weights[-1] = 10.0
-version_weights[-2] = 9.0
-version_weights[-2] = 8.0
 
+def get_version(options: Options) -> Version:
+    weights = None
+    if options.weighted_versions:
+        weights = [1.0] * len(versions)
+        weights[-1] = 10.0
+        weights[-2] = 9.0
+        weights[-3] = 8.0
 
-def get_version() -> Version:
-    choice: List[Version] = random.choices(versions, weights=version_weights, k=1)
+    choice: List[Version] = random.choices(versions, weights=weights, k=1)
     return choice[0]
