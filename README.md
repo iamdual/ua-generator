@@ -88,7 +88,7 @@ print(ua.headers.get())
     'sec-ch-ua-mobile': '?0',
     'sec-ch-ua-platform': '"macOS"',
     'sec-ch-ua-platform-version': '"14.1.0"',
-    'sec-ch-ua-full-version-list': '"Not A(Brand";v="99", "Chromium";v="122.0.6261.94", "Google Chrome";v="122.0.6261.94"'
+    'sec-ch-ua-full-version-list': '"Not A(Brand";v="99.0.0.0", "Chromium";v="122.0.6261.94", "Google Chrome";v="122.0.6261.94"'
 }
 ```
 
@@ -135,6 +135,7 @@ handler = urllib.request.urlopen(request)
 response = handler.read().decode('utf-8')
 ```
 
+<!-- TODO: comment-out when 1.0 release
 # Options
 
 You can define options for the "options" parameter for further customization.
@@ -146,6 +147,7 @@ from ua_generator.options import Options
 ua_options = Options(weighted_versions=True)
 ua = ua_generator.generate(browser=('chrome', 'edge'), options=ua_options)
 ```
+-->
 
 ## Parameters
 
