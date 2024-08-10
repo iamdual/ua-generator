@@ -4,17 +4,20 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 from . import utils, exceptions
-from .data import devices, platforms, platforms_desktop, platforms_mobile, browsers
-from .data.generator import Generator
+from .data import platforms, browsers  # TODO: learn why the error is triggered when moving this to the bottom
 from .client_hints import ClientHints
+from .data import devices, platforms_desktop, platforms_mobile
+from .data.generator import Generator
 from .headers import Headers
+from .options import Options
 
 
 class UserAgent:
-    def __init__(self, device=None, platform=None, browser=None):
+    def __init__(self, device=None, platform=None, browser=None, options=None):
         self.device: str = device
         self.platform: str = platform
         self.browser: str = browser
+        self.options = options if options is not None else Options()
         self.__complete()
 
         # Type hinting only
@@ -77,7 +80,7 @@ class UserAgent:
         self.platform = self.__find_platform()
         self.browser = self.__find_browser()
 
-        ua = Generator(device=self.device, platform=self.platform, browser=self.browser)
+        ua = Generator(device=self.device, platform=self.platform, browser=self.browser, options=self.options)
         self.text = ua.user_agent
         self.ch = ClientHints(ua)
         self.headers = Headers(ua, self.ch)

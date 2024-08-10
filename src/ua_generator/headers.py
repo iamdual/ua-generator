@@ -3,9 +3,9 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
+from .client_hints import ClientHints
 from .data import browsers_support_ch
 from .data.generator import Generator
-from .client_hints import ClientHints
 
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH

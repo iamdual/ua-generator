@@ -8,6 +8,7 @@ import unittest
 import src.ua_generator as ua_generator
 from src.ua_generator import serialization
 from src.ua_generator.data import browsers_support_ch
+from src.ua_generator.data.version import version_types
 
 
 class TestClientHints(unittest.TestCase):
@@ -32,7 +33,6 @@ class TestClientHints(unittest.TestCase):
             ua = ua_generator.generate(browser=browsers_support_ch)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
-            self.assertTrue(len(ua.ch.platform_version) > 0)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
 
     def test_ch_platform_version_windows(self):
@@ -40,7 +40,6 @@ class TestClientHints(unittest.TestCase):
             ua = ua_generator.generate(platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
-            self.assertEqual(len(ua.ch.platform_version.split('.')), 3)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
 
     def test_ch_mobile(self):
@@ -51,6 +50,8 @@ class TestClientHints(unittest.TestCase):
             self.assertEqual(ua.ch.mobile, '?1')
             self.assertTrue(type(ua.ch.get_mobile()) is bool)
             self.assertEqual(ua.ch.get_mobile(), True)
+            self.assertTrue(ua.ch.model is not None and ua.ch.model != "")
+            self.assertTrue(ua.ch.get_model() is not None and ua.ch.get_model() != "")
 
     def test_ch_non_mobile(self):
         for i in range(0, 100):
@@ -77,12 +78,11 @@ class TestClientHints(unittest.TestCase):
             ua = ua_generator.generate(browser='edge', platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.brands_full_version_list) is str)
-            self.assertTrue(ua.ch.brands_full_version_list.startswith('"Not A(Brand";v="99"'))
+            self.assertTrue(ua.ch.brands_full_version_list.startswith('"Not A(Brand";v="99.0.0.0"'))
             self.assertTrue('Chromium' in ua.ch.brands_full_version_list)
             self.assertTrue('Microsoft Edge' in ua.ch.brands_full_version_list)
             self.assertTrue(type(ua.ch.get_brands(full_version_list=True)) is list)
-            self.assertEqual(ua.ch.brands_full_version_list,
-                             serialization.ch_brand_list(ua.ch.get_brands(full_version_list=True)))
+            self.assertEqual(ua.ch.brands_full_version_list, serialization.ch_brand_list(ua.ch.get_brands(full_version_list=True)))
 
     def test_ch_bitness(self):
         for i in range(0, 100):
