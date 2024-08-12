@@ -25,15 +25,24 @@ class Version:
             (major, minor, build, patch)
         )
 
-    def format(self, partitions=None) -> str:
-        if partitions == 4 or (partitions is None and self.patch is not None):
-            return "%d.%d.%d.%d" % (self.major or 0, self.minor or 0, self.build or 0, self.patch or 0)
-        if partitions == 3 or (partitions is None and self.build is not None):
-            return "%d.%d.%d" % (self.major or 0, self.minor or 0, self.build or 0)
-        if partitions == 2 or (partitions is None and self.minor is not None):
-            return "%d.%d" % (self.major or 0, self.minor or 0)
+    def format(self, partitions=None, separator='.', trim_zero=False) -> str:
+        versions = [self.major, self.minor, self.build, self.patch]
 
-        return "%d" % self.major or 0
+        if partitions is not None:
+            versions = versions[:partitions]
+        else:
+            # Stop at None
+            while versions[-1] is None:
+                versions.pop()
+
+        # None to zero
+        versions = list(part or 0 for part in versions)
+
+        if trim_zero:
+            while versions[-1] == 0:
+                versions.pop()
+
+        return separator.join(str(part) for part in versions)
 
     def __str__(self):
         return self.format()

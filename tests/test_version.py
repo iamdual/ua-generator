@@ -18,7 +18,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=1), '1')
 
     def test_version_2(self):
-        version = Version(major=1, minor=2, build=3)
+        version = Version(major=1, minor=2, build=3, patch=None)
         self.assertEqual(version.format(), '1.2.3')
         self.assertEqual(version.format(partitions=4), '1.2.3.0')
         self.assertEqual(version.format(partitions=3), '1.2.3')
@@ -26,6 +26,14 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=1), '1')
 
     def test_version_3(self):
+        version = Version(major=1, minor=2, build=None, patch=0)
+        self.assertEqual(version.format(), '1.2.0.0')
+        self.assertEqual(version.format(partitions=4), '1.2.0.0')
+        self.assertEqual(version.format(partitions=3), '1.2.0')
+        self.assertEqual(version.format(partitions=2), '1.2')
+        self.assertEqual(version.format(partitions=1), '1')
+
+    def test_version_4(self):
         version = Version(major=1, minor=2, patch=4)
         self.assertEqual(version.format(), '1.2.0.4')
         self.assertEqual(version.format(partitions=4), '1.2.0.4')
@@ -33,7 +41,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=2), '1.2')
         self.assertEqual(version.format(partitions=1), '1')
 
-    def test_version_4(self):
+    def test_version_5(self):
         version = Version(major=0, build=3)
         self.assertEqual(version.format(), '0.0.3')
         self.assertEqual(version.format(partitions=4), '0.0.3.0')
@@ -41,15 +49,51 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=2), '0.0')
         self.assertEqual(version.format(partitions=1), '0')
 
-    def test_version_5(self):
+    def test_version_6(self):
         version = Version(major=1, minor=2)
         self.assertEqual(version.format(), '1.2')
         self.assertEqual(version.format(partitions=3), '1.2.0')
 
-    def test_version_6(self):
+    def test_version_7(self):
         version = Version(major=1)
         self.assertEqual(version.format(), '1')
         self.assertEqual(version.format(partitions=2), '1.0')
+
+    def test_version_separator(self):
+        version = Version(major=1, minor=2, build=3, patch=4)
+        self.assertEqual(version.format(separator='_'), '1_2_3_4')
+        self.assertEqual(version.format(partitions=4, separator='_'), '1_2_3_4')
+        self.assertEqual(version.format(partitions=3, separator='_'), '1_2_3')
+        self.assertEqual(version.format(partitions=2, separator='_'), '1_2')
+        self.assertEqual(version.format(partitions=1, separator='_'), '1')
+
+    def test_version_separator_2(self):
+        version = Version(major=1, minor=2, build=3, patch=None)
+        self.assertEqual(version.format(separator='_'), '1_2_3')
+        self.assertEqual(version.format(partitions=4, separator='_'), '1_2_3_0')
+        self.assertEqual(version.format(partitions=3, separator='_'), '1_2_3')
+        self.assertEqual(version.format(partitions=2, separator='_'), '1_2')
+        self.assertEqual(version.format(partitions=1, separator='_'), '1')
+
+    def test_version_separator_3(self):
+        version = Version(major=1, minor=2, build=3, patch=0)
+        self.assertEqual(version.format(separator='_'), '1_2_3_0')
+        self.assertEqual(version.format(partitions=4, separator='_'), '1_2_3_0')
+        self.assertEqual(version.format(partitions=3, separator='_'), '1_2_3')
+        self.assertEqual(version.format(partitions=2, separator='_'), '1_2')
+        self.assertEqual(version.format(partitions=1, separator='_'), '1')
+
+    def test_version_trim_zero(self):
+        version = Version(major=1, minor=2, build=0, patch=0)
+        self.assertEqual(version.format(trim_zero=True), '1.2')
+
+    def test_version_trim_zero_2(self):
+        version = Version(major=1, minor=2, build=0, patch=4)
+        self.assertEqual(version.format(trim_zero=True), '1.2.0.4')
+
+    def test_version_trim_zero_3(self):
+        version = Version(major=1, minor=None, build=3, patch=4)
+        self.assertEqual(version.format(partitions=2, trim_zero=True), '1')
 
     def test_version_range(self):
         version = Version(build=(90, 100))
