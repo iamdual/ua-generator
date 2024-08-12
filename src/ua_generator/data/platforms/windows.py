@@ -15,8 +15,8 @@ versions: List[WindowsVersion] = [
     WindowsVersion(Version(major=6, minor=1), ch_platform=Version(major=0)),
     WindowsVersion(Version(major=6, minor=2), ch_platform=Version(major=0)),
     WindowsVersion(Version(major=6, minor=3), ch_platform=Version(major=0)),
-    WindowsVersion(Version(major=10, minor=0), ch_platform=Version(major=(1, 10))),
-    WindowsVersion(Version(major=10, minor=0), ch_platform=Version(major=13)),
+    WindowsVersion(Version(major=10, minor=0), ch_platform=Version(major=10)),
+    WindowsVersion(Version(major=10, minor=0), ch_platform=Version(major=(13, 15))),
 ]
 
 

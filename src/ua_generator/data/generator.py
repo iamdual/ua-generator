@@ -126,48 +126,52 @@ class Generator:
 
         elif self.platform == 'macos':
             if self.browser == 'chrome':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}'
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}'
+                template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'edge':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}'
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}'
+                template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'safari':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
+                template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{safari}', str(self.browser_version))
                 return template
             if self.browser == 'firefox':
-                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:{firefox}) Gecko/20100101 Firefox/{firefox}'
-                template = template.replace('{firefox}', str(self.browser_version))
+                template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}; rv:{firefox}) Gecko/20100101 Firefox/{firefox}'
+                template = template.replace('{macos}', self.platform_version.format(partitions=2, trim_zero=True))
+                template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
         elif self.platform == 'ios':
             if self.browser == 'chrome':
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) CriOS/{chrome} Mobile/15E148 Safari/{webkit}'
-                template = template.replace('{ios}', str(self.platform_version))
+                template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'edge':
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) Version/15.0 EdgiOS/{chrome} Mobile/15E148 Safari/{webkit}'
-                template = template.replace('{ios}', str(self.platform_version))
+                template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'safari':
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Mobile/15E148 Safari/{webkit}'
-                template = template.replace('{ios}', str(self.platform_version))
+                template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{safari}', str(self.browser_version))
+                template = template.replace('{safari}', self.browser_version.format(partitions=2))
                 return template
             if self.browser == 'firefox':
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/{firefox} Mobile/15E148 Safari/605.1.15'
-                template = template.replace('{ios}', str(self.platform_version))
-                template = template.replace('{firefox}', str(self.browser_version))
+                template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
+                template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
         raise exceptions.CannotGenerateError(self)
