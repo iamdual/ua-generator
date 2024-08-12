@@ -135,23 +135,21 @@ handler = urllib.request.urlopen(request)
 response = handler.read().decode('utf-8')
 ```
 
-<!-- TODO: comment-out when 1.0 release
 # Options
 
-You can define options for the "options" parameter for further customization.
+You can define options using the "options" parameter for further customization.
 
 ```python
 import ua_generator
 from ua_generator.options import Options
 
-ua_options = Options(weighted_versions=True)
-ua = ua_generator.generate(browser=('chrome', 'edge'), options=ua_options)
+options = Options(weighted_versions=True)
+ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
 ```
 
 ## Parameters
 
-- **weighted_versions (bool):** Increases the probability of latest versions being chosen. Default is `False`.
--->
+- **weighted_versions (bool):** To increase the probability of the latest versions being chosen. Default is `False`.
 
 # Issues
 
