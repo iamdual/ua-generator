@@ -14,10 +14,10 @@ from .options import Options
 
 class UserAgent:
     def __init__(self, device=None, platform=None, browser=None, options=None):
-        self.device: str = device
-        self.platform: str = platform
-        self.browser: str = browser
-        self.options = options if options is not None else Options()
+        self.device = device
+        self.platform = platform
+        self.browser = browser
+        self.options: Options = options if options is not None else Options()
         self.__complete()
 
         # Type hinting only
