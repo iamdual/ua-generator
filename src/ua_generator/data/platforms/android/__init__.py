@@ -11,7 +11,7 @@ from ....options import Options
 
 
 def get_version(options: Options) -> AndroidVersion:
-    choice = random.randint(0, 6)
+    choice = random.randint(0, 10)
 
     if choice == 0:
         return android_nexus.get_version(options=options)
