@@ -3,6 +3,8 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
+import typing
+
 from . import utils, exceptions
 from .data import platforms, browsers  # TODO: learn why the error is triggered when moving this to the bottom
 from .client_hints import ClientHints
@@ -14,9 +16,9 @@ from .options import Options
 
 class UserAgent:
     def __init__(self, device=None, platform=None, browser=None, options=None):
-        self.device: str = utils.choice(device)
-        self.platform: str = utils.choice(platform)
-        self.browser: str = utils.choice(browser)
+        self.device: typing.Union[str, None] = utils.choice(device)
+        self.platform: typing.Union[str, None] = utils.choice(platform)
+        self.browser: typing.Union[str, None] = utils.choice(browser)
         self.options: Options = options if options is not None else Options()
         self.__complete()
 
