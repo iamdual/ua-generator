@@ -42,6 +42,17 @@ class TestUserAgent(unittest.TestCase):
             self.assertIsNotNone(ua.browser)
             self.assertIsNotNone(ua.text)
 
+    def test_user_agent_5(self):
+        for i in range(0, 1000):
+            device = ('desktop', 'mobile')
+            platform = ('windows', 'macos', 'ios', 'linux', 'android')
+            browser = ('chrome', 'edge', 'firefox', 'safari')
+            ua = ua_generator.generate(device=device, browser=browser, platform=platform)
+            self.assertIsNotNone(ua.device)
+            self.assertIsNotNone(ua.platform)
+            self.assertIsNotNone(ua.browser)
+            self.assertIsNotNone(ua.text)
+
     def test_user_agent_not_contains_brackets(self):
         brackets = re.compile('{(d|s|v|build|chrome|firefox|safari|webkit|windows|android|ios|macos|linux)}')
         for i in range(0, 200):

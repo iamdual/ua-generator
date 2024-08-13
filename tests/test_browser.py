@@ -11,7 +11,7 @@ import src.ua_generator as ua_generator
 class TestBrowser(unittest.TestCase):
     def test_browser(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=('chrome'))
+            ua = ua_generator.generate(browser=('chrome',))
             self.assertTrue(ua.browser == 'chrome')
 
     def test_browser_2(self):

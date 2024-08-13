@@ -25,52 +25,59 @@ class UserAgent:
         self.ch: ClientHints
         self.headers: Headers
 
-    def __find_device(self):
+    def __find_device(self) -> str:
         if self.device is not None:
-            if not utils.contains_multiple(self.device, devices):
-                raise exceptions.InvalidArgumentError('No device type found: {}'.format(self.device))
-            else:
+            if utils.contains_multiple(self.device, devices):
                 self.device = utils.choice(self.device)
-                return self.device
+            else:
+                raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
 
-        if self.platform is not None and utils.contains_multiple(self.platform, platforms_desktop):
-            self.device = 'desktop'
-        elif self.platform is not None and utils.contains_multiple(self.platform, platforms_mobile):
-            self.device = 'mobile'
-        elif self.device is None:
+        # Override the device type, if the platform is specified
+        if self.platform is not None:
+            if utils.contains_multiple(self.platform, platforms_desktop):
+                self.device = 'desktop'
+            elif utils.contains_multiple(self.platform, platforms_mobile):
+                self.device = 'mobile'
+
+        if self.device is None:
             self.device = utils.choice(devices)
 
         return self.device
 
-    def __find_platform(self):
+    def __find_platform(self) -> str:
         if self.platform is not None:
-            if not utils.contains_multiple(self.platform, platforms):
-                raise exceptions.InvalidArgumentError('No platform found: {}'.format(self.platform))
-            else:
+            if utils.contains_multiple(self.platform, platforms):
                 self.platform = utils.choice(self.platform)
-                return self.platform
+            else:
+                raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
 
-        if self.device is not None and 'desktop' in self.device:
-            self.platform = utils.choice(platforms_desktop)
-        elif self.device is not None and 'mobile' in self.device:
+        # Make the platform consistent with the device type and browser
+        if self.device == 'desktop' and not utils.contains_multiple(self.platform, platforms_desktop):
+            # Safari only supports the macOS and iOS platforms
+            if self.browser is not None and self.browser == 'safari':
+                self.platform = utils.choice(('macos', 'ios'))
+            else:
+                self.platform = utils.choice(platforms_desktop)
+        elif self.device == 'mobile' and not utils.contains_multiple(self.platform, platforms_mobile):
             self.platform = utils.choice(platforms_mobile)
-        elif self.platform is None:
+
+        if self.platform is None:
             self.platform = utils.choice(platforms)
 
         return self.platform
 
-    def __find_browser(self):
+    def __find_browser(self) -> str:
         if self.browser is not None:
-            if not utils.contains_multiple(self.browser, browsers):
-                raise exceptions.InvalidArgumentError('No browser found: {}'.format(self.browser))
-            else:
+            if utils.contains_multiple(self.browser, browsers):
                 self.browser = utils.choice(self.browser)
+            else:
+                raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
 
         if self.browser is None:
             self.browser = utils.choice(browsers)
 
-        # Safari only support for macOS and iOS
-        if self.platform != 'macos' and self.platform != 'ios' and self.browser == 'safari':
+        # Safari only supports the macOS and iOS platforms
+        if self.browser == 'safari' and self.platform not in ('macos', 'ios'):
             self.browser = 'chrome'
 
         return self.browser

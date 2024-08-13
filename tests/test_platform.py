@@ -11,7 +11,7 @@ import src.ua_generator as ua_generator
 class TestPlatform(unittest.TestCase):
     def test_platform(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(platform=('linux'))
+            ua = ua_generator.generate(platform=('linux',))
             self.assertTrue(ua.platform == 'linux')
 
     def test_platform_2(self):
@@ -33,6 +33,30 @@ class TestPlatform(unittest.TestCase):
         for i in range(0, 100):
             ua = ua_generator.generate(device='desktop')
             self.assertTrue(ua.platform == 'windows' or ua.platform == 'macos' or ua.platform == 'linux')
+
+    def test_platform_6(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(device='desktop', platform='ios')
+            self.assertNotEqual(ua.device, 'desktop')
+            self.assertEqual(ua.platform, 'ios')
+
+    def test_platform_7(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(device='desktop', platform='android')
+            self.assertNotEqual(ua.device, 'desktop')
+            self.assertEqual(ua.platform, 'android')
+
+    def test_platform_8(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(device='mobile', platform='windows')
+            self.assertNotEqual(ua.device, 'mobile')
+            self.assertEqual(ua.platform, 'windows')
+
+    def test_platform_9(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(device='mobile', platform='macos')
+            self.assertNotEqual(ua.device, 'mobile')
+            self.assertEqual(ua.platform, 'macos')
 
 
 if __name__ == '__main__':
