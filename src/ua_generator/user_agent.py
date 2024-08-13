@@ -16,10 +16,10 @@ from .options import Options
 
 class UserAgent:
     def __init__(self, device=None, platform=None, browser=None, options=None):
-        self.device: typing.Union[str, None] = utils.choice(device)
-        self.platform: typing.Union[str, None] = utils.choice(platform)
-        self.browser: typing.Union[str, None] = utils.choice(browser)
-        self.options: Options = options if options is not None else Options()
+        self.device: typing.Union[str, None] = utils.choice(device) if device else None
+        self.platform: typing.Union[str, None] = utils.choice(platform) if platform else None
+        self.browser: typing.Union[str, None] = utils.choice(browser) if browser else None
+        self.options: Options = options if options else Options()
         self.__complete()
 
         # Type hinting only
