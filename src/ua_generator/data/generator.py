@@ -93,7 +93,6 @@ class Generator:
                     'Mozilla/5.0 (X11; Linux x86_64; rv:{firefox}) Gecko/20100101 Firefox/{firefox}',
                     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:{firefox}) Gecko/20100101 Firefox/{firefox}',
                 ))
-                template = template.replace('{linux}', str(self.platform_version))
                 template = template.replace('{firefox}', str(self.browser_version))
                 return template
 
