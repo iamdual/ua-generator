@@ -95,7 +95,7 @@ class Generator:
                 template = template.replace('{firefox}', str(self.browser_version))
                 return template
 
-        elif self.platform == 'android' and self.device == 'mobile':
+        elif self.platform == 'android':
             if self.browser == 'chrome':
                 template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit}'
                 template = template.replace('{android}', str(self.platform_version.major))
