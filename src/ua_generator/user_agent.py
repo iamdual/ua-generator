@@ -14,9 +14,9 @@ from .options import Options
 
 class UserAgent:
     def __init__(self, device=None, platform=None, browser=None, options=None):
-        self.device = device
-        self.platform = platform
-        self.browser = browser
+        self.device: str = utils.choice(device)
+        self.platform: str = utils.choice(platform)
+        self.browser: str = utils.choice(browser)
         self.options: Options = options if options is not None else Options()
         self.__complete()
 
@@ -26,17 +26,14 @@ class UserAgent:
         self.headers: Headers
 
     def __find_device(self) -> str:
-        if self.device is not None:
-            if utils.contains_multiple(self.device, devices):
-                self.device = utils.choice(self.device)
-            else:
-                raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
+        if self.device is not None and self.device not in devices:
+            raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
 
         # Override the device type, if the platform is specified
         if self.platform is not None:
-            if utils.contains_multiple(self.platform, platforms_desktop):
+            if self.platform in platforms_desktop:
                 self.device = 'desktop'
-            elif utils.contains_multiple(self.platform, platforms_mobile):
+            elif self.platform in platforms_mobile:
                 self.device = 'mobile'
 
         if self.device is None:
@@ -45,20 +42,17 @@ class UserAgent:
         return self.device
 
     def __find_platform(self) -> str:
-        if self.platform is not None:
-            if utils.contains_multiple(self.platform, platforms):
-                self.platform = utils.choice(self.platform)
-            else:
-                raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
+        if self.platform is not None and self.platform not in platforms:
+            raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
 
         # Make the platform consistent with the device type and browser
-        if self.device == 'desktop' and not utils.contains_multiple(self.platform, platforms_desktop):
+        if self.device == 'desktop' and self.platform not in platforms_desktop:
             # Safari only supports the macOS and iOS platforms
             if self.browser is not None and self.browser == 'safari':
                 self.platform = utils.choice(('macos', 'ios'))
             else:
                 self.platform = utils.choice(platforms_desktop)
-        elif self.device == 'mobile' and not utils.contains_multiple(self.platform, platforms_mobile):
+        elif self.device == 'mobile' and self.platform not in platforms_mobile:
             self.platform = utils.choice(platforms_mobile)
 
         if self.platform is None:
@@ -67,11 +61,8 @@ class UserAgent:
         return self.platform
 
     def __find_browser(self) -> str:
-        if self.browser is not None:
-            if utils.contains_multiple(self.browser, browsers):
-                self.browser = utils.choice(self.browser)
-            else:
-                raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
+        if self.browser is not None and self.browser not in browsers:
+            raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
 
         if self.browser is None:
             self.browser = utils.choice(browsers)

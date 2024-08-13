@@ -7,24 +7,7 @@ import random
 from typing import Union
 
 
-def contains(t: Union[str, tuple, list], val: str) -> bool:
-    if type(t) is str and t == val:
-        return True
-    if (type(t) is tuple or type(t) is list) and val in t:
-        return True
-
-    return False
-
-
-def contains_multiple(t: Union[str, tuple, list], arr: Union[tuple, list]) -> bool:
-    for val in arr:
-        if contains(t, val):
-            return True
-
-    return False
-
-
-def choice(t):
+def choice(t: Union[str, tuple, list, None]) -> Union[str, None]:
     if type(t) is str:
         return t
     if type(t) is tuple or type(t) is list:
