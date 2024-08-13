@@ -6,9 +6,8 @@ License: Apache License 2.0
 import typing
 
 from . import utils, exceptions
-from .data import platforms, browsers  # TODO: learn why the error is triggered when moving this to the bottom
 from .client_hints import ClientHints
-from .data import devices, platforms_desktop, platforms_mobile
+from .data import devices, browsers, platforms, platforms_desktop, platforms_mobile
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
