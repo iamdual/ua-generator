@@ -8,6 +8,7 @@ from random import Random
 from . import serialization
 from .data import generator, platforms_mobile
 from .data.version import AndroidVersion, WindowsVersion
+from .exceptions import InvalidArgumentError
 
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA
@@ -28,10 +29,10 @@ class ClientHints:
         self.__generator = gen
         self.__cache = {}
 
-    def get_mobile(self):
+    def get_mobile(self) -> bool:
         return self.__generator.platform in platforms_mobile
 
-    def get_platform(self):
+    def get_platform(self) -> str:
         platform = self.__generator.platform
 
         if platform == 'ios':
@@ -43,13 +44,13 @@ class ClientHints:
 
         return platform
 
-    def get_platform_version(self):
+    def get_platform_version(self) -> str:
         if type(self.__generator.platform_version) is WindowsVersion:
             return self.__generator.platform_version.ch_platform.format(partitions=3)
 
         return str(self.__generator.platform_version)
 
-    def get_brands(self, full_version_list: bool = False):
+    def get_brands(self, full_version_list: bool = False) -> list:
         brand_list = [{'brand': 'Not A(Brand', 'version': '99.0.0.0' if full_version_list else '99'}]
 
         if self.__generator.browser == 'chrome':
@@ -63,20 +64,20 @@ class ClientHints:
 
         return brand_list
 
-    def get_browser_version(self, full_version: bool = True):
+    def get_browser_version(self, full_version: bool = True) -> str:
         if full_version:
             return str(self.__generator.browser_version)
         else:
             return str(self.__generator.browser_version.major)
 
-    def get_bitness(self):
+    def get_bitness(self) -> str:
         if self.__generator.platform == 'android':
             _random = Random(self.__generator.user_agent)
             return _random.choice(('32', '64', '32', '32'))
 
         return '64'
 
-    def get_architecture(self):
+    def get_architecture(self) -> str:
         if self.__generator.platform == 'android' or self.__generator.platform == 'ios':
             return 'arm'
         elif self.__generator.platform == 'macos':
@@ -85,16 +86,16 @@ class ClientHints:
 
         return 'x86'
 
-    def get_model(self):
+    def get_model(self) -> str:
         if type(self.__generator.platform_version) is AndroidVersion:
-            return self.__generator.platform_version.platform_model
+            return self.__generator.platform_version.platform_model or ''
 
         return ''
 
-    def get_wow64(self):
+    def get_wow64(self) -> bool:
         return self.__generator.platform == 'windows'
 
-    def __getattr__(self, name):
+    def __getattr__(self, name) -> str:
         if name in self.__cache:
             return self.__cache[name]
 
@@ -116,6 +117,8 @@ class ClientHints:
             self.__cache[name] = serialization.ch_string(self.get_model())
         elif name == 'wow64':
             self.__cache[name] = serialization.ch_bool(self.get_wow64())
+        else:
+            raise InvalidArgumentError('Invalid attribute: {}'.format(name))
 
         return self.__cache[name]
 

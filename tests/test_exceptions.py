@@ -36,6 +36,11 @@ def raised_call_6():
         ua_generator.generate(browser=('invalid111', 'chrome'))
 
 
+def raised_call_7():
+    ua = ua_generator.generate()
+    return ua.ch.invalid111
+
+
 class TestExceptions(unittest.TestCase):
     def test_value_error(self):
         self.assertRaises(exceptions.InvalidArgumentError, raised_call)
@@ -54,6 +59,9 @@ class TestExceptions(unittest.TestCase):
 
     def test_value_error_6(self):
         self.assertRaises(exceptions.InvalidArgumentError, raised_call_6)
+
+    def test_value_error_7(self):
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call_7)
 
 
 if __name__ == '__main__':
