@@ -7,7 +7,7 @@ import typing
 
 from . import utils, exceptions
 from .client_hints import ClientHints
-from .data import devices, browsers, platforms, platforms_desktop, platforms_mobile
+from .data import devices_s, devices, browsers,browsers_s, platforms,platforms_s, platforms_desktop,platforms_desktop_s, platforms_mobile,platforms_mobile_s
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
@@ -27,14 +27,14 @@ class UserAgent:
         self.headers: Headers
 
     def __find_device(self) -> str:
-        if self.device is not None and self.device not in devices:
+        if self.device is not None and self.device not in devices_s:
             raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
 
         # Override the device type, if the platform is specified
         if self.platform is not None:
-            if self.platform in platforms_desktop:
+            if self.platform in platforms_desktop_s:
                 self.device = 'desktop'
-            elif self.platform in platforms_mobile:
+            elif self.platform in platforms_mobile_s:
                 self.device = 'mobile'
 
         if self.device is None:
@@ -43,17 +43,17 @@ class UserAgent:
         return self.device
 
     def __find_platform(self) -> str:
-        if self.platform is not None and self.platform not in platforms:
+        if self.platform is not None and self.platform not in platforms_s:
             raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
 
         # Make the platform consistent with the device type and browser
-        if self.device == 'desktop' and self.platform not in platforms_desktop:
+        if self.device == 'desktop' and self.platform not in platforms_desktop_s:
             # Safari only supports the macOS and iOS platforms
-            if self.browser is not None and self.browser == 'safari':
+            if self.browser == 'safari':
                 self.platform = utils.choice(('macos', 'ios'))
             else:
                 self.platform = utils.choice(platforms_desktop)
-        elif self.device == 'mobile' and self.platform not in platforms_mobile:
+        elif self.device == 'mobile' and self.platform not in platforms_mobile_s:
             self.platform = utils.choice(platforms_mobile)
 
         if self.platform is None:
@@ -62,7 +62,7 @@ class UserAgent:
         return self.platform
 
     def __find_browser(self) -> str:
-        if self.browser is not None and self.browser not in browsers:
+        if self.browser is not None and self.browser not in browsers_s:
             raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
 
         if self.browser is None:
