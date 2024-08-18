@@ -8,7 +8,7 @@ import unittest
 import src.ua_generator as ua_generator
 from src.ua_generator import serialization
 from src.ua_generator.data import BROWSERS_SUPPORT_CH
-from src.ua_generator.data.version import version_types
+from src.ua_generator.data.version import VERSION_TYPES
 
 
 class TestClientHints(unittest.TestCase):

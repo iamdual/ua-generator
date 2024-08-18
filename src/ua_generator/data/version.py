@@ -74,7 +74,7 @@ class WindowsVersion(Version):
         self.ch_platform = ch_platform
 
 
-version_types = (
+VERSION_TYPES = (
     Version,
     ChromiumVersion,
     AndroidVersion,
