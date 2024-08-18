@@ -6,46 +6,19 @@ License: Apache License 2.0
 import random
 from typing import List
 
+from ...data import browser_versions,browser_versions_idx_map
 from ..version import Version, ChromiumVersion
 from ...options import Options
 
-# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
-versions: List[ChromiumVersion] = [
-    ChromiumVersion(Version(major=100, minor=0, build=1185, patch=(0, 99))),
-    ChromiumVersion(Version(major=101, minor=0, build=1210, patch=(0, 99))),
-    ChromiumVersion(Version(major=102, minor=0, build=1245, patch=(0, 99))),
-    ChromiumVersion(Version(major=103, minor=0, build=1264, patch=(0, 99))),
-    ChromiumVersion(Version(major=104, minor=0, build=1293, patch=(0, 99))),
-    ChromiumVersion(Version(major=105, minor=0, build=1343, patch=(0, 99))),
-    ChromiumVersion(Version(major=106, minor=0, build=1370, patch=(0, 99))),
-    ChromiumVersion(Version(major=107, minor=0, build=1418, patch=(0, 99))),
-    ChromiumVersion(Version(major=108, minor=0, build=1462, patch=(0, 99))),
-    ChromiumVersion(Version(major=109, minor=0, build=1518, patch=(0, 99))),
-    ChromiumVersion(Version(major=110, minor=0, build=1587, patch=(0, 99))),
-    ChromiumVersion(Version(major=111, minor=0, build=1661, patch=(0, 99))),
-    ChromiumVersion(Version(major=112, minor=0, build=1722, patch=(0, 99))),
-    ChromiumVersion(Version(major=113, minor=0, build=1774, patch=(0, 99))),
-    ChromiumVersion(Version(major=114, minor=0, build=1823, patch=(0, 99))),
-    ChromiumVersion(Version(major=115, minor=0, build=1901, patch=(0, 99))),
-    ChromiumVersion(Version(major=116, minor=0, build=1938, patch=(0, 99))),
-    ChromiumVersion(Version(major=117, minor=0, build=2045, patch=(0, 99))),
-    ChromiumVersion(Version(major=118, minor=0, build=2088, patch=(0, 99))),
-    ChromiumVersion(Version(major=119, minor=0, build=2151, patch=(0, 99))),
-    ChromiumVersion(Version(major=120, minor=0, build=2210, patch=(0, 99))),
-    ChromiumVersion(Version(major=121, minor=0, build=2277, patch=(0, 99))),
-    ChromiumVersion(Version(major=122, minor=0, build=2365, patch=(0, 99))),
-    ChromiumVersion(Version(major=123, minor=0, build=2420, patch=(0, 99))),
-    ChromiumVersion(Version(major=124, minor=0, build=2478, patch=(0, 99))),
-    ChromiumVersion(Version(major=125, minor=0, build=2535, patch=(0, 99))),
-    ChromiumVersion(Version(major=126, minor=0, build=2592, patch=(0, 99))),
-    ChromiumVersion(Version(major=127, minor=0, build=2651, patch=(0, 99))),
-    ChromiumVersion(Version(major=128, minor=0, build=2739, patch=(0, 99))),
-]
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    weights = None
-    if options.weighted_versions:
+    weights = None 
+    min_ver_idx = browser_versions_idx_map['edge'][options.browser_version_ranges['edge'].min]
+    max_ver_idx = browser_versions_idx_map['edge'][options.browser_version_ranges['edge'].max]
+    versions = browser_versions['edge'][min_ver_idx:max_ver_idx+1]
+    #Version ranges that range less than 3 versions currently unsupported with weighted_versions
+    if options.weighted_versions and len(versions) >= 3:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
         weights[-2] = 9.0

@@ -6,53 +6,16 @@ License: Apache License 2.0
 import random
 from typing import List
 
+from ...data import browser_versions,browser_versions_idx_map
 from ..version import Version
 from ...options import Options
-
-# https://www.mozilla.org/en-US/firefox/releases/
-versions: List[Version] = [
-    Version(major=103, minor=0, build=(0, 2)),
-    Version(major=104, minor=0, build=(0, 2)),
-    Version(major=105, minor=0, build=(0, 3)),
-    Version(major=106, minor=0, build=(0, 5)),
-    Version(major=107, minor=0, build=(0, 1)),
-    Version(major=108, minor=0, build=(0, 2)),
-    Version(major=109, minor=0, build=(0, 1)),
-    Version(major=110, minor=0, build=(0, 1)),
-    Version(major=111, minor=0, build=(0, 1)),
-    Version(major=112, minor=0, build=(0, 2)),
-    Version(major=113, minor=0, build=(0, 2)),
-    Version(major=114, minor=0, build=(0, 2)),
-    Version(major=115, minor=0, build=(0, 3)),
-    Version(major=115, minor=1, build=0),
-    Version(major=115, minor=2, build=(0, 1)),
-    Version(major=115, minor=3, build=(0, 1)),
-    Version(major=115, minor=4, build=0),
-    Version(major=115, minor=5, build=0),
-    Version(major=115, minor=6, build=0),
-    Version(major=115, minor=7, build=0),
-    Version(major=115, minor=8, build=0),
-    Version(major=116, minor=0, build=(0, 3)),
-    Version(major=117, minor=0, build=(0, 1)),
-    Version(major=118, minor=0, build=(0, 2)),
-    Version(major=119, minor=0, build=(0, 1)),
-    Version(major=120, minor=0, build=(0, 1)),
-    Version(major=121, minor=0, build=(0, 1)),
-    Version(major=122, minor=0, build=(0, 1)),
-    Version(major=123, minor=0, build=(0, 1)),
-    Version(major=124, minor=0, build=(0, 2)),
-    Version(major=125, minor=0, build=(1, 3)),
-    Version(major=126, minor=0, build=0),
-    Version(major=127, minor=0, build=(0, 2)),
-    Version(major=128, minor=0, build=(0, 3)),
-    Version(major=128, minor=1, build=0),
-    Version(major=129, minor=0, build=0),
-]
-
-
 def get_version(options: Options) -> Version:
     weights = None
-    if options.weighted_versions:
+    min_ver_idx = browser_versions_idx_map['firefox'][options.browser_version_ranges['firefox'].min]
+    max_ver_idx = browser_versions_idx_map['firefox'][options.browser_version_ranges['firefox'].max]
+    versions = browser_versions['firefox'][min_ver_idx:max_ver_idx+1]
+    #Version ranges that range less than 3 versions currently unsupported with weighted_versions
+    if options.weighted_versions and len(versions) >= 3:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
         weights[-2] = 9.0

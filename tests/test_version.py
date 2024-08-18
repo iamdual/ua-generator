@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import unittest
 
-from src.ua_generator.data.version import Version, WindowsVersion, AndroidVersion, ChromiumVersion
+from src.ua_generator.data.version import Version, WindowsVersion,AndroidVersion, ChromiumVersion
 
 
 class TestVersion(unittest.TestCase):
@@ -118,7 +118,5 @@ class TestVersion(unittest.TestCase):
         version = ChromiumVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(537, 36))
         self.assertEqual(version.format(partitions=4), '1.2.3.4')
         self.assertEqual(version.webkit.format(), '537.36')
-
-
 if __name__ == '__main__':
     unittest.main()

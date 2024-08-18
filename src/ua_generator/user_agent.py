@@ -7,7 +7,7 @@ import typing
 
 from . import utils, exceptions
 from .client_hints import ClientHints
-from .data import devices_s, devices, browsers,browsers_s, platforms,platforms_s, platforms_desktop,platforms_desktop_s, platforms_mobile,platforms_mobile_s
+from .data import browser_versions_idx_map, DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
@@ -27,52 +27,59 @@ class UserAgent:
         self.headers: Headers
 
     def __find_device(self) -> str:
-        if self.device is not None and self.device not in devices_s:
+        if self.device is not None and self.device not in DEVICES:
             raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
 
         # Override the device type, if the platform is specified
         if self.platform is not None:
-            if self.platform in platforms_desktop_s:
+            if self.platform in PLATFORMS_DESKTOP:
                 self.device = 'desktop'
-            elif self.platform in platforms_mobile_s:
+            elif self.platform in PLATFORMS_MOBILE:
                 self.device = 'mobile'
 
         if self.device is None:
-            self.device = utils.choice(devices)
+            self.device = utils.choice(DEVICES)
 
         return self.device
 
     def __find_platform(self) -> str:
-        if self.platform is not None and self.platform not in platforms_s:
-            raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
+        if self.platform is not None and self.platform not in PLATFORMS:
+            raise exceptions.InvalidArgumentError('No such platform found: {}\n'.format(self.platform))
 
         # Make the platform consistent with the device type and browser
-        if self.device == 'desktop' and self.platform not in platforms_desktop_s:
+        if self.device == 'desktop' and self.platform not in PLATFORMS_DESKTOP:
             # Safari only supports the macOS and iOS platforms
             if self.browser == 'safari':
                 self.platform = utils.choice(('macos', 'ios'))
             else:
-                self.platform = utils.choice(platforms_desktop)
-        elif self.device == 'mobile' and self.platform not in platforms_mobile_s:
-            self.platform = utils.choice(platforms_mobile)
+                self.platform = utils.choice(PLATFORMS_DESKTOP)
+        elif self.device == 'mobile' and self.platform not in PLATFORMS_MOBILE:
+            self.platform = utils.choice(PLATFORMS_MOBILE)
 
         if self.platform is None:
-            self.platform = utils.choice(platforms)
+            self.platform = utils.choice(PLATFORMS)
 
         return self.platform
 
     def __find_browser(self) -> str:
-        if self.browser is not None and self.browser not in browsers_s:
-            raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
+        if self.browser is not None and self.browser not in BROWSERS:
+            raise exceptions.InvalidArgumentError('No such browser found: {}\n'.format(self.browser))
 
         if self.browser is None:
-            self.browser = utils.choice(browsers)
+            self.browser = utils.choice(BROWSERS)
 
         # Safari only supports the macOS and iOS platforms
         if self.browser == 'safari' and self.platform not in ('macos', 'ios'):
             self.browser = 'chrome'
-
+        #Make sure version range specified is valid 
+        browser_version_range = self.options.browser_version_ranges[self.browser]
+        if(not 
+          (browser_version_range.min in browser_versions_idx_map[self.browser] and 
+           browser_version_range.max in browser_versions_idx_map[self.browser] and
+           browser_version_range.min <= browser_version_range.max)):
+            raise exceptions.InvalidArgumentError('Invalid version range {}-{}, for: {}\n'.format(browser_version_range.min,browser_version_range.max,self.browser))
         return self.browser
+        
 
     def __complete(self):
         self.device = self.__find_device()

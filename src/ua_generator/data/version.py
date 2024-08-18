@@ -4,8 +4,7 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
-from typing import Union
-
+from typing import List, Union
 
 class Version:
     major: int = None
@@ -23,7 +22,7 @@ class Version:
             # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
             random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
-        )
+        ) 
 
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
@@ -74,6 +73,12 @@ class WindowsVersion(Version):
         self.ch_platform = ch_platform
 
 
+class VersionRange:
+    def __init__(self, min_version, max_version):
+        self.min = min_version
+        self.max = max_version
+
+    
 version_types = (
     Version,
     ChromiumVersion,

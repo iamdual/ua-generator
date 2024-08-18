@@ -6,7 +6,7 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
-from src.ua_generator.data import browsers_support_ch
+from src.ua_generator.data import BROWSERS_SUPPORT_CH
 
 
 class TestHeaders(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestHeaders(unittest.TestCase):
 
     def test_client_hints(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
             self.assertIsNotNone(ua.headers)
             self.assertTrue('sec-ch-ua' in ua.headers.get())
             self.assertTrue('sec-ch-ua-mobile' in ua.headers.get())
@@ -34,7 +34,7 @@ class TestHeaders(unittest.TestCase):
 
     def test_accept_ch(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
 
             ua.headers.accept_ch('Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List')
             self.assertTrue('sec-ch-ua-platform-version' in ua.headers.get())
@@ -52,7 +52,7 @@ class TestHeaders(unittest.TestCase):
 
     def test_reset(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
 
             ua.headers.add('sec-ch-ua-bitness')
             self.assertTrue('user-agent' in ua.headers.get())
@@ -66,7 +66,7 @@ class TestHeaders(unittest.TestCase):
 
     def test_accept_ch_not_exists(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
             ua.headers.accept_ch('Sec-CH-Example')
             self.assertFalse('sec-ch-ua-platform-version' in ua.headers.get())
             self.assertFalse('sec-ch-ua-full-version-list' in ua.headers.get())
