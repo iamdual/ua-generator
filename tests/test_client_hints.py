@@ -7,14 +7,14 @@ import unittest
 
 import src.ua_generator as ua_generator
 from src.ua_generator import serialization
-from src.ua_generator.data import browsers_support_ch
+from src.ua_generator.data import BROWSERS_SUPPORT_CH
 from src.ua_generator.data.version import version_types
 
 
 class TestClientHints(unittest.TestCase):
     def test_ch_platform(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch, platform='macos')
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='macos')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform) is str)
             self.assertEqual(ua.ch.platform, '"macOS"')
@@ -22,7 +22,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_platform_2(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch, platform='linux')
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='linux')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform) is str)
             self.assertEqual(ua.ch.platform, '"Linux"')
@@ -30,7 +30,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_platform_version(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.platform_version) is str)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
@@ -44,7 +44,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_mobile(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch, platform='android')
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='android')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.mobile) is str)
             self.assertEqual(ua.ch.mobile, '?1')
@@ -55,7 +55,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_non_mobile(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch, platform='windows')
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='windows')
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.mobile) is str)
             self.assertEqual(ua.ch.mobile, '?0')
@@ -86,7 +86,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_bitness(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.bitness) is str)
             self.assertIn(ua.ch.bitness, ('"32"', '"64"'))
@@ -94,7 +94,7 @@ class TestClientHints(unittest.TestCase):
 
     def test_ch_architecture(self):
         for i in range(0, 100):
-            ua = ua_generator.generate(browser=browsers_support_ch)
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH)
             self.assertIsNotNone(ua.ch)
             self.assertTrue(type(ua.ch.architecture) is str)
             self.assertIn(ua.ch.architecture, ('"arm"', '"x86"'))

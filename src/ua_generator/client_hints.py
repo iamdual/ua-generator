@@ -6,7 +6,7 @@ License: Apache License 2.0
 from random import Random
 
 from . import serialization
-from .data import generator, platforms_mobile
+from .data import generator, PLATFORMS_MOBILE
 from .data.version import AndroidVersion, WindowsVersion
 from .exceptions import InvalidArgumentError
 
@@ -30,7 +30,7 @@ class ClientHints:
         self.__cache = {}
 
     def get_mobile(self) -> bool:
-        return self.__generator.platform in platforms_mobile
+        return self.__generator.platform in PLATFORMS_MOBILE
 
     def get_platform(self) -> str:
         platform = self.__generator.platform
