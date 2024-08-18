@@ -6,6 +6,8 @@ License: Apache License 2.0
 import random
 from typing import Union
 
+from src.ua_generator import exceptions
+
 
 class Version:
     major: int = None
@@ -44,6 +46,29 @@ class Version:
 
         return separator.join(str(part) for part in versions)
 
+    # We use it for comparison. See: https://docs.python.org/3/reference/expressions.html#comparisons
+    # TODO: Caching for best performance
+    def to_tuple(self) -> tuple:
+        return tuple(part or 0 for part in [self.major, self.minor, self.build, self.patch])
+
+    def __eq__(self, other):
+        return self.to_tuple() == other.to_tuple()
+
+    def __ne__(self, other):
+        return self.to_tuple() != other.to_tuple()
+
+    def __lt__(self, other):
+        return self.to_tuple() < other.to_tuple()
+
+    def __gt__(self, other):
+        return self.to_tuple() > other.to_tuple()
+
+    def __le__(self, other):
+        return self.to_tuple() <= other.to_tuple()
+
+    def __ge__(self, other):
+        return self.to_tuple() >= other.to_tuple()
+
     def __str__(self):
         return self.format()
 
@@ -80,3 +105,15 @@ VERSION_TYPES = (
     AndroidVersion,
     WindowsVersion,
 )
+
+
+class VersionRange:
+    min_version: Union[Version, None] = None
+    max_version: Union[Version, None] = None
+
+    def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
+        if min_version is None and max_version is None:
+            raise exceptions.InvalidArgumentError("min_version or max_version must be specified")
+
+        self.min_version = Version(major=min_version) if type(min_version) is int else min_version
+        self.max_version = Version(major=max_version) if type(max_version) is int else max_version
