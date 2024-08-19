@@ -25,6 +25,7 @@ class UserAgent:
         self.text: str
         self.ch: ClientHints
         self.headers: Headers
+        self.generator: Generator
 
     def __find_device(self) -> str:
         if self.device is not None and self.device not in DEVICES:
@@ -83,6 +84,7 @@ class UserAgent:
         self.text = ua.user_agent
         self.ch = ClientHints(ua)
         self.headers = Headers(ua, self.ch)
+        self.generator = ua
 
     def __str__(self):
         return self.text
