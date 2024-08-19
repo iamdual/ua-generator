@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..version import Version, WindowsVersion
+from ..version import Version, WindowsVersion, VersionRange
 from ...options import Options
 
 # https://learn.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version
@@ -21,6 +21,12 @@ versions: List[WindowsVersion] = [
 
 
 def get_version(options: Options) -> WindowsVersion:
+    if options.selected_versions is not None and "windows" in options.selected_versions:
+        if type(options.selected_versions["windows"]) == VersionRange:
+            filtered = options.selected_versions["windows"].filter(versions)
+            if type(filtered) == list and len(filtered) > 0:
+                return random.choice(filtered)
+
     weights = None
     if options.weighted_versions:
         weights = [1.0] * len(versions)

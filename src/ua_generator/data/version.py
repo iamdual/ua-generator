@@ -4,7 +4,7 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
-from typing import Union
+from typing import Union, List
 
 from src.ua_generator import exceptions
 
@@ -108,12 +108,24 @@ VERSION_TYPES = (
 
 
 class VersionRange:
-    min_version: Union[Version, None] = None
-    max_version: Union[Version, None] = None
+    min_version: Version = None
+    max_version: Version = None
 
     def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
-        if min_version is None and max_version is None:
-            raise exceptions.InvalidArgumentError("min_version or max_version must be specified")
+        if min_version is None or max_version is None:
+            raise exceptions.InvalidArgumentError("min_version and max_version must be specified")
 
         self.min_version = Version(major=min_version) if type(min_version) is int else min_version
         self.max_version = Version(major=max_version) if type(max_version) is int else max_version
+
+        if self.max_version <= self.min_version:
+            raise exceptions.InvalidArgumentError("max_version must be greater than min_version")
+
+    def filter(self, versions: List[Version]) -> List[Version]:
+        tmp_versions: List[Version] = []
+
+        for version in versions:
+            if self.min_version.major <= version.major <= self.max_version.major:
+                tmp_versions.append(version)
+
+        return tmp_versions

@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..version import Version
+from ..version import Version, VersionRange
 from ...options import Options
 
 # User agent cap on macOS
@@ -47,6 +47,12 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
+    if options.selected_versions is not None and "macos" in options.selected_versions:
+        if type(options.selected_versions["macos"]) == VersionRange:
+            filtered = options.selected_versions["macos"].filter(versions)
+            if type(filtered) == list and len(filtered) > 0:
+                return random.choice(filtered)
+
     weights = None
     if options.weighted_versions:
         weights = [1.0] * len(versions)
