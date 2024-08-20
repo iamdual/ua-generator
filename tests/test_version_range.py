@@ -25,6 +25,7 @@ class TestVersionRange(unittest.TestCase):
         self.assertEqual(version_range.min_version.format(partitions=4), '1.0.0.0')
         self.assertEqual(version_range.max_version.format(partitions=4), '2.0.0.0')
         self.assertTrue(version_range.max_version.to_tuple() > version_range.min_version.to_tuple())
+        self.assertTrue(version_range.max_version > version_range.min_version)
 
     def test_version_range_2(self):
         version_range = VersionRange(Version(major=100, minor=0, build=2), 101)
@@ -40,6 +41,7 @@ class TestVersionRange(unittest.TestCase):
         self.assertEqual(version_range.min_version.format(partitions=4), '100.0.2.0')
         self.assertEqual(version_range.max_version.format(partitions=4), '101.0.0.0')
         self.assertTrue(version_range.max_version.to_tuple() > version_range.min_version.to_tuple())
+        self.assertTrue(version_range.max_version > version_range.min_version)
 
     def test_version_range_3(self):
         # MUST be valid version range
