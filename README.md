@@ -149,7 +149,7 @@ options = Options(weighted_versions=True)
 ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
 
 # Select versions within a specified range
-options = Options(selected_versions={
+options = Options(version_ranges={
     'chrome': VersionRange(125, 129),
 })
 ua = ua_generator.generate(browser='chrome', options=options)
@@ -158,7 +158,7 @@ ua = ua_generator.generate(browser='chrome', options=options)
 ## Parameters
 
 - **weighted_versions (bool):** To increase the probability of the latest versions being chosen. Default is `False`.
-- **selected_versions (Dict\[str, VersionRange\]):** Choose only versions were specified. Default is `None`.
+- **version_ranges (Dict\[str, VersionRange\]):** Choose only versions were specified. Default is `None`.
 
 # Issues
 

@@ -50,7 +50,7 @@ class TestVersionRange(unittest.TestCase):
 
         for i in range(0, 100):
             options = Options(
-                selected_versions={
+                version_ranges={
                     'chrome': VersionRange(min_version=chrome_min, max_version=chrome_max),
                 })
             ua = ua_generator.generate(browser='chrome', options=options)
@@ -64,7 +64,7 @@ class TestVersionRange(unittest.TestCase):
         firefox_max = 129
 
         for i in range(0, 100):
-            options = Options(selected_versions={
+            options = Options(version_ranges={
                 'firefox': VersionRange(min_version=firefox_min, max_version=firefox_max),
             })
             ua = ua_generator.generate(browser='firefox', options=options)
@@ -80,7 +80,7 @@ class TestVersionRange(unittest.TestCase):
         firefox_max = 129
 
         for i in range(0, 100):
-            options = Options(selected_versions={
+            options = Options(version_ranges={
                 'chrome': VersionRange(min_version=chrome_min, max_version=chrome_max),
                 'firefox': VersionRange(min_version=firefox_min, max_version=firefox_max),
             })
@@ -98,7 +98,7 @@ class TestVersionRange(unittest.TestCase):
         macos_max = 14
 
         for i in range(0, 100):
-            options = Options(selected_versions={
+            options = Options(version_ranges={
                 'macos': VersionRange(min_version=macos_min, max_version=macos_max),
             })
             ua = ua_generator.generate(platform='macos', options=options)
@@ -112,7 +112,7 @@ class TestVersionRange(unittest.TestCase):
         edge_max = 2
 
         for i in range(0, 100):
-            options = Options(selected_versions={
+            options = Options(version_ranges={
                 'edge': VersionRange(min_version=edge_min, max_version=edge_max),
             })
             ua = ua_generator.generate(browser='edge', options=options)

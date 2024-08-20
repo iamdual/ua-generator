@@ -42,9 +42,9 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    if options.selected_versions is not None and "chrome" in options.selected_versions:
-        if type(options.selected_versions["chrome"]) == VersionRange:
-            filtered = options.selected_versions["chrome"].filter(versions)
+    if options.version_ranges is not None and "chrome" in options.version_ranges:
+        if type(options.version_ranges["chrome"]) == VersionRange:
+            filtered = options.version_ranges["chrome"].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 

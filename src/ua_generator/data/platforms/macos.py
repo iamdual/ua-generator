@@ -47,9 +47,9 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    if options.selected_versions is not None and "macos" in options.selected_versions:
-        if type(options.selected_versions["macos"]) == VersionRange:
-            filtered = options.selected_versions["macos"].filter(versions)
+    if options.version_ranges is not None and "macos" in options.version_ranges:
+        if type(options.version_ranges["macos"]) == VersionRange:
+            filtered = options.version_ranges["macos"].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 

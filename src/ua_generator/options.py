@@ -10,9 +10,9 @@ from src.ua_generator.data.version import VersionRange
 
 class Options:
     weighted_versions: bool = False
-    selected_versions: typing.Dict[str, VersionRange] = None
+    version_ranges: typing.Dict[str, VersionRange] = None
 
-    def __init__(self, weighted_versions: bool = False, selected_versions: typing.Dict[str, VersionRange] = None):
+    def __init__(self, weighted_versions: bool = False, version_ranges: typing.Dict[str, VersionRange] = None):
         self.weighted_versions = weighted_versions
-        if selected_versions is not None:
-            self.selected_versions = selected_versions
+        if version_ranges is not None:
+            self.version_ranges = version_ranges
