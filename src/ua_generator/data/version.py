@@ -26,6 +26,7 @@ class Version:
             random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
         )
+        self.__tuple = None
 
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
@@ -46,10 +47,16 @@ class Version:
 
         return separator.join(str(part) for part in versions)
 
+    def __str__(self):
+        return self.format()
+
     # We use it for comparison. See: https://docs.python.org/3/reference/expressions.html#comparisons
-    # TODO: Caching for best performance
     def to_tuple(self) -> tuple:
-        return tuple(part or 0 for part in [self.major, self.minor, self.build, self.patch])
+        if self.__tuple is not None:
+            return self.__tuple
+
+        self.__tuple = tuple(part or 0 for part in [self.major, self.minor, self.build, self.patch])
+        return self.__tuple
 
     def __eq__(self, other):
         return self.to_tuple() == other.to_tuple()
@@ -68,9 +75,6 @@ class Version:
 
     def __ge__(self, other):
         return self.to_tuple() >= other.to_tuple()
-
-    def __str__(self):
-        return self.format()
 
 
 class ChromiumVersion(Version):
@@ -125,6 +129,7 @@ class VersionRange:
         tmp_versions: List[Version] = []
 
         for version in versions:
+            # TODO: Perhaps support for full version comparison, instead of just major versions
             if self.min_version.major <= version.major <= self.max_version.major:
                 tmp_versions.append(version)
 
