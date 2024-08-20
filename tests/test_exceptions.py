@@ -7,61 +7,67 @@ import unittest
 
 import src.ua_generator as ua_generator
 from src.ua_generator import exceptions
-
-
-def raised_call():
-    ua_generator.generate(device='desktop', platform='invalid111')
-
-
-def raised_call_2():
-    ua_generator.generate(browser=('invalid111', 'invalid112'))
-
-
-def raised_call_3():
-    ua_generator.generate(device='invalid111', platform='android', browser='chrome')
-
-
-def raised_call_4():
-    for i in range(0, 100):
-        ua_generator.generate(device=('desktop', 'invalid111'))
-
-
-def raised_call_5():
-    for i in range(0, 100):
-        ua_generator.generate(platform=('invalid111', 'macos'))
-
-
-def raised_call_6():
-    for i in range(0, 100):
-        ua_generator.generate(browser=('invalid111', 'chrome'))
-
-
-def raised_call_7():
-    ua = ua_generator.generate()
-    return ua.ch.invalid111
+from src.ua_generator.data.version import VersionRange
 
 
 class TestExceptions(unittest.TestCase):
     def test_value_error(self):
+        def raised_call():
+            ua_generator.generate(device='desktop', platform='invalid111')
+
         self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_2(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_2)
+        def raised_call():
+            ua_generator.generate(browser=('invalid111', 'invalid112'))
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_3(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_3)
+        def raised_call():
+            ua_generator.generate(device='invalid111', platform='android', browser='chrome')
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_4(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_4)
+        def raised_call():
+            for i in range(0, 100):
+                ua_generator.generate(device=('desktop', 'invalid111'))
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_5(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_5)
+        def raised_call():
+            for i in range(0, 100):
+                ua_generator.generate(platform=('invalid111', 'macos'))
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_6(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_6)
+        def raised_call():
+            for i in range(0, 100):
+                ua_generator.generate(browser=('invalid111', 'chrome'))
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
     def test_value_error_7(self):
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call_7)
+        def raised_call():
+            ua = ua_generator.generate()
+            return ua.ch.invalid111
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
+
+    def test_version_range_error(self):
+        def raised_call():
+            VersionRange(min_version=2, max_version=None)
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
+
+    def test_version_range_error_2(self):
+        def raised_call():
+            VersionRange(min_version=1, max_version=1)
+
+        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
 
 if __name__ == '__main__':

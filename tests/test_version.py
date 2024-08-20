@@ -16,6 +16,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=3), '1.2.3')
         self.assertEqual(version.format(partitions=2), '1.2')
         self.assertEqual(version.format(partitions=1), '1')
+        self.assertEqual(version.to_tuple(), (1, 2, 3, 4))
 
     def test_version_2(self):
         version = Version(major=1, minor=2, build=3, patch=None)
@@ -24,6 +25,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=3), '1.2.3')
         self.assertEqual(version.format(partitions=2), '1.2')
         self.assertEqual(version.format(partitions=1), '1')
+        self.assertEqual(version.to_tuple(), (1, 2, 3, 0))
 
     def test_version_3(self):
         version = Version(major=1, minor=2, build=None, patch=0)
@@ -32,6 +34,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=3), '1.2.0')
         self.assertEqual(version.format(partitions=2), '1.2')
         self.assertEqual(version.format(partitions=1), '1')
+        self.assertEqual(version.to_tuple(), (1, 2, 0, 0))
 
     def test_version_4(self):
         version = Version(major=1, minor=2, patch=4)
@@ -40,6 +43,7 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=3), '1.2.0')
         self.assertEqual(version.format(partitions=2), '1.2')
         self.assertEqual(version.format(partitions=1), '1')
+        self.assertEqual(version.to_tuple(), (1, 2, 0, 4))
 
     def test_version_5(self):
         version = Version(major=0, build=3)
@@ -48,16 +52,19 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=3), '0.0.3')
         self.assertEqual(version.format(partitions=2), '0.0')
         self.assertEqual(version.format(partitions=1), '0')
+        self.assertEqual(version.to_tuple(), (0, 0, 3, 0))
 
     def test_version_6(self):
         version = Version(major=1, minor=2)
         self.assertEqual(version.format(), '1.2')
         self.assertEqual(version.format(partitions=3), '1.2.0')
+        self.assertEqual(version.to_tuple(), (1, 2, 0, 0))
 
     def test_version_7(self):
         version = Version(major=1)
         self.assertEqual(version.format(), '1')
         self.assertEqual(version.format(partitions=2), '1.0')
+        self.assertEqual(version.to_tuple(), (1, 0, 0, 0))
 
     def test_version_separator(self):
         version = Version(major=1, minor=2, build=3, patch=4)
@@ -118,6 +125,26 @@ class TestVersion(unittest.TestCase):
         version = ChromiumVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(537, 36))
         self.assertEqual(version.format(partitions=4), '1.2.3.4')
         self.assertEqual(version.webkit.format(), '537.36')
+
+    def test_version_comparison(self):
+        version_1 = Version(major=1, minor=2)
+        version_2 = Version(major=1, minor=3)
+        self.assertFalse(version_1 == version_2)
+        self.assertTrue(version_1 != version_2)
+        self.assertTrue(version_1 < version_2)
+        self.assertFalse(version_1 > version_2)
+        self.assertTrue(version_1 <= version_2)
+        self.assertFalse(version_1 >= version_2)
+
+    def test_version_comparison_2(self):
+        version_1 = Version(major=1, minor=0)
+        version_2 = Version(major=1, minor=0)
+        self.assertTrue(version_1 == version_2)
+        self.assertFalse(version_1 != version_2)
+        self.assertFalse(version_1 < version_2)
+        self.assertFalse(version_1 > version_2)
+        self.assertTrue(version_1 <= version_2)
+        self.assertTrue(version_1 >= version_2)
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..version import Version
+from ..version import Version, VersionRange
 from ...options import Options
 
 # https://www.mozilla.org/en-US/firefox/releases/
@@ -51,6 +51,12 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
+    if options.version_ranges is not None and 'firefox' in options.version_ranges:
+        if type(options.version_ranges['firefox']) == VersionRange:
+            filtered = options.version_ranges['firefox'].filter(versions)
+            if type(filtered) == list and len(filtered) > 0:
+                return random.choice(filtered)
+
     weights = None
     if options.weighted_versions:
         weights = [1.0] * len(versions)

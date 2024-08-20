@@ -4,7 +4,9 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
-from typing import Union
+from typing import Union, List
+
+from src.ua_generator import exceptions
 
 
 class Version:
@@ -24,6 +26,7 @@ class Version:
             random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
         )
+        self.__tuple = None
 
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
@@ -46,6 +49,32 @@ class Version:
 
     def __str__(self):
         return self.format()
+
+    # We use it for comparison. See: https://docs.python.org/3/reference/expressions.html#comparisons
+    def to_tuple(self) -> tuple:
+        if self.__tuple is not None:
+            return self.__tuple
+
+        self.__tuple = tuple(part or 0 for part in [self.major, self.minor, self.build, self.patch])
+        return self.__tuple
+
+    def __eq__(self, other):
+        return self.to_tuple() == other.to_tuple()
+
+    def __ne__(self, other):
+        return self.to_tuple() != other.to_tuple()
+
+    def __lt__(self, other):
+        return self.to_tuple() < other.to_tuple()
+
+    def __gt__(self, other):
+        return self.to_tuple() > other.to_tuple()
+
+    def __le__(self, other):
+        return self.to_tuple() <= other.to_tuple()
+
+    def __ge__(self, other):
+        return self.to_tuple() >= other.to_tuple()
 
 
 class ChromiumVersion(Version):
@@ -74,9 +103,34 @@ class WindowsVersion(Version):
         self.ch_platform = ch_platform
 
 
-version_types = (
+VERSION_TYPES = (
     Version,
     ChromiumVersion,
     AndroidVersion,
     WindowsVersion,
 )
+
+
+class VersionRange:
+    min_version: Version = None
+    max_version: Version = None
+
+    def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
+        if min_version is None or max_version is None:
+            raise exceptions.InvalidArgumentError("min_version and max_version must be specified")
+
+        self.min_version = Version(major=min_version) if type(min_version) is int else min_version
+        self.max_version = Version(major=max_version) if type(max_version) is int else max_version
+
+        if self.max_version <= self.min_version:
+            raise exceptions.InvalidArgumentError("max_version must be greater than min_version")
+
+    def filter(self, versions: List[Version]) -> List[Version]:
+        tmp_versions: List[Version] = []
+
+        for version in versions:
+            # TODO: Perhaps support for full version comparison, instead of just major versions
+            if self.min_version.major <= version.major <= self.max_version.major:
+                tmp_versions.append(version)
+
+        return tmp_versions

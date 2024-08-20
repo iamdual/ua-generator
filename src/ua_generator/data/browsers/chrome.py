@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..version import Version, ChromiumVersion
+from ..version import Version, ChromiumVersion, VersionRange
 from ...options import Options
 
 # https://chromereleases.googleblog.com/search/label/Stable%20updates
@@ -42,6 +42,12 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
+    if options.version_ranges is not None and 'chrome' in options.version_ranges:
+        if type(options.version_ranges['chrome']) == VersionRange:
+            filtered = options.version_ranges['chrome'].filter(versions)
+            if type(filtered) == list and len(filtered) > 0:
+                return random.choice(filtered)
+
     weights = None
     if options.weighted_versions:
         weights = [1.0] * len(versions)

@@ -3,6 +3,8 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
+from .browsers import chrome, safari, firefox, edge
+from .platforms import ios, android, linux, windows, macos
 from .. import utils, exceptions
 from ..options import Options
 
@@ -19,8 +21,6 @@ class Generator:
         self.user_agent = self.__user_agent()
 
     def __platform_version(self):
-        from .platforms import ios, android, linux, windows, macos
-
         if self.platform == 'windows':
             return windows.get_version(options=self.options)
         elif self.platform == 'macos':
@@ -33,8 +33,6 @@ class Generator:
             return android.get_version(options=self.options)
 
     def __browser_version(self):
-        from .browsers import chrome, safari, firefox, edge
-
         if self.browser == 'chrome':
             return chrome.get_version(options=self.options)
         elif self.browser == 'safari':

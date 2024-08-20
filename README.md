@@ -142,14 +142,23 @@ You can define options using the "options" parameter for further customization.
 ```python
 import ua_generator
 from ua_generator.options import Options
+from ua_generator.data.version import VersionRange
 
+# Enabling weighted version
 options = Options(weighted_versions=True)
 ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
+
+# Select versions within a specified range
+options = Options(version_ranges={
+    'chrome': VersionRange(125, 129),
+})
+ua = ua_generator.generate(browser='chrome', options=options)
 ```
 
 ## Parameters
 
 - **weighted_versions (bool):** To increase the probability of the latest versions being chosen. Default is `False`.
+- **version_ranges (Dict\[str, VersionRange\]):** Choose only versions were specified. Default is `None`.
 
 # Issues
 
