@@ -23,9 +23,9 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    if options.version_ranges is not None and "safari" in options.version_ranges:
-        if type(options.version_ranges["safari"]) == VersionRange:
-            filtered = options.version_ranges["safari"].filter(versions)
+    if options.version_ranges is not None and 'safari' in options.version_ranges:
+        if type(options.version_ranges['safari']) == VersionRange:
+            filtered = options.version_ranges['safari'].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 

@@ -40,9 +40,9 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    if options.version_ranges is not None and "ios" in options.version_ranges:
-        if type(options.version_ranges["ios"]) == VersionRange:
-            filtered = options.version_ranges["ios"].filter(versions)
+    if options.version_ranges is not None and 'ios' in options.version_ranges:
+        if type(options.version_ranges['ios']) == VersionRange:
+            filtered = options.version_ranges['ios'].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 

@@ -24,8 +24,8 @@ class TestOptions(unittest.TestCase):
         self.assertIsNone(ua.options.version_ranges)
 
         for i in range(0, 100):
-            ua = ua_generator.generate(browser="chrome", options=Options(
-                version_ranges={"chrome": VersionRange(125, 127)}))
+            ua = ua_generator.generate(browser='chrome', options=Options(
+                version_ranges={'chrome': VersionRange(125, 127)}))
             self.assertIn(ua.generator.browser_version.major, (125, 126, 127))
 
 

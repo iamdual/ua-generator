@@ -3,10 +3,10 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
+from .browsers import chrome, safari, firefox, edge
+from .platforms import ios, android, linux, windows, macos
 from .. import utils, exceptions
 from ..options import Options
-from .platforms import ios, android, linux, windows, macos
-from .browsers import chrome, safari, firefox, edge
 
 
 class Generator:

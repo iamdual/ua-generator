@@ -51,9 +51,9 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    if options.version_ranges is not None and "firefox" in options.version_ranges:
-        if type(options.version_ranges["firefox"]) == VersionRange:
-            filtered = options.version_ranges["firefox"].filter(versions)
+    if options.version_ranges is not None and 'firefox' in options.version_ranges:
+        if type(options.version_ranges['firefox']) == VersionRange:
+            filtered = options.version_ranges['firefox'].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 

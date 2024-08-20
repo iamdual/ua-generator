@@ -21,9 +21,9 @@ versions: List[WindowsVersion] = [
 
 
 def get_version(options: Options) -> WindowsVersion:
-    if options.version_ranges is not None and "windows" in options.version_ranges:
-        if type(options.version_ranges["windows"]) == VersionRange:
-            filtered = options.version_ranges["windows"].filter(versions)
+    if options.version_ranges is not None and 'windows' in options.version_ranges:
+        if type(options.version_ranges['windows']) == VersionRange:
+            filtered = options.version_ranges['windows'].filter(versions)
             if type(filtered) == list and len(filtered) > 0:
                 return random.choice(filtered)
 
