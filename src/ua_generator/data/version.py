@@ -6,7 +6,7 @@ License: Apache License 2.0
 import random
 from typing import Union, List
 
-from src.ua_generator import exceptions
+from .. import exceptions
 
 
 class Version:

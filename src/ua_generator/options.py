@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import typing
 
-from src.ua_generator.data.version import VersionRange
+from .data.version import VersionRange
 
 
 class Options:
