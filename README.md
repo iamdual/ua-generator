@@ -150,7 +150,7 @@ ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
 
 # Select versions within a specified range
 options = Options(selected_versions={
-    'chrome': VersionRange(min_version=125, max_version=129),
+    'chrome': VersionRange(125, 129),
 })
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
