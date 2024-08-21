@@ -35,7 +35,7 @@ class Version:
             versions = versions[:partitions]
         else:
             # Stop at None
-            while versions[-1] is None:
+            while versions and versions[-1] is None:
                 versions.pop()
 
         # None to zero
