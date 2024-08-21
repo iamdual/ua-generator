@@ -6,8 +6,6 @@ License: Apache License 2.0
 import random
 from typing import Union, List
 
-from .. import exceptions
-
 
 class Version:
     major: int = None
@@ -116,21 +114,19 @@ class VersionRange:
     max_version: Version = None
 
     def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
-        if min_version is None or max_version is None:
-            raise exceptions.InvalidArgumentError("min_version and max_version must be specified")
-
         self.min_version = Version(major=min_version) if type(min_version) is int else min_version
         self.max_version = Version(major=max_version) if type(max_version) is int else max_version
-
-        if self.max_version <= self.min_version:
-            raise exceptions.InvalidArgumentError("max_version must be greater than min_version")
 
     def filter(self, versions: List[Version]) -> List[Version]:
         tmp_versions: List[Version] = []
 
+        # TODO: Perhaps support for full version comparison, instead of just major versions
         for version in versions:
-            # TODO: Perhaps support for full version comparison, instead of just major versions
-            if self.min_version.major <= version.major <= self.max_version.major:
+            if self.min_version is not None and self.max_version is not None and self.min_version.major <= version.major <= self.max_version.major:
+                tmp_versions.append(version)
+            elif self.min_version is not None and self.max_version is None and self.min_version.major <= version.major:
+                tmp_versions.append(version)
+            elif self.min_version is None and self.max_version is not None and version.major <= self.max_version.major:
                 tmp_versions.append(version)
 
         return tmp_versions

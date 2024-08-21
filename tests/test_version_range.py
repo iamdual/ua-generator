@@ -106,6 +106,34 @@ class TestVersionRange(unittest.TestCase):
             self.assertIsNotNone(ua.generator.platform_version)
             self.assertTrue(macos_min <= ua.generator.platform_version.major <= macos_max)
 
+    def test_version_range_min_only(self):
+        # MUST be valid version range
+        chrome_min = 124
+
+        for i in range(0, 100):
+            options = Options(
+                version_ranges={
+                    'chrome': VersionRange(min_version=chrome_min),
+                })
+            ua = ua_generator.generate(browser='chrome', options=options)
+            self.assertTrue(ua.browser == 'chrome')
+            self.assertIsNotNone(ua.generator.browser_version)
+            self.assertTrue(chrome_min <= ua.generator.browser_version.major)
+
+    def test_version_range_max_only(self):
+        # MUST be valid version range
+        chrome_max = 125
+
+        for i in range(0, 100):
+            options = Options(
+                version_ranges={
+                    'chrome': VersionRange(max_version=chrome_max),
+                })
+            ua = ua_generator.generate(browser='chrome', options=options)
+            self.assertTrue(ua.browser == 'chrome')
+            self.assertIsNotNone(ua.generator.browser_version)
+            self.assertTrue(ua.generator.browser_version.major <= chrome_max)
+
     def test_version_range_invalid(self):
         # MUST be INVALID version range
         edge_min = 1
