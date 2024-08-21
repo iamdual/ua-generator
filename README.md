@@ -145,7 +145,6 @@ To increase the probability of the latest versions being chosen. Default is `Fal
 ```python
 import ua_generator
 from ua_generator.options import Options
-from ua_generator.data.version import VersionRange
 
 # Enabling weighted versions
 options = Options(weighted_versions=True)
