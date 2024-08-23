@@ -8,7 +8,8 @@ from typing import List
 
 from ..version import Version, ChromiumVersion, VersionRange
 from ...options import Options
-
+from ...exceptions import InvalidVersionError
+#ua-generator/src/data/browsers/chrome.py
 # https://chromereleases.googleblog.com/search/label/Stable%20updates
 versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=100, minor=0, build=4896, patch=(0, 255))),
@@ -40,12 +41,20 @@ versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=127, minor=0, build=6533, patch=(0, 255))),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> ChromiumVersion:
     if options.version_ranges is not None and 'chrome' in options.version_ranges:
         if type(options.version_ranges['chrome']) == VersionRange:
-            filtered = options.version_ranges['chrome'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
+            version_range = options.version_ranges['chrome']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("chrome", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("chrome", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
                 return random.choice(filtered)
 
     weights = None

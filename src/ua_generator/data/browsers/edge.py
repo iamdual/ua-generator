@@ -8,7 +8,9 @@ from typing import List
 
 from ..version import Version, ChromiumVersion, VersionRange
 from ...options import Options
+from ...exceptions import InvalidVersionError
 
+#ua-generator/src/data/browsers/edge.py
 # https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
 versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=100, minor=0, build=1185, patch=(0, 99))),
@@ -42,13 +44,21 @@ versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=128, minor=0, build=2739, patch=(0, 99))),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> ChromiumVersion:
     if options.version_ranges is not None and 'edge' in options.version_ranges:
         if type(options.version_ranges['edge']) == VersionRange:
-            filtered = options.version_ranges['edge'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
-                return random.choice(filtered)
+            version_range = options.version_ranges['edge']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("edge", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("edge", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
+                return random.choice(filtered) 
 
     weights = None
     if options.weighted_versions:

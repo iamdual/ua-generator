@@ -8,7 +8,8 @@ from typing import List
 
 from ..version import Version, VersionRange
 from ...options import Options
-
+from ...exceptions import InvalidVersionError
+#ua-generator/src/data/platforms/ios.py
 # https://developer.apple.com/documentation/ios-ipados-release-notes
 # https://support.apple.com/en-us/HT201222
 versions: List[Version] = [
@@ -38,12 +39,20 @@ versions: List[Version] = [
     Version(major=17, minor=5, build=(0, 1)),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> Version:
     if options.version_ranges is not None and 'ios' in options.version_ranges:
         if type(options.version_ranges['ios']) == VersionRange:
-            filtered = options.version_ranges['ios'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
+            version_range = options.version_ranges['ios']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("ios", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("ios", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
                 return random.choice(filtered)
 
     weights = None

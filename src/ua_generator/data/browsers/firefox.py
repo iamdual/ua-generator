@@ -8,7 +8,8 @@ from typing import List
 
 from ..version import Version, VersionRange
 from ...options import Options
-
+from ...exceptions import InvalidVersionError
+#ua-generator/src/data/browsers/firefox.py
 # https://www.mozilla.org/en-US/firefox/releases/
 versions: List[Version] = [
     Version(major=103, minor=0, build=(0, 2)),
@@ -49,13 +50,21 @@ versions: List[Version] = [
     Version(major=129, minor=0, build=0),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> Version:
     if options.version_ranges is not None and 'firefox' in options.version_ranges:
         if type(options.version_ranges['firefox']) == VersionRange:
-            filtered = options.version_ranges['firefox'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
-                return random.choice(filtered)
+            version_range = options.version_ranges['firefox']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
+                return random.choice(filtered) 
 
     weights = None
     if options.weighted_versions:

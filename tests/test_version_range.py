@@ -8,7 +8,7 @@ import unittest
 import src.ua_generator as ua_generator
 from src.ua_generator.data.version import Version, VersionRange
 from src.ua_generator.options import Options
-
+from src.ua_generator.exceptions import InvalidVersionError
 
 class TestVersionRange(unittest.TestCase):
     def test_version_range(self):
@@ -115,11 +115,8 @@ class TestVersionRange(unittest.TestCase):
             options = Options(version_ranges={
                 'edge': VersionRange(min_version=edge_min, max_version=edge_max),
             })
-            ua = ua_generator.generate(browser='edge', options=options)
-            self.assertTrue(ua.browser == 'edge')
-            self.assertIsNotNone(ua.generator.browser_version)
-            self.assertFalse(edge_min <= ua.generator.browser_version.major <= edge_max)
-
+            with self.assertRaises(InvalidVersionError):
+                ua = ua_generator.generate(browser='edge', options=options)
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,10 +5,10 @@ License: Apache License 2.0
 """
 import random
 from typing import List
-
+from ...exceptions import InvalidVersionError
 from ..version import Version, WindowsVersion, VersionRange
 from ...options import Options
-
+#ua-generator/src/data/browsers/windows.py
 # https://learn.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version
 # https://learn.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11
 versions: List[WindowsVersion] = [
@@ -19,12 +19,20 @@ versions: List[WindowsVersion] = [
     WindowsVersion(Version(major=10, minor=0), ch_platform=Version(major=(13, 15))),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> WindowsVersion:
     if options.version_ranges is not None and 'windows' in options.version_ranges:
         if type(options.version_ranges['windows']) == VersionRange:
-            filtered = options.version_ranges['windows'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
+            version_range = options.version_ranges['windows']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("windows", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("windows", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
                 return random.choice(filtered)
 
     weights = None

@@ -1,3 +1,4 @@
+#ua-generator/src/data/browsers/safari.py
 """
 Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
@@ -8,6 +9,7 @@ from typing import List
 
 from ..version import Version, ChromiumVersion, VersionRange
 from ...options import Options
+from ...exceptions import InvalidVersionError
 
 # https://developer.apple.com/documentation/safari-release-notes
 versions: List[ChromiumVersion] = [
@@ -21,13 +23,22 @@ versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=17, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> ChromiumVersion:
     if options.version_ranges is not None and 'safari' in options.version_ranges:
         if type(options.version_ranges['safari']) == VersionRange:
-            filtered = options.version_ranges['safari'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
+            version_range = options.version_ranges['safari']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("safari", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("safari", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
                 return random.choice(filtered)
+            
 
     weights = None
     if options.weighted_versions:

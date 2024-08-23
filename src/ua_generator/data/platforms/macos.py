@@ -8,7 +8,8 @@ from typing import List
 
 from ..version import Version, VersionRange
 from ...options import Options
-
+from ...exceptions import InvalidVersionError
+#ua-generator/src/data/browsers/macos.py
 # User agent cap on macOS
 # https://groups.google.com/a/chromium.org/g/blink-dev/c/hAI4QoX6rEo/m/qQNPThr0AAAJ
 
@@ -45,12 +46,20 @@ versions: List[Version] = [
     Version(major=14, minor=5, build=0),
 ]
 
+versions_idx_map = {}
 
 def get_version(options: Options) -> Version:
     if options.version_ranges is not None and 'macos' in options.version_ranges:
         if type(options.version_ranges['macos']) == VersionRange:
-            filtered = options.version_ranges['macos'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
+            version_range = options.version_ranges['macos']
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("macos", version_range.min_version.major, versions[0].major, versions[-1].major))
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("macos", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
                 return random.choice(filtered)
 
     weights = None
