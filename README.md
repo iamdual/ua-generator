@@ -27,14 +27,14 @@ print(ua) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/604.1.38 
 
 # Customization
 
-**There are three different parameters to the generate user-agent by the certain conditions.**
+**It takes three different parameters to customize the user-agent.**
 
 ```python
 device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
-_All of the parameters are optional, and the types can be set more than one by using a tuple._
+_All parameters are optional and multiple types can be specified using a tuple._
 ## Customized user-agent generation:
 
 ```python
@@ -139,26 +139,32 @@ response = handler.read().decode('utf-8')
 
 You can define options using the "options" parameter for further customization.
 
+## weighted_versions
+To increase the probability of the latest versions being chosen. Default is `False`.
+
+```python
+import ua_generator
+from ua_generator.options import Options
+
+# Enabling weighted versions
+options = Options(weighted_versions=True)
+ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
+```
+
+## version_ranges
+To choose only versions within specified ranges. Default is `None`.
+
 ```python
 import ua_generator
 from ua_generator.options import Options
 from ua_generator.data.version import VersionRange
 
-# Enabling weighted version
-options = Options(weighted_versions=True)
-ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
-
-# Select versions within a specified range
+# Choosing only versions within specified ranges
 options = Options(version_ranges={
     'chrome': VersionRange(125, 129),
 })
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
-
-## Parameters
-
-- **weighted_versions (bool):** To increase the probability of the latest versions being chosen. Default is `False`.
-- **version_ranges (Dict\[str, VersionRange\]):** Choose only versions were specified. Default is `None`.
 
 # Issues
 

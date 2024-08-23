@@ -48,12 +48,16 @@ def get_version(options: Options) -> Version:
     if options.version_ranges is not None and 'linux' in options.version_ranges:
         if type(options.version_ranges['linux']) == VersionRange:
             version_range = options.version_ranges['linux']
-            if(version_range.min_version.major not in versions_idx_map):
-                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("linux", version_range.min_version.major, versions[0].major, versions[-1].major))
-            if(version_range.max_version.major not in versions_idx_map):
-                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("linux", version_range.min_version.major, versions[0].major, versions[-1].major))
-            min_idx = versions_idx_map[version_range.min_version.major]
-            max_idx = versions_idx_map[version_range.max_version.major]+1
+            min_idx = 0
+            max_idx = len(versions)
+            if(version_range.min_version is not None):
+                if(version_range.min_version.major not in versions_idx_map):
+                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+                min_idx = versions_idx_map[version_range.min_version.major]
+            if(version_range.max_version is not None):
+                if(version_range.max_version.major not in versions_idx_map):
+                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+                max_idx = versions_idx_map[version_range.max_version.major]+1 
             filtered = versions[min_idx:max_idx]
             if len(filtered) > 0:
                 return random.choice(filtered)

@@ -66,6 +66,13 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=2), '1.0')
         self.assertEqual(version.to_tuple(), (1, 0, 0, 0))
 
+    def test_version_none(self):
+        version = Version(major=None, minor=None, build=None, patch=None)
+        self.assertEqual(version.format(), '')
+        self.assertEqual(version.format(partitions=1), '0')
+        self.assertEqual(version.format(partitions=2), '0.0')
+        self.assertEqual(version.to_tuple(), (0, 0, 0, 0))
+
     def test_version_separator(self):
         version = Version(major=1, minor=2, build=3, patch=4)
         self.assertEqual(version.format(separator='_'), '1_2_3_4')

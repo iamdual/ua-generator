@@ -7,7 +7,6 @@ import unittest
 
 import src.ua_generator as ua_generator
 from src.ua_generator import exceptions
-from src.ua_generator.data.version import VersionRange
 
 
 class TestExceptions(unittest.TestCase):
@@ -54,18 +53,6 @@ class TestExceptions(unittest.TestCase):
         def raised_call():
             ua = ua_generator.generate()
             return ua.ch.invalid111
-
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
-
-    def test_version_range_error(self):
-        def raised_call():
-            VersionRange(min_version=2, max_version=None)
-
-        self.assertRaises(exceptions.InvalidArgumentError, raised_call)
-
-    def test_version_range_error_2(self):
-        def raised_call():
-            VersionRange(min_version=1, max_version=1)
 
         self.assertRaises(exceptions.InvalidArgumentError, raised_call)
 
