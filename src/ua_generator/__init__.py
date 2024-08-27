@@ -29,7 +29,7 @@ def get_versions(option:str):
        module = globals()[option]
        return module.versions
     else:
-        raise InvalidArgumentError("{} is not a valid browser/platform")
+        raise InvalidArgumentError("{} is not a valid browser/platform".format(option))
 
 def generate(device: typing.Union[tuple, str, None] = None,
              platform: typing.Union[tuple, str, None] = None,
