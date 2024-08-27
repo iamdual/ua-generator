@@ -5,6 +5,7 @@ License: Apache License 2.0
 """
 from .browsers import chrome, safari, firefox, edge
 from .platforms import ios, android, linux, windows, macos
+from .platforms.android import android_nexus,android_pixel,android_samsung
 from .. import utils, exceptions
 from ..options import Options
 
@@ -31,6 +32,12 @@ class Generator:
             return linux.get_version(options=self.options)
         elif self.platform == 'android':
             return android.get_version(options=self.options)
+        elif self.platform == 'android_nexus':
+            return android_nexus.get_version(options=self.options)
+        elif self.platform == 'android_pixel':
+            return android_pixel.get_version(options=self.options)
+        elif self.platform == 'android_samsung':
+            return android_samsung.get_version(options=self.options)
 
     def __browser_version(self):
         if self.browser == 'chrome':

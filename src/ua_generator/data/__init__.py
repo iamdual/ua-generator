@@ -6,7 +6,7 @@ License: Apache License 2.0
 
 DEVICES = ('desktop', 'mobile')
 
-PLATFORMS = ('windows', 'macos', 'ios', 'linux', 'android')
+PLATFORMS = ('windows', 'macos', 'ios', 'linux', 'android', 'android_nexus','android_pixel','android_samsung')
 PLATFORMS_DESKTOP = ('windows', 'macos', 'linux')  # Platforms on desktop devices
 PLATFORMS_MOBILE = ('ios', 'android')  # Platforms on mobile devices
 

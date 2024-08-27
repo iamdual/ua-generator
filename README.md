@@ -31,7 +31,7 @@ print(ua) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/604.1.38 
 
 ```python
 device = ('desktop', 'mobile')
-platform = ('windows', 'macos', 'ios', 'linux', 'android')
+platform = ('windows', 'macos', 'ios', 'linux', 'android','android_nexus','android_pixel','android_samsung')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
 _All parameters are optional and multiple types can be specified using a tuple._
