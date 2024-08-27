@@ -8,8 +8,9 @@ import typing
 from . import user_agent, options as _options
 from src.ua_generator.data.browsers import chrome,firefox,edge,safari
 from src.ua_generator.data.platforms import ios, macos, windows,linux
-
-versions_idx_map = {"chrome":{}, 'edge':{},'safari':{},'firefox':{},'ios':{},'windows':{},'macos':{},'linux':{}}
+from src.ua_generator.data.platforms.android import android_nexus,android_samsung,android_pixel
+from src.ua_generator.exceptions import InvalidArgumentError
+versions_idx_map = {"chrome":{}, 'edge':{},'safari':{},'firefox':{},'ios':{},'windows':{},'macos':{},'linux':{},'android_samsung':{},'android_nexus':{},'android_pixel':{}}
 """
 Initialize an index map containing a mapping of version to index in the original 
 respective versions array. Only occurs once upon the first generate using
@@ -22,6 +23,13 @@ def initialize_idx_map(option):
         if(val.major not in versions_idx_map[option]):
             versions_idx_map[option][val.major] = idx
     module.versions_idx_map = versions_idx_map[option]
+
+def get_versions(option:str):
+    if option in versions_idx_map:
+       module = globals()[option]
+       return module.versions
+    else:
+        raise InvalidArgumentError("{} is not a valid browser/platform")
 
 def generate(device: typing.Union[tuple, str, None] = None,
              platform: typing.Union[tuple, str, None] = None,

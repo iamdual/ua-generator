@@ -1,10 +1,10 @@
 import unittest
-
 import src.ua_generator as ua_generator
 from src.ua_generator.options import Options
 from src.ua_generator.data.version import VersionRange, Version
 from src.ua_generator.data.browsers import chrome,safari,edge,firefox
 from src.ua_generator.data.platforms import linux,ios,macos,windows
+from src.ua_generator.data.platforms.android import android_nexus,android_samsung,android_pixel
 class TestIdxMap(unittest.TestCase):
     def test_idx_maps_persist_on_browser_and_platform_modules_across_generates(self):
         options = Options(version_ranges={
@@ -16,8 +16,10 @@ class TestIdxMap(unittest.TestCase):
             "ios": VersionRange(ios.versions[0], ios.versions[-1]),
             "macos": VersionRange(macos.versions[0], macos.versions[-1]),
             "windows": VersionRange(windows.versions[0], windows.versions[-1]),
+            "android_nexus": VersionRange(android_nexus.versions[0], android_nexus.versions[-1]),
+            "android_pixel": VersionRange(android_pixel.versions[0], android_pixel.versions[-1]),
+            "android_samsung": VersionRange(android_samsung.versions[0], android_samsung.versions[-1]),
         })
-
         for i in range(10000):
             #if no indexing error is thrown, then pass
             ua_generator.generate(options=options)

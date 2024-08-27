@@ -7,8 +7,9 @@ import random
 import string
 from typing import List
 
-from ...version import Version, AndroidVersion
+from ...version import Version, VersionRange, AndroidVersion
 from ....options import Options
+from ....exceptions import InvalidVersionError
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
@@ -33,10 +34,26 @@ versions: List[AndroidVersion] = [
 ]
 
 platform_models = ('Nexus 5', 'Nexus 5X', 'Nexus 6', 'Nexus 6P', 'Nexus 9')
-
+versions_idx_map = {}
 
 def get_version(options: Options) -> AndroidVersion:
     weights = None
+    if options.version_ranges is not None and 'android_nexus' in options.version_ranges:
+        if type(options.version_ranges['android_nexus']) == VersionRange:
+            version_range = options.version_ranges['android_nexus']
+            min_idx = 0
+            max_idx = len(versions)
+            if(version_range.min_version is not None):
+                if(version_range.min_version.major not in versions_idx_map):
+                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+                min_idx = versions_idx_map[version_range.min_version.major]
+            if(version_range.max_version is not None):
+                if(version_range.max_version.major not in versions_idx_map):
+                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+                max_idx = versions_idx_map[version_range.max_version.major]+1 
+            filtered = versions[min_idx:max_idx]
+            if len(filtered) > 0:
+                return random.choice(filtered)
     if options.weighted_versions:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
