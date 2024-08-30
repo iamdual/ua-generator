@@ -7,6 +7,7 @@ from .browsers import chrome, safari, firefox, edge
 from .platforms import ios, android, linux, windows, macos
 from .platforms.android import android_nexus,android_pixel,android_samsung
 from .. import utils, exceptions
+from . import ANDROIDS
 from ..options import Options
 
 
@@ -101,7 +102,7 @@ class Generator:
                 template = template.replace('{firefox}', str(self.browser_version))
                 return template
 
-        elif self.platform == 'android':
+        elif self.platform in ANDROIDS:
             if self.browser == 'chrome':
                 template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit}'
                 template = template.replace('{android}', str(self.platform_version.major))
@@ -180,4 +181,4 @@ class Generator:
                 template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
-        raise exceptions.CannotGenerateError(self)
+        raise exceptions.CannotGenerateError("\n\nCould not generate UA with the following inputs:\nBrowser:{}\nPlatform:{}\nDevice:{}\nOptions:{}".format(self.browser,self.platform,self.device,self.options.to_string()))

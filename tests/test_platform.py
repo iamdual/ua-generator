@@ -6,6 +6,7 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
+from src.ua_generator.data import ANDROIDS
 
 
 class TestPlatform(unittest.TestCase):
@@ -27,7 +28,7 @@ class TestPlatform(unittest.TestCase):
     def test_platform_4(self):
         for i in range(0, 100):
             ua = ua_generator.generate(device='mobile')
-            self.assertTrue(ua.platform == 'ios' or ua.platform == 'android')
+            self.assertTrue(ua.platform == 'ios' or ua.platform in ANDROIDS)
 
     def test_platform_5(self):
         for i in range(0, 100):

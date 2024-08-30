@@ -8,7 +8,7 @@ DEVICES = ('desktop', 'mobile')
 
 PLATFORMS = ('windows', 'macos', 'ios', 'linux', 'android', 'android_nexus','android_pixel','android_samsung')
 PLATFORMS_DESKTOP = ('windows', 'macos', 'linux')  # Platforms on desktop devices
-PLATFORMS_MOBILE = ('ios', 'android')  # Platforms on mobile devices
-
+PLATFORMS_MOBILE = ('ios', 'android','android_nexus','android_pixel','android_samsung')  # Platforms on mobile devices
+ANDROIDS = ('android','android_nexus','android_pixel','android_samsung')
 BROWSERS = ('chrome', 'edge', 'firefox', 'safari')
 BROWSERS_SUPPORT_CH = ('chrome', 'edge')  # Browsers that support Client Hints
