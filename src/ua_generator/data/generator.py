@@ -181,4 +181,4 @@ class Generator:
                 template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
-        raise exceptions.CannotGenerateError("\n\nCould not generate UA with the following inputs:\nBrowser:{}\nPlatform:{}\nDevice:{}\nOptions:{}".format(self.browser,self.platform,self.device,self.options.to_string()))
+        raise exceptions.CannotGenerateError("\n\nCould not generate UA with the following inputs:\nBrowser:{}\nPlatform:{}\nDevice:{}\nOptions:{}".format(self.browser,self.platform,self.device,str(self.options)))

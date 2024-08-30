@@ -26,9 +26,6 @@ class Version:
             (major, minor, build, patch)
         )
         self.__tuple = None
-    def to_string(self) -> str:
-        return f"Version(major={self.major}, minor={self.minor}, build={self.build}, patch={self.patch})"
-    
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
 
@@ -119,9 +116,9 @@ class VersionRange:
     def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
         self.min_version = Version(major=min_version) if type(min_version) is int else min_version
         self.max_version = Version(major=max_version) if type(max_version) is int else max_version
-    def to_string(self) -> str:
-        min_version_str = self.min_version.to_string() if self.min_version else "None"
-        max_version_str = self.max_version.to_string() if self.max_version else "None"
+    def __str__(self) -> str:
+        min_version_str = str(self.min_version) if self.min_version else "None"
+        max_version_str = str(self.max_version) if self.max_version else "None"
         return f"VersionRange(min_version={min_version_str}, max_version={max_version_str})"
 
     def filter(self, versions: List[Version]) -> List[Version]:

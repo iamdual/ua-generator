@@ -16,10 +16,10 @@ class Options:
         self.weighted_versions = weighted_versions
         if version_ranges is not None:
             self.version_ranges = version_ranges
-    def to_string(self) -> str:
+    def __str__(self) -> str:
         # Stringify version_ranges if it exists
         version_ranges_str = (
-            {k: v.to_string() for k, v in self.version_ranges.items()}
+            {k: str(v) for k, v in self.version_ranges.items()}
             if self.version_ranges is not None
             else None
         )
