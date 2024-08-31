@@ -44,29 +44,29 @@ versions: List[ChromiumVersion] = [
 versions_idx_map = {}
 
 def get_version(options: Options) -> ChromiumVersion:
+    selected_version : ChromiumVersion
     if options.version_ranges is not None and 'chrome' in options.version_ranges:
-        if type(options.version_ranges['chrome']) == VersionRange:
-            version_range = options.version_ranges['chrome']
-            min_idx = 0
-            max_idx = len(versions)
-            if(version_range.min_version is not None):
-                if(version_range.min_version.major not in versions_idx_map):
-                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
-                min_idx = versions_idx_map[version_range.min_version.major]
-            if(version_range.max_version is not None):
-                if(version_range.max_version.major not in versions_idx_map):
-                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
-                max_idx = versions_idx_map[version_range.max_version.major]+1
-            filtered = versions[min_idx:max_idx]
-            if len(filtered) > 0:
-                return random.choice(filtered)
-
-    weights = None
-    if options.weighted_versions:
+        version_range = options.version_ranges['chrome']
+        min_idx = 0
+        max_idx = len(versions)
+        if(version_range.min_version is not None):
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+        if(version_range.max_version is not None):
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            max_idx = versions_idx_map[version_range.max_version.major]+1
+        filtered = versions[min_idx:max_idx]
+        if len(filtered) > 0:
+            selected_version = random.choice(filtered)
+    elif options.weighted_versions:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
         weights[-2] = 9.0
         weights[-3] = 8.0
-
-    choice: List[ChromiumVersion] = random.choices(versions, weights=weights, k=1)
-    return choice[0]
+        selected_version = random.choices(versions, weights=weights, k=1)[0]
+    else:
+        selected_version = random.choice(versions)
+    selected_version.get_version()
+    return selected_version

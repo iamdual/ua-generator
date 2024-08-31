@@ -41,35 +41,36 @@ platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL'
 
 versions_idx_map = {}
 def get_version(options: Options) -> AndroidVersion:
-    weights = None
+    selected_version : AndroidVersion
     if options.version_ranges is not None and 'android_pixel' in options.version_ranges:
-        if type(options.version_ranges['android_pixel']) == VersionRange:
-            version_range = options.version_ranges['android_pixel']
-            min_idx = 0
-            max_idx = len(versions)
-            if(version_range.min_version is not None):
-                if(version_range.min_version.major not in versions_idx_map):
-                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
-                min_idx = versions_idx_map[version_range.min_version.major]
-            if(version_range.max_version is not None):
-                if(version_range.max_version.major not in versions_idx_map):
-                    raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
-                max_idx = versions_idx_map[version_range.max_version.major]+1 
-            filtered = versions[min_idx:max_idx]
-            if len(filtered) > 0:
-                return random.choice(filtered)
-    if options.weighted_versions:
+        version_range = options.version_ranges['android_pixel']
+        min_idx = 0
+        max_idx = len(versions)
+        if(version_range.min_version is not None):
+            if(version_range.min_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            min_idx = versions_idx_map[version_range.min_version.major]
+        if(version_range.max_version is not None):
+            if(version_range.max_version.major not in versions_idx_map):
+                raise InvalidVersionError("Invalid {} version {} specified, valid versions are {}-{}\n".format("firefox", version_range.min_version.major, versions[0].major, versions[-1].major))
+            max_idx = versions_idx_map[version_range.max_version.major]+1 
+        filtered = versions[min_idx:max_idx]
+        if len(filtered) > 0:
+            selected_version = random.choice(filtered)
+    elif options.weighted_versions:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
         weights[-2] = 9.0
         weights[-3] = 8.0
 
-    choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
-
-    build_number = choice[0].build_number
+        selected_version = random.choices(versions, weights=weights, k=1)[0]
+    else:
+        selected_version = random.choice(versions)
+    selected_version.get_version()
+    build_number = selected_version.build_number
     build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(17, 22), random.randint(0, 12), random.randint(0, 29)))
     build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
-    choice[0].build_number = build_number
-    choice[0].platform_model = random.choice(platform_models)
-    return choice[0]
+    selected_version.build_number = build_number
+    selected_version.platform_model = random.choice(platform_models)
+    return selected_version

@@ -7,10 +7,12 @@ import typing
 
 from . import utils, exceptions
 from .client_hints import ClientHints
-from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE
+from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE,VERSION_SUPPORTED_MODULES
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
+from .data.version import VersionRange
+
 
 
 class UserAgent:
@@ -74,12 +76,18 @@ class UserAgent:
             self.browser = 'chrome'
 
         return self.browser
-
+    def __validate_version_ranges(self):
+        if self.options is not None and self.options.version_ranges is not None:
+            for option,version_range in self.options.version_ranges.items():
+                if option not in VERSION_SUPPORTED_MODULES:
+                    raise exceptions.InvalidArgumentError("{} not supported with version ranges".format(option))
+                if type(version_range) is not VersionRange:
+                    raise exceptions.InvalidArgumentError("{} specified version range must encapsulated in a VersionRange object, refer to readme for info.".format(option))
     def __complete(self):
         self.device = self.__find_device()
         self.platform = self.__find_platform()
         self.browser = self.__find_browser()
-
+        self.__validate_version_ranges()
         ua = Generator(device=self.device, platform=self.platform, browser=self.browser, options=self.options)
         self.text = ua.user_agent
         self.ch = ClientHints(ua)
