@@ -161,7 +161,8 @@ from ua_generator.data.version import VersionRange
 
 # Choosing only versions within specified ranges
 options = Options(version_ranges={
-    'chrome': VersionRange(125, 129),
+    'chrome': VersionRange(125, 129),  # Choose version between 125 and 129
+    'edge': VersionRange(min_version=120),  # Choose version 120 minimum
 })
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
