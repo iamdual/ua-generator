@@ -6,6 +6,7 @@ License: Apache License 2.0
 #ua-generator/src/__init__.py
 import typing
 from . import user_agent, options as _options
+from src.ua_generator.data import VERSION_SUPPORTED_MODULES
 from src.ua_generator.data.browsers import chrome,firefox,edge,safari
 from src.ua_generator.data.platforms import ios, macos, windows,linux
 from src.ua_generator.data.platforms.android import android_nexus,android_samsung,android_pixel
@@ -25,11 +26,11 @@ def initialize_idx_map(option):
     module.versions_idx_map = versions_idx_map[option]
 
 def get_versions(option:str):
-    if option in versions_idx_map:
+    if option in VERSION_SUPPORTED_MODULES:
        module = globals()[option]
        return module.versions
     else:
-        raise InvalidArgumentError("{} is not a valid browser/platform".format(option))
+        raise InvalidArgumentError("{} is not a valid browser/platform with versions.\tValid options include : {}\n".format(option,VERSION_SUPPORTED_MODULES))
 
 def generate(device: typing.Union[tuple, str, None] = None,
              platform: typing.Union[tuple, str, None] = None,

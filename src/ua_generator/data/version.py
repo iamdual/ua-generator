@@ -28,6 +28,7 @@ class Version:
         self.builds = build
         self.patches = patch
         self.get_version()
+
     def get_version(self):
         self.major,self.minor,self.build,self.patch = map(
             lambda x:
@@ -36,6 +37,7 @@ class Version:
             (self.majors,self.minors, self.builds, self.patches)
         )
         self.__tuple = None
+
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
 
@@ -87,29 +89,30 @@ class Version:
 
 class ChromiumVersion(Version):
     webkit: Version = None
-
     def __init__(self, version: Version, webkit: Version = Version(major=537, minor=36)):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         self.webkit = webkit
-
-
+        
 class AndroidVersion(Version):
+    build_numbers: tuple = None
     build_number: str = None
     platform_model: str = None
 
     def __init__(self, version: Version, build_numbers: tuple = None):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         if build_numbers is not None:
-            self.build_number = random.choice(build_numbers)
-
+            if(type(build_numbers) is tuple):
+                self.build_numbers = build_numbers
+                self.build_number = random.choice(build_numbers)
+            else:
+                self.build_number = build_numbers
 
 class WindowsVersion(Version):
     ch_platform: Version = None
 
     def __init__(self, version: Version, ch_platform: Version):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         self.ch_platform = ch_platform
-
 
 VERSION_TYPES = (
     Version,
@@ -117,7 +120,6 @@ VERSION_TYPES = (
     AndroidVersion,
     WindowsVersion,
 )
-
 
 class VersionRange:
     min_version: Version = None
