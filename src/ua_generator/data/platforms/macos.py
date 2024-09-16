@@ -12,6 +12,7 @@ from ...options import Options
 # User agent cap on macOS
 # https://groups.google.com/a/chromium.org/g/blink-dev/c/hAI4QoX6rEo/m/qQNPThr0AAAJ
 
+# https://developer.apple.com/news/releases/
 # https://support.apple.com/en-us/HT201222
 versions: List[Version] = [
     Version(major=10, minor=11, build=(0, 6)),
@@ -43,6 +44,8 @@ versions: List[Version] = [
     Version(major=14, minor=3, build=(0, 1)),
     Version(major=14, minor=4, build=(0, 1)),
     Version(major=14, minor=5, build=0),
+    Version(major=14, minor=6, build=(0, 1)),
+    Version(major=15, minor=0, build=0),
 ]
 
 
