@@ -45,8 +45,10 @@ versions: List[Version] = [
     Version(major=126, minor=0, build=0),
     Version(major=127, minor=0, build=(0, 2)),
     Version(major=128, minor=0, build=(0, 3)),
-    Version(major=128, minor=1, build=0),
-    Version(major=129, minor=0, build=0),
+    Version(major=128, minor=1, build=(0, 3)),
+    Version(major=129, minor=0, build=(0, 2)),
+    Version(major=130, minor=0, build=(0, 1)),
+    Version(major=131, minor=0, build=(0, 3)),
 ]
 
 
