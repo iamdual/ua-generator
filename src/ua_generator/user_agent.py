@@ -7,26 +7,14 @@ import typing
 
 from . import utils, exceptions
 from .client_hints import ClientHints
-from .data import (
-    DEVICES, _DEVICES_TYPE,
-    BROWSERS, _BROWSERS_TYPE,
-    PLATFORMS, _PLATFORMS_TYPE,
-    PLATFORMS_DESKTOP,
-    PLATFORMS_MOBILE,
-)
+from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
 
 
 class UserAgent:
-    def __init__(
-        self,
-        device: _DEVICES_TYPE = None,
-        platform: _PLATFORMS_TYPE = None,
-        browser: _BROWSERS_TYPE = None,
-        options: typing.Union[Options, None] = None,
-    ):
+    def __init__(self, device=None, platform=None, browser=None, options=None):
         self.device: typing.Union[str, None] = utils.choice(device) if device else None
         self.platform: typing.Union[str, None] = utils.choice(platform) if platform else None
         self.browser: typing.Union[str, None] = utils.choice(browser) if browser else None
@@ -100,6 +88,3 @@ class UserAgent:
 
     def __str__(self):
         return self.text
-
-    def __repr__(self) -> str:
-        return f"UserAgent(\"{self.text}\", device={self.device}, platform={self.platform}, browser={self.browser})"
