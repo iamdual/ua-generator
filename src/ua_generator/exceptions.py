@@ -11,3 +11,6 @@ class CannotGenerateError(Exception):
 
 class InvalidArgumentError(Exception):
     pass
+
+class InvalidVersionError(Exception):
+    pass

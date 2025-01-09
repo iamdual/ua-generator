@@ -5,24 +5,36 @@ License: Apache License 2.0
 """
 import random
 from typing import Union, List
-
+from .. import exceptions
 
 class Version:
+    #Variable ranges
+    majors : Union[int, tuple] = None
+    minors: Union[int, tuple] = None,
+    builds: Union[int, tuple] = None,
+    patches: Union[int, tuple] = None
+    #Selected at random from the above ranges
     major: int = None
     minor: int = None
     build: int = None
     patch: int = None
-
     def __init__(self,
                  major: Union[int, tuple] = None,
                  minor: Union[int, tuple] = None,
                  build: Union[int, tuple] = None,
                  patch: Union[int, tuple] = None):
-        self.major, self.minor, self.build, self.patch = map(
+        self.majors = major
+        self.minors = minor
+        self.builds = build
+        self.patches = patch
+        self.get_version()
+
+    def get_version(self):
+        self.major,self.minor,self.build,self.patch = map(
             lambda x:
             # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
             random.randrange(*x) if isinstance(x, tuple) else x,
-            (major, minor, build, patch)
+            (self.majors,self.minors, self.builds, self.patches)
         )
         self.__tuple = None
 
@@ -77,29 +89,30 @@ class Version:
 
 class ChromiumVersion(Version):
     webkit: Version = None
-
     def __init__(self, version: Version, webkit: Version = Version(major=537, minor=36)):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         self.webkit = webkit
-
-
+        
 class AndroidVersion(Version):
+    build_numbers: tuple = None
     build_number: str = None
     platform_model: str = None
 
     def __init__(self, version: Version, build_numbers: tuple = None):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         if build_numbers is not None:
-            self.build_number = random.choice(build_numbers)
-
+            if(type(build_numbers) is tuple):
+                self.build_numbers = build_numbers
+                self.build_number = random.choice(build_numbers)
+            else:
+                self.build_number = build_numbers
 
 class WindowsVersion(Version):
     ch_platform: Version = None
 
     def __init__(self, version: Version, ch_platform: Version):
-        super().__init__(version.major, version.minor, version.build, version.patch)
+        super().__init__(version.majors, version.minors, version.builds, version.patches)
         self.ch_platform = ch_platform
-
 
 VERSION_TYPES = (
     Version,
@@ -108,14 +121,29 @@ VERSION_TYPES = (
     WindowsVersion,
 )
 
-
 class VersionRange:
     min_version: Version = None
     max_version: Version = None
 
     def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
-        self.min_version = Version(major=min_version) if type(min_version) is int else min_version
-        self.max_version = Version(major=max_version) if type(max_version) is int else max_version
+        if min_version is not None:
+            if type(min_version) is int:
+                self.min_version = Version(major=min_version)
+            elif issubclass(type(min_version),Version):
+                self.min_version = min_version
+            else:
+                raise TypeError("Improper version specified, min_version must be of type int or Version")
+        if max_version is not None:
+            if type(max_version) is int:
+                self.max_version = Version(major=max_version)
+            elif issubclass(type(max_version),Version):
+                self.max_version = max_version
+            else:
+                raise TypeError("Improper version specified, max_version must be of type int or Version")
+    def __str__(self) -> str:
+        min_version_str = str(self.min_version) if self.min_version else "None"
+        max_version_str = str(self.max_version) if self.max_version else "None"
+        return f"VersionRange(min_version={min_version_str}, max_version={max_version_str})"
 
     def filter(self, versions: List[Version]) -> List[Version]:
         tmp_versions: List[Version] = []

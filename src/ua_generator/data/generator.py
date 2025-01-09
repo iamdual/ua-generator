@@ -5,7 +5,9 @@ License: Apache License 2.0
 """
 from .browsers import chrome, safari, firefox, edge
 from .platforms import ios, android, linux, windows, macos
+from .platforms.android import android_nexus,android_pixel,android_samsung
 from .. import utils, exceptions
+from . import ANDROIDS
 from ..options import Options
 
 
@@ -31,6 +33,12 @@ class Generator:
             return linux.get_version(options=self.options)
         elif self.platform == 'android':
             return android.get_version(options=self.options)
+        elif self.platform == 'android_nexus':
+            return android_nexus.get_version(options=self.options)
+        elif self.platform == 'android_pixel':
+            return android_pixel.get_version(options=self.options)
+        elif self.platform == 'android_samsung':
+            return android_samsung.get_version(options=self.options)
 
     def __browser_version(self):
         if self.browser == 'chrome':
@@ -94,7 +102,7 @@ class Generator:
                 template = template.replace('{firefox}', str(self.browser_version))
                 return template
 
-        elif self.platform == 'android':
+        elif self.platform in ANDROIDS:
             if self.browser == 'chrome':
                 template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit}'
                 template = template.replace('{android}', str(self.platform_version.major))
@@ -173,4 +181,4 @@ class Generator:
                 template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
-        raise exceptions.CannotGenerateError(self)
+        raise exceptions.CannotGenerateError("\n\nCould not generate UA with the following inputs:\nBrowser:{}\nPlatform:{}\nDevice:{}\nOptions:{}".format(self.browser,self.platform,self.device,str(self.options)))
