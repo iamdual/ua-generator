@@ -15,7 +15,7 @@ class Headers:
         self.__generator = gen
         self.__client_hints = ch
         self.__is_generated = False
-        self.__headers = {}
+        self.__headers: dict[str, str] = {}
 
     def reset(self):
         self.__is_generated = True
@@ -62,8 +62,14 @@ class Headers:
         for hint in requested_hints:
             self.add(hint.strip().lower())
 
-    def get(self):
+    def get(self) -> dict[str, str]:
         if not self.__is_generated:
             self.reset()
 
         return self.__headers
+
+    def __str__(self):
+        text = ""
+        for k, v in self.get().items():
+            text += f"{k}: {v}\n"
+        return text
