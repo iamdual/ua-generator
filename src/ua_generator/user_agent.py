@@ -3,21 +3,26 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-import typing
+from typing import Union
 
 from . import utils, exceptions
 from .client_hints import ClientHints
-from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE
+from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE, T_DEVICES, T_PLATFORMS, T_BROWSERS
 from .data.generator import Generator
 from .headers import Headers
 from .options import Options
 
 
 class UserAgent:
-    def __init__(self, device=None, platform=None, browser=None, options=None):
-        self.device: typing.Union[str, None] = utils.choice(device) if device else None
-        self.platform: typing.Union[str, None] = utils.choice(platform) if platform else None
-        self.browser: typing.Union[str, None] = utils.choice(browser) if browser else None
+    def __init__(self,
+                 device: Union[T_DEVICES, tuple, list, None] = None,
+                 platform: Union[T_PLATFORMS, tuple, list, None] = None,
+                 browser: Union[T_BROWSERS, tuple, list, None] = None,
+                 options: Union[Options, None] = None):
+
+        self.device: Union[str, None] = utils.choice(device) if device else None
+        self.platform: Union[str, None] = utils.choice(platform) if platform else None
+        self.browser: Union[str, None] = utils.choice(browser) if browser else None
         self.options: Options = options if options else Options()
         self.__complete()
 
