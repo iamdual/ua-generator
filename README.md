@@ -1,6 +1,6 @@
 # ua-generator
 
-A random user-agent generator for Python >= 3.6
+A random user-agent generator for Python >= 3.8
 
 # Features
 
