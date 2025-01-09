@@ -11,11 +11,6 @@ from ...options import Options
 
 # https://www.mozilla.org/en-US/firefox/releases/
 versions: List[Version] = [
-    Version(major=103, minor=0, build=(0, 2)),
-    Version(major=104, minor=0, build=(0, 2)),
-    Version(major=105, minor=0, build=(0, 3)),
-    Version(major=106, minor=0, build=(0, 5)),
-    Version(major=107, minor=0, build=(0, 1)),
     Version(major=108, minor=0, build=(0, 2)),
     Version(major=109, minor=0, build=(0, 1)),
     Version(major=110, minor=0, build=(0, 1)),
@@ -45,10 +40,18 @@ versions: List[Version] = [
     Version(major=126, minor=0, build=0),
     Version(major=127, minor=0, build=(0, 2)),
     Version(major=128, minor=0, build=(0, 3)),
-    Version(major=128, minor=1, build=(0, 3)),
+    Version(major=128, minor=1, build=0),
+    Version(major=128, minor=2, build=0),
+    Version(major=128, minor=3, build=0),
+    Version(major=128, minor=4, build=0),
+    Version(major=128, minor=5, build=(0, 2)),
+    Version(major=128, minor=6, build=0),
     Version(major=129, minor=0, build=(0, 2)),
     Version(major=130, minor=0, build=(0, 1)),
     Version(major=131, minor=0, build=(0, 3)),
+    Version(major=132, minor=0, build=(0, 2)),
+    Version(major=133, minor=0, build=(0, 3)),
+    Version(major=134, minor=0, build=0),
 ]
 
 
