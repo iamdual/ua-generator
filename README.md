@@ -147,7 +147,8 @@ import ua_generator
 from ua_generator.options import Options
 
 # Enabling weighted versions
-options = Options(weighted_versions=True)
+options = Options()
+options.weighted_versions = True
 ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
 ```
 
@@ -160,10 +161,11 @@ from ua_generator.options import Options
 from ua_generator.data.version import VersionRange
 
 # Choosing only versions within specified ranges
-options = Options(version_ranges={
+options = Options()
+options.version_ranges = {
     'chrome': VersionRange(125, 129),  # Choose version between 125 and 129
     'edge': VersionRange(min_version=120),  # Choose version 120 minimum
-})
+}
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
 
