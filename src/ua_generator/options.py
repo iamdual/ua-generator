@@ -16,3 +16,6 @@ class Options:
         self.weighted_versions = weighted_versions
         if version_ranges is not None:
             self.version_ranges = version_ranges
+
+    def __repr__(self):
+        return f"Options(weighted_versions={self.weighted_versions}, version_ranges={self.version_ranges})"

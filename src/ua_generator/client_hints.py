@@ -124,3 +124,15 @@ class ClientHints:
 
     def __str__(self):
         return self.brands
+
+    def __repr__(self):
+        return (f"ClientHints("
+                f"mobile={self.mobile}, "
+                f"platform={self.platform}, "
+                f"platform_version={self.platform_version}, "
+                f"brands_full_version_list={self.brands_full_version_list}, "
+                f"bitness={self.bitness}, "
+                f"architecture={self.architecture}, "
+                f"model={self.model}, "
+                f"wow64={self.wow64}"
+                f")")

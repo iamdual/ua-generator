@@ -130,3 +130,6 @@ class VersionRange:
                 tmp_versions.append(version)
 
         return tmp_versions
+
+    def __repr__(self):
+        return f"VersionRange(min_version={self.min_version}, max_version={self.max_version})"

@@ -93,3 +93,6 @@ class UserAgent:
 
     def __str__(self):
         return self.text
+
+    def __repr__(self):
+        return f"UserAgent(device='{self.device}', platform='{self.platform}', browser='{self.browser}')"
