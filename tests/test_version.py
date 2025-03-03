@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2024 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2024-2025 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 import unittest
@@ -124,8 +124,15 @@ class TestVersion(unittest.TestCase):
         self.assertTrue(version.ch_platform.major >= 1 and version.ch_platform.major <= 10)
 
     def test_version_android(self):
-        version = AndroidVersion(version=Version(major=14, minor=0, build=0), build_numbers=('foo', 'foo'))
-        self.assertEqual(version.format(partitions=4), '14.0.0.0')
+        version = AndroidVersion(version=Version(), build_numbers=('foo', 'bar'))
+        self.assertIn(version.build_number, ('foo', 'bar'))
+
+    def test_version_android_2(self):
+        version = AndroidVersion(version=Version(), build_numbers=['foo', 'bar'])
+        self.assertIn(version.build_number, ['foo', 'bar'])
+
+    def test_version_android_3(self):
+        version = AndroidVersion(version=Version(), build_numbers='foo')
         self.assertEqual(version.build_number, 'foo')
 
     def test_version_chromium(self):

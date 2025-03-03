@@ -1,10 +1,12 @@
 """
 Random User-Agent
-Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
 from typing import Union, List
+
+from .. import utils
 
 
 class Version:
@@ -87,10 +89,9 @@ class AndroidVersion(Version):
     build_number: str = None
     platform_model: str = None
 
-    def __init__(self, version: Version, build_numbers: tuple = None):
+    def __init__(self, version: Version, build_numbers: Union[str, tuple, list, None] = None):
         super().__init__(version.major, version.minor, version.build, version.patch)
-        if build_numbers is not None:
-            self.build_number = random.choice(build_numbers)
+        self.build_number = utils.choice(build_numbers)
 
 
 class WindowsVersion(Version):
