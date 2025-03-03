@@ -12,10 +12,6 @@ from ....options import Options
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/setup/start/build-numbers
 versions: List[AndroidVersion] = [
-    AndroidVersion(Version(major=8, minor=0, build=0), build_numbers=('OPR6.{d}.{v}', 'OPR5.{d}.{v}', 'OPR4.{d}.{v}', 'OPR3.{d}.{v}', 'OPR2.{d}.{v}', 'OPR1.{d}.{v}', 'OPD3.{d}.{v}', 'OPD2.{d}.{v}', 'OPD1.{d}.{v}')),
-    AndroidVersion(Version(major=8, minor=1, build=0), build_numbers=('OPM8.{d}.{v}', 'OPM7.{d}.{v}', 'OPM6.{d}.{v}', 'OPM5.{d}.{v}', 'OPM4.{d}.{v}', 'OPM3.{d}.{v}', 'OPM2.{d}.{v}')),
-    AndroidVersion(Version(major=9, minor=0, build=0), build_numbers=('PQ3B.{d}.{v}', 'PQ3A.{d}.{v}', 'PQ2A.{d}.{v}', 'PQ1A.{d}.{v}', 'PPR2.{d}.{v}', 'PPR1.{d}.{v}')),
-    AndroidVersion(Version(major=10, minor=0, build=0), build_numbers=('QD4A.{d}.{v}', 'QQ3A.{d}.{v}', 'QQ2A.{d}.{v}', 'QQ1D.{d}.{v}', 'QQ1C.{d}.{v}', 'QQ1B.{d}.{v}', 'QQ1A.{d}.{v}', 'QP1A.{d}.{v}', 'QD1A.{d}.{v}')),
     AndroidVersion(Version(major=11, minor=0, build=0), build_numbers=('RD2A.{d}.{v}', 'RQ3A.{d}.{v}', 'RQ2A.{d}.{v}', 'RQ1D.{d}.{v}', 'RQ1C.{d}.{v}', 'RQ1A.{d}.{v}', 'RD1B.{d}.{v}', 'RD1A.{d}.{v}', 'RP1A.{d}.{v}')),
     AndroidVersion(Version(major=12, minor=0, build=0), build_numbers=('SP1A.{d}.{v}', 'SQ1D.{d}.{v}', 'SD1A.{d}.{v}')),
     AndroidVersion(Version(major=12, minor=1, build=0), build_numbers=('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')),
@@ -24,9 +20,11 @@ versions: List[AndroidVersion] = [
     AndroidVersion(Version(major=15, minor=0, build=0), build_numbers=('AP4A.{d}.{v}', 'AP3A.{d}.{v}')),
 ]
 
-platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
-                   'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
-                   'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro', 'Pixel 8a')
+platform_models = ('CH1933', 'CPH2195', 'CPH2263', 'CPH1941', 'CPH2021', 'CPH2211GDPR',
+    'CPH2023', 'CPH2009', 'CPH2025', 'CPH2207', 'CPH2173', 'PEEM00',
+    'CPH2307', 'CPH2305', 'CPH1917', 'Global', 'Global', 'CPH2125GDPR',
+    'CPH2145', 'Global', 'PEGM10', 'CPH1951', 'CPH2089', 'CPH2065',
+    'CPH2251', 'CPH2371', )
 
 
 def get_version(options: Options) -> AndroidVersion:
@@ -35,12 +33,11 @@ def get_version(options: Options) -> AndroidVersion:
         weights = [1.0] * len(versions)
         weights[-1] = 10.0
         weights[-2] = 9.0
-        weights[-3] = 8.0
 
     choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
 
     build_number = choice[0].build_number
-    build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(17, 25), random.randint(0, 12), random.randint(0, 29)))
+    build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(22, 25), random.randint(0, 12), random.randint(0, 29)))
     build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
 
     choice[0].build_number = build_number
