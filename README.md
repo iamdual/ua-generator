@@ -173,6 +173,10 @@ ua = ua_generator.generate(browser='chrome', options=options)
 
 You can create an issue [from here](https://github.com/iamdual/ua-generator/issues) if you are experiencing a problem.
 
-# Author
+# Contributing
 
-Ekin Karadeniz (iamdual@icloud.com)
+Pull requests are welcome. Don't forget to run tests.
+
+# Contributors
+
+Ekin Karadeniz ([@iamdual](https://github.com/iamdual)) and [the GitHub community](https://github.com/iamdual/ua-generator/graphs/contributors).
