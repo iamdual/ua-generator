@@ -45,108 +45,108 @@ class TestVersionRange(unittest.TestCase):
 
     def test_version_range_3(self):
         # MUST be valid version range
-        chrome_min = 124
-        chrome_max = 127
+        CHROME_MIN = 124
+        CHROME_MAX = 127
 
         for i in range(0, 100):
             options = Options(
                 version_ranges={
-                    'chrome': VersionRange(min_version=chrome_min, max_version=chrome_max),
+                    'chrome': VersionRange(min_version=CHROME_MIN, max_version=CHROME_MAX),
                 })
             ua = ua_generator.generate(browser='chrome', options=options)
             self.assertTrue(ua.browser == 'chrome')
             self.assertIsNotNone(ua.generator.browser_version)
-            self.assertTrue(chrome_min <= ua.generator.browser_version.major <= chrome_max)
+            self.assertTrue(CHROME_MIN <= ua.generator.browser_version.major <= CHROME_MAX)
 
     def test_version_range_4(self):
         # MUST be valid version range
-        firefox_min = 125
-        firefox_max = 129
+        FIREFOX_MIN = 125
+        FIREFOX_MAX = 129
 
         for i in range(0, 100):
             options = Options(version_ranges={
-                'firefox': VersionRange(min_version=firefox_min, max_version=firefox_max),
+                'firefox': VersionRange(min_version=FIREFOX_MIN, max_version=FIREFOX_MAX),
             })
             ua = ua_generator.generate(browser='firefox', options=options)
             self.assertTrue(ua.browser == 'firefox')
             self.assertIsNotNone(ua.generator.browser_version)
-            self.assertTrue(firefox_min <= ua.generator.browser_version.major <= firefox_max)
+            self.assertTrue(FIREFOX_MIN <= ua.generator.browser_version.major <= FIREFOX_MAX)
 
     def test_version_range_multiple(self):
         # MUST be valid version range
-        chrome_min = 124
-        chrome_max = 127
-        firefox_min = 125
-        firefox_max = 129
+        CHROME_MIN = 124
+        CHROME_MAX = 127
+        FIREFOX_MIN = 125
+        FIREFOX_MAX = 129
 
         for i in range(0, 100):
             options = Options(version_ranges={
-                'chrome': VersionRange(min_version=chrome_min, max_version=chrome_max),
-                'firefox': VersionRange(min_version=firefox_min, max_version=firefox_max),
+                'chrome': VersionRange(min_version=CHROME_MIN, max_version=CHROME_MAX),
+                'firefox': VersionRange(min_version=FIREFOX_MIN, max_version=FIREFOX_MAX),
             })
             ua = ua_generator.generate(browser=('chrome', 'firefox'), options=options)
             self.assertIn(ua.browser, ('chrome', 'firefox'))
             self.assertIsNotNone(ua.generator.browser_version)
             if ua.browser == 'chrome':
-                self.assertTrue(chrome_min <= ua.generator.browser_version.major <= chrome_max)
+                self.assertTrue(CHROME_MIN <= ua.generator.browser_version.major <= CHROME_MAX)
             if ua.browser == 'firefox':
-                self.assertTrue(firefox_min <= ua.generator.browser_version.major <= firefox_max)
+                self.assertTrue(FIREFOX_MIN <= ua.generator.browser_version.major <= FIREFOX_MAX)
 
     def test_version_range_5(self):
         # MUST be valid version range
-        macos_min = 12
-        macos_max = 14
+        MACOS_MIN = 12
+        MAXOS_MAX = 14
 
         for i in range(0, 100):
             options = Options(version_ranges={
-                'macos': VersionRange(min_version=macos_min, max_version=macos_max),
+                'macos': VersionRange(min_version=MACOS_MIN, max_version=MAXOS_MAX),
             })
             ua = ua_generator.generate(platform='macos', options=options)
             self.assertTrue(ua.platform == 'macos')
             self.assertIsNotNone(ua.generator.platform_version)
-            self.assertTrue(macos_min <= ua.generator.platform_version.major <= macos_max)
+            self.assertTrue(MACOS_MIN <= ua.generator.platform_version.major <= MAXOS_MAX)
 
     def test_version_range_min_only(self):
         # MUST be valid version range
-        chrome_min = 124
+        CHROME_MIN = 124
 
         for i in range(0, 100):
             options = Options(
                 version_ranges={
-                    'chrome': VersionRange(min_version=chrome_min),
+                    'chrome': VersionRange(min_version=CHROME_MIN),
                 })
             ua = ua_generator.generate(browser='chrome', options=options)
             self.assertTrue(ua.browser == 'chrome')
             self.assertIsNotNone(ua.generator.browser_version)
-            self.assertTrue(chrome_min <= ua.generator.browser_version.major)
+            self.assertTrue(CHROME_MIN <= ua.generator.browser_version.major)
 
     def test_version_range_max_only(self):
         # MUST be valid version range
-        chrome_max = 125
+        CHROME_MAX = 125
 
         for i in range(0, 100):
             options = Options(
                 version_ranges={
-                    'chrome': VersionRange(max_version=chrome_max),
+                    'chrome': VersionRange(max_version=CHROME_MAX),
                 })
             ua = ua_generator.generate(browser='chrome', options=options)
             self.assertTrue(ua.browser == 'chrome')
             self.assertIsNotNone(ua.generator.browser_version)
-            self.assertTrue(ua.generator.browser_version.major <= chrome_max)
+            self.assertTrue(ua.generator.browser_version.major <= CHROME_MAX)
 
     def test_version_range_invalid(self):
         # MUST be INVALID version range
-        edge_min = 1
-        edge_max = 2
+        EDGE_MIN_INVALID = 1
+        EDGE_MAX_INVALID = 2
 
         for i in range(0, 100):
             options = Options(version_ranges={
-                'edge': VersionRange(min_version=edge_min, max_version=edge_max),
+                'edge': VersionRange(min_version=EDGE_MIN_INVALID, max_version=EDGE_MAX_INVALID),
             })
             ua = ua_generator.generate(browser='edge', options=options)
             self.assertTrue(ua.browser == 'edge')
             self.assertIsNotNone(ua.generator.browser_version)
-            self.assertFalse(edge_min <= ua.generator.browser_version.major <= edge_max)
+            self.assertFalse(EDGE_MIN_INVALID <= ua.generator.browser_version.major <= EDGE_MAX_INVALID)
 
 
 if __name__ == '__main__':

@@ -6,6 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
+from ...filterer import Filterer
 from ...version import Version, AndroidVersion
 from ....options import Options
 
@@ -28,18 +29,16 @@ platform_models = ('CH1933', 'CPH2195', 'CPH2263', 'CPH1941', 'CPH2021', 'CPH221
 
 
 def get_version(options: Options) -> AndroidVersion:
-    weights = None
+    filterer = Filterer(versions)
+
+    if options.version_ranges and 'android' in options.version_ranges:
+        filterer.version_range(options.version_ranges['android'])
+
     if options.weighted_versions:
-        weights = [1.0] * len(versions)
-        weights[-1] = 10.0
-        weights[-2] = 9.0
+        filterer.weighted_versions(max_range=3)
 
-    choice: List[AndroidVersion] = random.choices(versions, weights=weights, k=1)
-
-    build_number = choice[0].build_number
-    build_number = build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(22, 25), random.randint(0, 12), random.randint(0, 29)))
-    build_number = build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
-
-    choice[0].build_number = build_number
-    choice[0].platform_model = random.choice(platform_models)
-    return choice[0]
+    choice: AndroidVersion = random.choice(filterer.versions)
+    choice.build_number = choice.build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(22, 25), random.randint(0, 12), random.randint(0, 29)))
+    choice.build_number = choice.build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
+    choice.platform_model = random.choice(platform_models)
+    return choice

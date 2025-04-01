@@ -6,6 +6,7 @@ License: Apache License 2.0
 import random
 from typing import List
 
+from ..filterer import Filterer
 from ..version import Version
 from ...options import Options
 
@@ -43,9 +44,12 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    weights = None
-    if options.weighted_versions:
-        weights = [1.0] * len(versions)
+    filterer = Filterer(versions)
 
-    choice: List[Version] = random.choices(versions, weights=weights, k=1)
-    return choice[0]
+    if options.version_ranges and 'linux' in options.version_ranges:
+        filterer.version_range(options.version_ranges['linux'])
+
+    if options.weighted_versions:
+        filterer.weighted_versions()
+
+    return random.choice(filterer.versions)

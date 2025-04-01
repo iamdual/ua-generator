@@ -6,7 +6,8 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..version import Version, ChromiumVersion, VersionRange
+from ..filterer import Filterer
+from ..version import Version, ChromiumVersion
 from ...options import Options
 
 # https://developer.apple.com/documentation/safari-release-notes
@@ -24,17 +25,12 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    if options.version_ranges is not None and 'safari' in options.version_ranges:
-        if type(options.version_ranges['safari']) == VersionRange:
-            filtered = options.version_ranges['safari'].filter(versions)
-            if type(filtered) == list and len(filtered) > 0:
-                return random.choice(filtered)
+    filterer = Filterer(versions)
 
-    weights = None
+    if options.version_ranges and 'safari' in options.version_ranges:
+        filterer.version_range(options.version_ranges['safari'])
+
     if options.weighted_versions:
-        weights = [1.0] * len(versions)
-        weights[-1] = 10.0
-        weights[-2] = 9.0
+        filterer.weighted_versions(max_range=3)
 
-    choice: List[ChromiumVersion] = random.choices(versions, weights=weights, k=1)
-    return choice[0]
+    return random.choice(filterer.versions)
