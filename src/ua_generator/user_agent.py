@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 from typing import Union
 
-from . import utils, exceptions
+from . import utils
 from .client_hints import ClientHints
 from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE, T_DEVICES, T_PLATFORMS, T_BROWSERS
 from .data.generator import Generator
@@ -34,7 +34,7 @@ class UserAgent:
 
     def __find_device(self) -> str:
         if self.device is not None and self.device not in DEVICES:
-            raise exceptions.InvalidArgumentError('No such device type found: {}'.format(self.device))
+            raise ValueError('No such device type found: {}'.format(self.device))
 
         # Override the device type, if the platform is specified
         if self.platform is not None:
@@ -50,7 +50,7 @@ class UserAgent:
 
     def __find_platform(self) -> str:
         if self.platform is not None and self.platform not in PLATFORMS:
-            raise exceptions.InvalidArgumentError('No such platform found: {}'.format(self.platform))
+            raise ValueError('No such platform found: {}'.format(self.platform))
 
         # Make the platform consistent with the device type and browser
         if self.device == 'desktop' and self.platform not in PLATFORMS_DESKTOP:
@@ -69,7 +69,7 @@ class UserAgent:
 
     def __find_browser(self) -> str:
         if self.browser is not None and self.browser not in BROWSERS:
-            raise exceptions.InvalidArgumentError('No such browser found: {}'.format(self.browser))
+            raise ValueError('No such browser found: {}'.format(self.browser))
 
         if self.browser is None:
             self.browser = utils.choice(BROWSERS)

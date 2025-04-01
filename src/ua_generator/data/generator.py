@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 from .browsers import chrome, safari, firefox, edge
 from .platforms import ios, android, linux, windows, macos
-from .. import utils, exceptions
+from .. import utils
 from ..options import Options
 
 
@@ -173,4 +173,4 @@ class Generator:
                 template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
 
-        raise exceptions.CannotGenerateError(self)
+        raise RuntimeError(self)

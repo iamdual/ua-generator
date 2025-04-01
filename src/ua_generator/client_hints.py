@@ -8,7 +8,6 @@ from random import Random
 from . import serialization
 from .data import generator, PLATFORMS_MOBILE
 from .data.version import AndroidVersion, WindowsVersion
-from .exceptions import InvalidArgumentError
 
 
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA
@@ -118,7 +117,7 @@ class ClientHints:
         elif name == 'wow64':
             self.__cache[name] = serialization.ch_bool(self.get_wow64())
         else:
-            raise InvalidArgumentError('Invalid attribute: {}'.format(name))
+            raise AttributeError('Invalid attribute: {}'.format(name))
 
         return self.__cache[name]
 
