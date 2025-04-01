@@ -95,16 +95,16 @@ class TestVersionRange(unittest.TestCase):
     def test_version_range_5(self):
         # MUST be valid version range
         MACOS_MIN = 12
-        MAXOS_MAX = 14
+        MACOS_MAX = 14
 
         for i in range(0, 100):
             options = Options(version_ranges={
-                'macos': VersionRange(min_version=MACOS_MIN, max_version=MAXOS_MAX),
+                'macos': VersionRange(min_version=MACOS_MIN, max_version=MACOS_MAX),
             })
             ua = ua_generator.generate(platform='macos', options=options)
             self.assertTrue(ua.platform == 'macos')
             self.assertIsNotNone(ua.generator.platform_version)
-            self.assertTrue(MACOS_MIN <= ua.generator.platform_version.major <= MAXOS_MAX)
+            self.assertTrue(MACOS_MIN <= ua.generator.platform_version.major <= MACOS_MAX)
 
     def test_version_range_min_only(self):
         # MUST be valid version range
