@@ -4,6 +4,7 @@ Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 from random import Random
+from typing import Any
 
 from . import serialization
 from .data import generator, PLATFORMS_MOBILE
@@ -26,7 +27,7 @@ class ClientHints:
 
     def __init__(self, gen: generator.Generator):
         self.__generator = gen
-        self.__cache = {}
+        self.__cache: dict[str, Any] = {}
 
     def get_mobile(self) -> bool:
         return self.__generator.platform in PLATFORMS_MOBILE
@@ -44,8 +45,9 @@ class ClientHints:
         return platform
 
     def get_platform_version(self) -> str:
-        if type(self.__generator.platform_version) is WindowsVersion:
-            return self.__generator.platform_version.ch_platform.format(partitions=3)
+        if isinstance(self.__generator.platform_version, WindowsVersion):
+            if self.__generator.platform_version.ch_platform is not None:
+                return self.__generator.platform_version.ch_platform.format(partitions=3)
 
         return str(self.__generator.platform_version)
 

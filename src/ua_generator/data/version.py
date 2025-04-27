@@ -10,23 +10,23 @@ from .. import utils
 
 
 class Version:
-    major: int = None
-    minor: int = None
-    build: int = None
-    patch: int = None
+    major: int | None = None
+    minor: int | None = None
+    build: int | None = None
+    patch: int | None = None
 
     def __init__(self,
-                 major: Union[int, tuple] = None,
-                 minor: Union[int, tuple] = None,
-                 build: Union[int, tuple] = None,
-                 patch: Union[int, tuple] = None):
+                 major: Union[int, tuple] | None = None,
+                 minor: Union[int, tuple] | None = None,
+                 build: Union[int, tuple] | None = None,
+                 patch: Union[int, tuple] | None = None):
         self.major, self.minor, self.build, self.patch = map(
             lambda x:
             # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
             random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
         )
-        self.__tuple = None
+        self.__tuple : tuple[int, ...] | None = None
 
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
@@ -78,7 +78,7 @@ class Version:
 
 
 class ChromiumVersion(Version):
-    webkit: Version = None
+    webkit: Version | None = None
 
     def __init__(self, version: Version, webkit: Version = Version(major=537, minor=36)):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -86,8 +86,8 @@ class ChromiumVersion(Version):
 
 
 class AndroidVersion(Version):
-    build_number: str = None
-    platform_model: str = None
+    build_number: str | None = None
+    platform_model: str | None = None
 
     def __init__(self, version: Version, build_numbers: Union[str, tuple, list, None] = None):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -95,7 +95,7 @@ class AndroidVersion(Version):
 
 
 class WindowsVersion(Version):
-    ch_platform: Version = None
+    ch_platform: Version | None = None
 
     def __init__(self, version: Version, ch_platform: Version):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -111,23 +111,51 @@ VERSION_TYPES = (
 
 
 class VersionRange:
-    min_version: Version = None
-    max_version: Version = None
+    min_version: Version | None = None
+    max_version: Version | None = None
 
-    def __init__(self, min_version: Union[Version, int] = None, max_version: Union[Version, int] = None):
-        self.min_version = Version(major=min_version) if type(min_version) is int else min_version
-        self.max_version = Version(major=max_version) if type(max_version) is int else max_version
+    def __init__(self, min_version: Union[Version, int] | None = None, max_version: Union[Version, int] | None = None):
+        
+        if isinstance(min_version, int):
+            self.min_version = Version(major=min_version)
+        else:
+            self.min_version = min_version
+        
+        if isinstance(max_version, int):
+            self.max_version = Version(major=max_version)
+        else:
+            self.max_version = max_version
 
     def filter(self, versions: List[Version]) -> List[Version]:
         tmp_versions: List[Version] = []
 
         # TODO: Perhaps support for full version comparison, instead of just major versions
         for version in versions:
-            if self.min_version is not None and self.max_version is not None and self.min_version.major <= version.major <= self.max_version.major:
-                tmp_versions.append(version)
-            elif self.min_version is not None and self.max_version is None and self.min_version.major <= version.major:
-                tmp_versions.append(version)
-            elif self.min_version is None and self.max_version is not None and version.major <= self.max_version.major:
+            if (version.major is None):
+                continue
+            
+            include = False
+            
+            if self.min_version is not None and self.max_version is not None:
+                
+                if self.min_version.major is not None and self.max_version.major is not None:
+                    if self.min_version.major <= version.major <= self.max_version.major:
+                        include = True
+            
+            elif self.min_version is not None and self.max_version is None:
+                if self.min_version.major is not None:
+                    if self.min_version.major <= version.major:
+                        include = True
+            
+            elif self.min_version is None and self.max_version is not None:
+                if self.max_version.major is not None:
+                    if version.major <= self.max_version.major:
+                        include = True
+            
+            # elif self.min_version is None and self.max_version is None:
+            #     include = True
+
+            if include:
                 tmp_versions.append(version)
 
         return tmp_versions

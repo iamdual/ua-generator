@@ -10,9 +10,9 @@ from .data.version import VersionRange
 
 class Options:
     weighted_versions: bool = False
-    version_ranges: typing.Dict[str, VersionRange] = None
+    version_ranges: typing.Dict[str, VersionRange] | None = None
 
-    def __init__(self, weighted_versions: bool = False, version_ranges: typing.Dict[str, VersionRange] = None):
+    def __init__(self, weighted_versions: bool = False, version_ranges: typing.Dict[str, VersionRange] | None = None):
         self.weighted_versions = weighted_versions
         if version_ranges is not None:
             self.version_ranges = version_ranges
