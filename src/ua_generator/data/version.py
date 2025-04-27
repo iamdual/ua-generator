@@ -151,9 +151,6 @@ class VersionRange:
                 if self.max_version.major is not None:
                     if version.major <= self.max_version.major:
                         include = True
-            
-            # elif self.min_version is None and self.max_version is None:
-            #     include = True
 
             if include:
                 tmp_versions.append(version)
