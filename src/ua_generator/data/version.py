@@ -4,29 +4,29 @@ Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
-from typing import Union, List
+from typing import Union, List, Optional
 
 from .. import utils
 
 
 class Version:
-    major: int | None = None
-    minor: int | None = None
-    build: int | None = None
-    patch: int | None = None
+    major: Optional[int] = None
+    minor: Optional[int] = None
+    build: Optional[int] = None
+    patch: Optional[int] = None
 
     def __init__(self,
-                 major: Union[int, tuple] | None = None,
-                 minor: Union[int, tuple] | None = None,
-                 build: Union[int, tuple] | None = None,
-                 patch: Union[int, tuple] | None = None):
+                 major: Optional[Union[int, tuple]] = None,
+                 minor: Optional[Union[int, tuple]]= None,
+                 build: Optional[Union[int, tuple]]= None,
+                 patch: Optional[Union[int, tuple]]= None):
         self.major, self.minor, self.build, self.patch = map(
             lambda x:
             # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
             random.randrange(*x) if isinstance(x, tuple) else x,
             (major, minor, build, patch)
         )
-        self.__tuple : tuple[int, ...] | None = None
+        self.__tuple : Optional[tuple[int, ...]] = None
 
     def format(self, partitions=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
@@ -78,7 +78,7 @@ class Version:
 
 
 class ChromiumVersion(Version):
-    webkit: Version | None = None
+    webkit: Optional[Version] = None
 
     def __init__(self, version: Version, webkit: Version = Version(major=537, minor=36)):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -86,8 +86,8 @@ class ChromiumVersion(Version):
 
 
 class AndroidVersion(Version):
-    build_number: str | None = None
-    platform_model: str | None = None
+    build_number: Optional[str] = None
+    platform_model: Optional[str] = None
 
     def __init__(self, version: Version, build_numbers: Union[str, tuple, list, None] = None):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -95,7 +95,7 @@ class AndroidVersion(Version):
 
 
 class WindowsVersion(Version):
-    ch_platform: Version | None = None
+    ch_platform: Optional[Version] = None
 
     def __init__(self, version: Version, ch_platform: Version):
         super().__init__(version.major, version.minor, version.build, version.patch)
@@ -111,10 +111,10 @@ VERSION_TYPES = (
 
 
 class VersionRange:
-    min_version: Version | None = None
-    max_version: Version | None = None
+    min_version: Optional[Version] = None
+    max_version: Optional[Version] = None
 
-    def __init__(self, min_version: Union[Version, int] | None = None, max_version: Union[Version, int] | None = None):
+    def __init__(self, min_version: Optional[Union[Version, int]] = None, max_version: Optional[Union[Version, int]] = None):
         
         if isinstance(min_version, int):
             self.min_version = Version(major=min_version)

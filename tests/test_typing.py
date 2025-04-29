@@ -1,4 +1,3 @@
-from typing import reveal_type
 import src.ua_generator as ua_generator
 
 def test_ua_generator():
@@ -11,4 +10,3 @@ def test_ua_generator():
     ```
     """
     agent = ua_generator.generate()
-    reveal_type(agent)
