@@ -6,7 +6,6 @@ License: Apache License 2.0
 import random
 from typing import List
 
-from ..filterer import Filterer
 from ..version import Version, ChromiumVersion
 from ...options import Options
 
@@ -25,6 +24,8 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
+    from ..filterer import Filterer
+    
     filterer = Filterer(versions)
 
     if options.version_ranges and 'safari' in options.version_ranges:

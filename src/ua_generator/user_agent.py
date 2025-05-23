@@ -45,7 +45,8 @@ class UserAgent:
 
         if self.device is None:
             self.device = utils.choice(DEVICES)
-
+        
+        assert isinstance(self.device, str), "Device should be string before returning"
         return self.device
 
     def __find_platform(self) -> str:
@@ -65,6 +66,7 @@ class UserAgent:
         if self.platform is None:
             self.platform = utils.choice(PLATFORMS)
 
+        assert isinstance(self.platform, str), "Platform should be string before returning"
         return self.platform
 
     def __find_browser(self) -> str:
@@ -78,6 +80,7 @@ class UserAgent:
         if self.browser == 'safari' and self.platform not in ('macos', 'ios'):
             self.browser = 'chrome'
 
+        assert isinstance(self.browser, str), "Browser should be string before returning"
         return self.browser
 
     def __complete(self):
