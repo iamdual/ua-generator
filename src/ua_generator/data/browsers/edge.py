@@ -10,7 +10,7 @@ from ..filterer import Filterer
 from ..version import Version, ChromiumVersion
 from ...options import Options
 
-# https://docs.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
+# https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule
 versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=100, minor=0, build=1185, patch=(0, 99))),
     ChromiumVersion(Version(major=101, minor=0, build=1210, patch=(0, 99))),
@@ -49,6 +49,7 @@ versions: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=134, minor=0, build=3124, patch=(0, 99))),
     ChromiumVersion(Version(major=135, minor=0, build=3179, patch=(0, 99))),
     ChromiumVersion(Version(major=136, minor=0, build=3240, patch=(0, 99))),
+    ChromiumVersion(Version(major=137, minor=0, build=3296, patch=(0, 99))),
 ]
 
 

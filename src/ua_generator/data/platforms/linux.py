@@ -38,8 +38,15 @@ versions: List[Version] = [
     Version(major=6, minor=3, build=(0, 13)),
     Version(major=6, minor=4, build=(0, 16)),
     Version(major=6, minor=5, build=(0, 13)),
-    Version(major=6, minor=6, build=(0, 17)),
-    Version(major=6, minor=7, build=(0, 5)),
+    Version(major=6, minor=6, build=(0, 92)),
+    Version(major=6, minor=7, build=(0, 12)),
+    Version(major=6, minor=8, build=(0, 12)),
+    Version(major=6, minor=9, build=(0, 12)),
+    Version(major=6, minor=10, build=(0, 14)),
+    Version(major=6, minor=11, build=(0, 11)),
+    Version(major=6, minor=12, build=(0, 31)),
+    Version(major=6, minor=13, build=(0, 12)),
+    Version(major=6, minor=14, build=(0, 9)),
 ]
 
 
