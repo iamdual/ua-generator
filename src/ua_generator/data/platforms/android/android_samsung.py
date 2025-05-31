@@ -138,7 +138,8 @@ def get_version(options: Options) -> AndroidVersion:
         filterer.weighted_versions(max_range=5)
 
     choice: AndroidVersion = random.choice(filterer.versions)
-    choice.build_number = choice.build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(17, 25), random.randint(0, 12), random.randint(0, 29)))
-    choice.build_number = choice.build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
+    if choice.build_number is not None:
+        choice.build_number = choice.build_number.replace('{d}', '{:02d}{:02d}{:02d}'.format(random.randint(17, 25), random.randint(0, 12), random.randint(0, 29)))
+        choice.build_number = choice.build_number.replace('{v}', '{}'.format(random.randint(1, 255)))
     choice.platform_model = random.choice(platform_models)
     return choice

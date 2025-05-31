@@ -46,6 +46,7 @@ class UserAgent:
         if self.device is None:
             self.device = utils.choice(DEVICES)
 
+        assert self.device is not None
         return self.device
 
     def __find_platform(self) -> str:
@@ -65,6 +66,7 @@ class UserAgent:
         if self.platform is None:
             self.platform = utils.choice(PLATFORMS)
 
+        assert self.platform is not None
         return self.platform
 
     def __find_browser(self) -> str:
@@ -78,6 +80,7 @@ class UserAgent:
         if self.browser == 'safari' and self.platform not in ('macos', 'ios'):
             self.browser = 'chrome'
 
+        assert self.browser is not None
         return self.browser
 
     def __complete(self):
