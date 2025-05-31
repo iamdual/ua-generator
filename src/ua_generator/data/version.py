@@ -10,10 +10,10 @@ from .. import utils
 
 
 class Version:
-    major: Optional[Union[int]]
-    minor: Optional[Union[int]]
-    build: Optional[Union[int]]
-    patch: Optional[Union[int]]
+    major: Optional[int]
+    minor: Optional[int]
+    build: Optional[int]
+    patch: Optional[int]
 
     def __init__(self,
                  major: Optional[Union[int, tuple]] = None,

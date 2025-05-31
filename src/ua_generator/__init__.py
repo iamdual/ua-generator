@@ -11,5 +11,5 @@ from . import user_agent, options as _options, data as _data
 def generate(device: Optional[Union[_data.T_DEVICES, tuple, list]] = None,
              platform: Optional[Union[_data.T_PLATFORMS, tuple, list]] = None,
              browser: Optional[Union[_data.T_BROWSERS, tuple, list]] = None,
-             options: Optional[Union[_options.Options]] = None) -> user_agent.UserAgent:
+             options: Optional[_options.Options] = None) -> user_agent.UserAgent:
     return user_agent.UserAgent(device, platform, browser, options)

@@ -18,11 +18,11 @@ class UserAgent:
                  device: Optional[Union[T_DEVICES, tuple, list]] = None,
                  platform: Optional[Union[T_PLATFORMS, tuple, list]] = None,
                  browser: Optional[Union[T_BROWSERS, tuple, list]] = None,
-                 options: Optional[Union[Options]] = None):
+                 options: Optional[Options] = None):
 
-        self.device: Optional[Union[str]] = utils.choice(device) if device else None
-        self.platform: Optional[Union[str]] = utils.choice(platform) if platform else None
-        self.browser: Optional[Union[str]] = utils.choice(browser) if browser else None
+        self.device: Optional[str] = utils.choice(device) if device else None
+        self.platform: Optional[str] = utils.choice(platform) if platform else None
+        self.browser: Optional[str] = utils.choice(browser) if browser else None
         self.options: Options = options if options else Options()
         self.__complete()
 
