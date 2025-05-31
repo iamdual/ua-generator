@@ -3,7 +3,7 @@ Random User-Agent
 Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
-from typing import Union
+from typing import Union, Optional
 
 from . import utils
 from .client_hints import ClientHints
@@ -15,14 +15,14 @@ from .options import Options
 
 class UserAgent:
     def __init__(self,
-                 device: Union[T_DEVICES, tuple, list, None] = None,
-                 platform: Union[T_PLATFORMS, tuple, list, None] = None,
-                 browser: Union[T_BROWSERS, tuple, list, None] = None,
-                 options: Union[Options, None] = None):
+                 device: Optional[Union[T_DEVICES, tuple, list]] = None,
+                 platform: Optional[Union[T_PLATFORMS, tuple, list]] = None,
+                 browser: Optional[Union[T_BROWSERS, tuple, list]] = None,
+                 options: Optional[Union[Options]] = None):
 
-        self.device: Union[str, None] = utils.choice(device) if device else None
-        self.platform: Union[str, None] = utils.choice(platform) if platform else None
-        self.browser: Union[str, None] = utils.choice(browser) if browser else None
+        self.device: Optional[Union[str]] = utils.choice(device) if device else None
+        self.platform: Optional[Union[str]] = utils.choice(platform) if platform else None
+        self.browser: Optional[Union[str]] = utils.choice(browser) if browser else None
         self.options: Options = options if options else Options()
         self.__complete()
 
