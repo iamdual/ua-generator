@@ -26,7 +26,7 @@ class ClientHints:
 
     def __init__(self, gen: generator.Generator):
         self.__generator = gen
-        self.__cache = {}
+        self.__cache: dict[str, str] = {}
 
     def get_mobile(self) -> bool:
         return self.__generator.platform in PLATFORMS_MOBILE
