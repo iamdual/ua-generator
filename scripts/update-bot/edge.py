@@ -50,13 +50,13 @@ for item in parsed:
 
         key = (major, minor, build)
         if key not in existing_versions:
-            entry = f"\n    ChromiumVersion(Version(major={major}, minor={minor}, build={build}, patch=(0, 99))),"
+            entry = f"    ChromiumVersion(Version(major={major}, minor={minor}, build={build}, patch=(0, 99))),"
             new_entries.append(entry)
             existing_versions.add(key)
     
 # Update versions
 if new_entries:
-    updated_body = body.rstrip() + "\n".join(new_entries)
+    updated_body = body.rstrip() + "\n" + "\n".join(new_entries)
     new_code = (
         code[:versions_match.start()] + prefix + updated_body + suffix + code[versions_match.end():]
     )
