@@ -14,7 +14,7 @@ json_data = requests.get("https://endoflife.date/api/ios.json").text
 parsed = json.loads(json_data)
 
 # Sort JSON
-parsed = sorted(parsed, key=lambda p: int(p.get('cycle', 0)))
+parsed = sorted(parsed, key=lambda p: float(p.get('cycle', 0)))
 
 # Get versions
 versions_match = re.search(
