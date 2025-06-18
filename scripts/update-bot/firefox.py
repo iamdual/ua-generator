@@ -5,7 +5,7 @@ from pathlib import Path
 import requests
 
 # Version file
-DATA_PATH = os.path.realpath("../../src/ua_generator/data/")
+DATA_PATH = os.path.realpath(os.path.dirname(__file__) + "/../../src/ua_generator/data/")
 file_path = Path(DATA_PATH + "/browsers/firefox.py")
 code = file_path.read_text(encoding="utf-8")
 
