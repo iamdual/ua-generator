@@ -43,7 +43,8 @@ major, minor, build, *_ = map(int, version_str.split("."))
 
 key = (major, minor, build)
 if key not in existing_versions:
-    entry = f"    Version(major={major}, minor={minor}, build=(0, {build})),"
+    build_arg = f"(0, {build})" if build > 0 else "0"
+    entry = f"    Version(major={major}, minor={minor}, build={build_arg}),"
     new_entries.append(entry)
     existing_versions.add(key)
     
