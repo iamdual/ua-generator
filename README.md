@@ -80,7 +80,7 @@ print(ua.headers.get())
 }
 
 # Extending the "Client Hints" by a value of the "Accept-CH" header:
-print(ua.headers.accept_ch('Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List'))
+ua.headers.accept_ch('Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List')
 print(ua.headers.get())
 {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.94 Safari/537.36',
@@ -101,6 +101,7 @@ import ua_generator
 ua = ua_generator.generate(browser=('chrome', 'edge'))
 r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
 
+
 # or, usage with requests.Session():
 ua = ua_generator.generate(browser=('chrome', 'edge'))
 s = requests.Session()
@@ -116,6 +117,7 @@ import ua_generator
 
 ua = ua_generator.generate(browser=('chrome', 'edge'))
 r = httpx.get('https://httpbin.org/get', headers=ua.headers.get())
+
 
 # or, usage with httpx.Client():
 ua = ua_generator.generate(browser=('chrome', 'edge'))
