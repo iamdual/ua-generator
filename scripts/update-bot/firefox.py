@@ -39,7 +39,8 @@ for major, minor, b1, b2, b_simple in re.findall(r"Version\(major=(\d+),\s*minor
 # Collect versions
 new_entries = []
 version_str = parsed["LATEST_FIREFOX_VERSION"]
-major, minor, build, *_ = map(int, version_str.split("."))
+version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+major, minor, build, *_ = map(int, version_arr)
 
 key = (major, minor, build)
 if key not in existing_versions:

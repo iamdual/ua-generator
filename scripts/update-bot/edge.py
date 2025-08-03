@@ -46,7 +46,8 @@ for item in parsed:
             continue
     
         version_str = release["ProductVersion"]
-        major, minor, build, *_ = map(int, version_str.split("."))
+        version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+        major, minor, build, *_ = map(int, version_arr)
 
         key = (major, minor, build)
         if key not in existing_versions:

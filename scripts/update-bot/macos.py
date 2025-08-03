@@ -47,12 +47,8 @@ for item in parsed:
         continue
 
     version_str = item["latest"]
-    version_arr = version_str.split(".")
-    if len(version_arr) == 3:
-        major, minor, build, *_ = map(int, version_str.split("."))
-    else:
-        major, minor, *_ = map(int, version_str.split("."))
-        build = 0
+    version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+    major, minor, build, *_ = map(int, version_arr)
 
     # Skip older versions
     if major < 10.11:
