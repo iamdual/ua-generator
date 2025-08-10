@@ -12,7 +12,7 @@ from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/docs/setup/reference/build-numbers
-versions: List[AndroidVersion] = [
+VERSIONS: List[AndroidVersion] = [
     AndroidVersion(Version(major=8, minor=0, build=0), build_numbers=('OPR6.{d}.{v}', 'OPR5.{d}.{v}', 'OPR4.{d}.{v}', 'OPR3.{d}.{v}', 'OPR2.{d}.{v}', 'OPR1.{d}.{v}', 'OPD3.{d}.{v}', 'OPD2.{d}.{v}', 'OPD1.{d}.{v}')),
     AndroidVersion(Version(major=8, minor=1, build=0), build_numbers=('OPM8.{d}.{v}', 'OPM7.{d}.{v}', 'OPM6.{d}.{v}', 'OPM5.{d}.{v}', 'OPM4.{d}.{v}', 'OPM3.{d}.{v}', 'OPM2.{d}.{v}')),
     AndroidVersion(Version(major=9, minor=0, build=0), build_numbers=('PQ3B.{d}.{v}', 'PQ3A.{d}.{v}', 'PQ2A.{d}.{v}', 'PQ1A.{d}.{v}', 'PPR2.{d}.{v}', 'PPR1.{d}.{v}')),
@@ -72,7 +72,7 @@ platform_models = (
 
 
 def get_version(options: Options) -> AndroidVersion:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'android' in options.version_ranges:
         filterer.version_range(options.version_ranges['android'])

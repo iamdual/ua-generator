@@ -13,7 +13,7 @@ from ...options import Options
 # https://developer.apple.com/documentation/ios-ipados-release-notes
 # https://developer.apple.com/news/releases/
 # https://support.apple.com/en-us/HT201222
-versions: List[Version] = [
+VERSIONS: List[Version] = [
     Version(major=14, minor=0, build=(0, 1)),
     Version(major=14, minor=1, build=0),
     Version(major=14, minor=2, build=(0, 1)),
@@ -55,7 +55,7 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'ios' in options.version_ranges:
         filterer.version_range(options.version_ranges['ios'])

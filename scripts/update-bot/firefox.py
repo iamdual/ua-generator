@@ -15,7 +15,7 @@ parsed = json.loads(json_data)
 
 # Get versions
 versions_match = re.search(
-    r"(versions:\s+List\[Version\]\s*=\s*\[\n)(.*?)(\n\s*\])",
+    r"(VERSIONS:\s+List\[Version\]\s*=\s*\[\n)(.*?)(\n\s*\])",
     code,
     flags=re.DOTALL,
 )
