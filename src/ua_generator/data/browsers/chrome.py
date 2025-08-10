@@ -11,7 +11,7 @@ from ..version import Version, ChromiumVersion
 from ...options import Options
 
 # https://chromereleases.googleblog.com/search/label/Stable%20updates
-versions: List[ChromiumVersion] = [
+VERSIONS: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=100, minor=0, build=4896, patch=(0, 255))),
     ChromiumVersion(Version(major=101, minor=0, build=4951, patch=(0, 255))),
     ChromiumVersion(Version(major=102, minor=0, build=5005, patch=(0, 255))),
@@ -55,7 +55,7 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'chrome' in options.version_ranges:
         filterer.version_range(options.version_ranges['chrome'])

@@ -11,7 +11,7 @@ from ..version import Version
 from ...options import Options
 
 # https://www.mozilla.org/en-US/firefox/releases/
-versions: List[Version] = [
+VERSIONS: List[Version] = [
     Version(major=108, minor=0, build=(0, 2)),
     Version(major=109, minor=0, build=(0, 1)),
     Version(major=110, minor=0, build=(0, 1)),
@@ -64,7 +64,7 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'firefox' in options.version_ranges:
         filterer.version_range(options.version_ranges['firefox'])

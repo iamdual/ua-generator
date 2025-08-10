@@ -11,7 +11,7 @@ from ..version import Version
 from ...options import Options
 
 # https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/refs/
-versions: List[Version] = [
+VERSIONS: List[Version] = [
     Version(major=5, minor=0, build=(0, 21)),
     Version(major=5, minor=1, build=(0, 21)),
     Version(major=5, minor=2, build=(0, 20)),
@@ -51,7 +51,7 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'linux' in options.version_ranges:
         filterer.version_range(options.version_ranges['linux'])

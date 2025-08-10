@@ -6,7 +6,7 @@ License: Apache License 2.0
 import unittest
 
 import src.ua_generator as ua_generator
-from src.ua_generator.data.browsers.chrome import versions as chrome_versions
+from src.ua_generator.data.browsers.chrome import VERSIONS as CHROME_VERSIONS
 from src.ua_generator.data.filterer import Filterer
 
 
@@ -59,7 +59,7 @@ class TestExceptions(unittest.TestCase):
 
     def test_type_error(self):
         def raised_call():
-            filterer = Filterer(chrome_versions)
+            filterer = Filterer(CHROME_VERSIONS)
             filterer.version_range(range(0, 2))
 
         self.assertRaises(TypeError, raised_call)

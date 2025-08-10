@@ -12,7 +12,7 @@ from ...options import Options
 
 # https://learn.microsoft.com/en-us/windows/win32/sysinfo/operating-system-version
 # https://learn.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11
-versions: List[WindowsVersion] = [
+VERSIONS: List[WindowsVersion] = [
     WindowsVersion(Version(major=6, minor=1), ch_platform=Version(major=0)),
     WindowsVersion(Version(major=6, minor=2), ch_platform=Version(major=0)),
     WindowsVersion(Version(major=6, minor=3), ch_platform=Version(major=0)),
@@ -22,7 +22,7 @@ versions: List[WindowsVersion] = [
 
 
 def get_version(options: Options) -> WindowsVersion:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'windows' in options.version_ranges:
         filterer.version_range(options.version_ranges['windows'])

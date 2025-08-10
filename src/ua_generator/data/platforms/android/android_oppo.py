@@ -12,7 +12,7 @@ from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
 # https://source.android.com/docs/setup/reference/build-numbers
-versions: List[AndroidVersion] = [
+VERSIONS: List[AndroidVersion] = [
     AndroidVersion(Version(major=11, minor=0, build=0), build_numbers=('RD2A.{d}.{v}', 'RQ3A.{d}.{v}', 'RQ2A.{d}.{v}', 'RQ1D.{d}.{v}', 'RQ1C.{d}.{v}', 'RQ1A.{d}.{v}', 'RD1B.{d}.{v}', 'RD1A.{d}.{v}', 'RP1A.{d}.{v}')),
     AndroidVersion(Version(major=12, minor=0, build=0), build_numbers=('SP1A.{d}.{v}', 'SQ1D.{d}.{v}', 'SD1A.{d}.{v}')),
     AndroidVersion(Version(major=12, minor=1, build=0), build_numbers=('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')),
@@ -30,7 +30,7 @@ platform_models = ('CH1933', 'CPH2195', 'CPH2263', 'CPH1941', 'CPH2021', 'CPH221
 
 
 def get_version(options: Options) -> AndroidVersion:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'android' in options.version_ranges:
         filterer.version_range(options.version_ranges['android'])

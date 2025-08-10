@@ -15,7 +15,7 @@ from ...options import Options
 
 # https://developer.apple.com/news/releases/
 # https://support.apple.com/en-us/HT201222
-versions: List[Version] = [
+VERSIONS: List[Version] = [
     Version(major=10, minor=11, build=(0, 6)),
     Version(major=10, minor=12, build=(0, 6)),
     Version(major=10, minor=13, build=(0, 6)),
@@ -61,7 +61,7 @@ versions: List[Version] = [
 
 
 def get_version(options: Options) -> Version:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'macos' in options.version_ranges:
         filterer.version_range(options.version_ranges['macos'])

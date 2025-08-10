@@ -18,7 +18,7 @@ parsed = sorted(parsed, key=lambda p: float(p.get('cycle', 0)))
 
 # Get versions
 versions_match = re.search(
-    r"(versions:\s+List\[Version\]\s*=\s*\[\n)(.*?)(\n\s*\])",
+    r"(VERSIONS:\s+List\[Version\]\s*=\s*\[\n)(.*?)(\n\s*\])",
     code,
     flags=re.DOTALL,
 )

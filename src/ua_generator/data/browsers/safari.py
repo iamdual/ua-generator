@@ -11,7 +11,7 @@ from ..version import Version, ChromiumVersion
 from ...options import Options
 
 # https://developer.apple.com/documentation/safari-release-notes
-versions: List[ChromiumVersion] = [
+VERSIONS: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=10, minor=0), webkit=Version(major=602, minor=4, build=8)),
     ChromiumVersion(Version(major=11, minor=0), webkit=Version(major=604, minor=1, build=38)),
     ChromiumVersion(Version(major=12, minor=(0, 1)), webkit=Version(major=605, minor=1, build=15)),
@@ -25,7 +25,7 @@ versions: List[ChromiumVersion] = [
 
 
 def get_version(options: Options) -> ChromiumVersion:
-    filterer = Filterer(versions)
+    filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'safari' in options.version_ranges:
         filterer.version_range(options.version_ranges['safari'])
