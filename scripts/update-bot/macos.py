@@ -51,7 +51,7 @@ for item in parsed:
     major, minor, build, *_ = map(int, version_arr)
 
     # Skip older versions
-    if major < 10.11:
+    if major <= 10:
         continue
 
     key = (major, minor, build)
