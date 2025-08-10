@@ -11,7 +11,7 @@ from ...version import Version, AndroidVersion
 from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
-# https://source.android.com/setup/start/build-numbers
+# https://source.android.com/docs/setup/reference/build-numbers
 versions: List[AndroidVersion] = [
     AndroidVersion(Version(major=8, minor=0, build=0), build_numbers=('OPR6.{d}.{v}', 'OPR5.{d}.{v}', 'OPR4.{d}.{v}', 'OPR3.{d}.{v}', 'OPR2.{d}.{v}', 'OPR1.{d}.{v}', 'OPD3.{d}.{v}', 'OPD2.{d}.{v}', 'OPD1.{d}.{v}')),
     AndroidVersion(Version(major=8, minor=1, build=0), build_numbers=('OPM8.{d}.{v}', 'OPM7.{d}.{v}', 'OPM6.{d}.{v}', 'OPM5.{d}.{v}', 'OPM4.{d}.{v}', 'OPM3.{d}.{v}', 'OPM2.{d}.{v}')),
@@ -22,9 +22,9 @@ versions: List[AndroidVersion] = [
     AndroidVersion(Version(major=12, minor=1, build=0), build_numbers=('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')),
     AndroidVersion(Version(major=13, minor=0, build=0), build_numbers=('TQ3A.{d}.{v}', 'TQ3C.{d}.{v}', 'TQ2B.{d}.{v}', 'TD4A.{d}.{v}', 'TQ2A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}', 'TP1A.{d}.{v}')),
     AndroidVersion(Version(major=14, minor=0, build=0), build_numbers=('AP2A.{d}.{v}', 'AD1A.{d}.{v}', 'UD2A.{d}.{v}', 'UQ1A.{d}.{v}', 'UP1A.{d}.{v}', 'UD1A.{d}.{v}')),
-    AndroidVersion(Version(major=15, minor=0, build=0), build_numbers=('AP4A.{d}.{v}', 'AP3A.{d}.{v}')),
+    AndroidVersion(Version(major=15, minor=0, build=0), build_numbers=('BP1A.{d}.{v}', 'AP4A.{d}.{v}', 'AP3A.{d}.{v}')),
+    AndroidVersion(Version(major=16, minor=0, build=0), build_numbers=('BP2A.{d}.{v}')),
 ]
-
 
 # https://whatmyuseragent.com/brand/xi/xiaomi
 # https://gist.github.com/iamdual/2ef10eeae2c3ce22470bb9acfa77435e

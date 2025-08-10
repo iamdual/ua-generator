@@ -11,6 +11,8 @@ from ....options import Options
 
 
 def get_version(options: Options) -> AndroidVersion:
+
+    # https://gs.statcounter.com/vendor-market-share/mobile
     choice = random.randint(0, 20)
 
     if choice < 2:

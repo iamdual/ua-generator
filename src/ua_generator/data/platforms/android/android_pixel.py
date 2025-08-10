@@ -11,7 +11,9 @@ from ...version import Version, AndroidVersion
 from ....options import Options
 
 # https://en.wikipedia.org/wiki/Android_version_history
-# https://source.android.com/setup/start/build-numbers
+# https://en.wikipedia.org/wiki/Google_Pixel
+# https://developers.google.com/android/images
+# https://source.android.com/docs/setup/reference/build-numbers
 versions: List[AndroidVersion] = [
     AndroidVersion(Version(major=8, minor=0, build=0), build_numbers=('OPR6.{d}.{v}', 'OPR5.{d}.{v}', 'OPR4.{d}.{v}', 'OPR3.{d}.{v}', 'OPR2.{d}.{v}', 'OPR1.{d}.{v}', 'OPD3.{d}.{v}', 'OPD2.{d}.{v}', 'OPD1.{d}.{v}')),
     AndroidVersion(Version(major=8, minor=1, build=0), build_numbers=('OPM8.{d}.{v}', 'OPM7.{d}.{v}', 'OPM6.{d}.{v}', 'OPM5.{d}.{v}', 'OPM4.{d}.{v}', 'OPM3.{d}.{v}', 'OPM2.{d}.{v}')),
@@ -22,12 +24,18 @@ versions: List[AndroidVersion] = [
     AndroidVersion(Version(major=12, minor=1, build=0), build_numbers=('SP2A.{d}.{v}', 'SD2A.{d}.{v}', 'SQ3A.{d}.{v}')),
     AndroidVersion(Version(major=13, minor=0, build=0), build_numbers=('TQ3A.{d}.{v}', 'TQ3C.{d}.{v}', 'TQ2B.{d}.{v}', 'TD4A.{d}.{v}', 'TQ2A.{d}.{v}', 'TQ1A.{d}.{v}', 'TD1A.{d}.{v}', 'TP1A.{d}.{v}')),
     AndroidVersion(Version(major=14, minor=0, build=0), build_numbers=('AP2A.{d}.{v}', 'AD1A.{d}.{v}', 'UD2A.{d}.{v}', 'UQ1A.{d}.{v}', 'UP1A.{d}.{v}', 'UD1A.{d}.{v}')),
-    AndroidVersion(Version(major=15, minor=0, build=0), build_numbers=('AP4A.{d}.{v}', 'AP3A.{d}.{v}')),
+    AndroidVersion(Version(major=15, minor=0, build=0), build_numbers=('BP1A.{d}.{v}', 'AP4A.{d}.{v}', 'AP3A.{d}.{v}')),
+    AndroidVersion(Version(major=16, minor=0, build=0), build_numbers=('BP2A.{d}.{v}')),
 ]
 
-platform_models = ('Pixel 2', 'Pixel 2 XL', 'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL', 'Pixel 4',
-                   'Pixel 4 XL', 'Pixel 4a (5G)', 'Pixel 5', 'Pixel 5a (5G)', 'Pixel 6', 'Pixel 6 Pro',
-                   'Pixel 6a', 'Pixel 7', 'Pixel 7 Pro', 'Pixel 8', 'Pixel 8 Pro', 'Pixel 8a')
+platform_models = ('Pixel 2', 'Pixel 2 XL',
+                   'Pixel 3', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 3 XL',
+                   'Pixel 4', 'Pixel 4 XL', 'Pixel 4a (5G)',
+                   'Pixel 5', 'Pixel 5a',
+                   'Pixel 6', 'Pixel 6 Pro', 'Pixel 6a',
+                   'Pixel 7', 'Pixel 7 Pro', 'Pixel 7a',
+                   'Pixel 8', 'Pixel 8 Pro', 'Pixel 8a',
+                   'Pixel 9', 'Pixel 9 Pro', 'Pixel 9a')
 
 
 def get_version(options: Options) -> AndroidVersion:
