@@ -28,10 +28,6 @@ def get_version(options: Options) -> WindowsVersion:
         filterer.version_range(options.version_ranges['windows'])
 
     if options.weighted_versions:
-        weights = [1.0] * len(versions)
-        # https://gs.statcounter.com/os-version-market-share/windows/desktop/worldwide
-        weights[-2] = 10.0
-        weights[-1] = 7.0
-        filterer.weighted_versions(weights=weights)
+        filterer.weighted_versions(max_range=2)
 
     return random.choice(filterer.versions)
