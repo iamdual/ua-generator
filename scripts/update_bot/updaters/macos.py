@@ -16,7 +16,7 @@ class MacOSUpdater(Updater):
                 continue
 
             version_str = item["latest"]
-            version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+            version_arr = (version_str.split(".") + ["0", "0", "0"])[:3]
             major, minor, build, *_ = map(int, version_arr)
 
             if major <= 10:

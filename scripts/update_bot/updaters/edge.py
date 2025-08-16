@@ -7,6 +7,7 @@ import requests
 
 from . import Updater
 
+
 class EdgeUpdater(Updater):
     def fetch_versions(self):
         obj = requests.get("https://edgeupdates.microsoft.com/api/products").json()
@@ -22,7 +23,7 @@ class EdgeUpdater(Updater):
                     continue
 
                 version_str = release["ProductVersion"]
-                version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+                version_arr = (version_str.split(".") + ["0", "0", "0"])[:3]
                 major, minor, build, *_ = map(int, version_arr)
                 self.versions.append((major, minor, build))
 

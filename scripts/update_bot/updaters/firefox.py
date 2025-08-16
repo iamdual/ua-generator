@@ -12,7 +12,7 @@ class FirefoxUpdater(Updater):
     def fetch_versions(self):
         obj = requests.get("https://product-details.mozilla.org/1.0/firefox_versions.json").json()
         version_str = obj["LATEST_FIREFOX_VERSION"]
-        version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+        version_arr = (version_str.split(".") + ["0", "0", "0"])[:3]
         major, minor, build, *_ = map(int, version_arr)
         self.versions.append((major, minor, build))
 

@@ -16,7 +16,7 @@ class ChromeUpdater(Updater):
                 continue
 
             version_str = item["version"]
-            version_arr = (version_str.split(".") + ['0', '0', '0'])[:3]
+            version_arr = (version_str.split(".") + ["0", "0", "0"])[:3]
             major, minor, build, *_ = map(int, version_arr)
             self.versions.append((major, minor, build))
 
