@@ -38,6 +38,8 @@ class Updater(object):
         self.fetch_versions()
         self.merge_versions()
 
+        # TODO: Update version data.
+
     def info(self):
         print("{} version info".format(self.get_title()))
         self.fetch_current()
