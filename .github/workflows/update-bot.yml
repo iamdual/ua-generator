@@ -23,15 +23,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r scripts/update-bot/requirements.txt
+          pip install -r scripts/update_bot/requirements.txt
 
       - name: Run update scripts
         run: |
-          python scripts/update-bot/chrome.py
-          python scripts/update-bot/edge.py
-          python scripts/update-bot/firefox.py
-          python scripts/update-bot/ios.py
-          python scripts/update-bot/macos.py
+          python -m scripts.update_bot update
 
       - name: Check for changes
         id: git-check
