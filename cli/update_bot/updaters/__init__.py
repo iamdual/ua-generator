@@ -3,6 +3,12 @@ Random User-Agent
 Copyright: 2025 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
+import os
+from pathlib import Path
+
+from src.ua_generator import data as _data
+
+DATA_PATH = os.path.dirname(_data.__file__)
 
 
 class Updater(object):
@@ -15,6 +21,12 @@ class Updater(object):
         title = self.__class__.__name__.removesuffix("Updater")
         title = title.replace("IOS", "iOS").replace("MacOS", "macOS")
         return title
+
+    def get_data_content(self, filename):
+        return Path(DATA_PATH, filename).read_text(encoding="utf-8")
+
+    def set_data_content(self, filename, source):
+        return Path(DATA_PATH, filename).write_text(source, encoding="utf-8")
 
     def fetch_current(self):
         pass
@@ -32,19 +44,18 @@ class Updater(object):
 
         self.merged = [(major, minor, build) for (major, minor), build in sorted(merged.items())]
 
-    def update(self):
-        print("Updating {}".format(self.get_title()))
+    def prepare(self):
         self.fetch_current()
         self.fetch_versions()
         self.merge_versions()
 
-        # TODO: Update version data.
+    def update(self):
+        print("Updating {}...".format(self.get_title()))
+        self.prepare()
 
     def info(self):
         print("{} version info".format(self.get_title()))
-        self.fetch_current()
-        self.fetch_versions()
-        self.merge_versions()
+        self.prepare()
 
         print("Current versions:")
         print(self.current)
