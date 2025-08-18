@@ -38,9 +38,9 @@ class Updater(object):
         merged = {}
 
         for major, minor, build, *_ in self.current + self.versions:
-            major = max(major) if isinstance(major, tuple) else major
-            minor = max(minor) if isinstance(minor, tuple) else minor
-            build = max(build) if isinstance(build, tuple) else build
+            major = max(major) if isinstance(major, tuple) else (major or 0)
+            minor = max(minor) if isinstance(minor, tuple) else (minor or 0)
+            build = max(build) if isinstance(build, tuple) else (build or 0)
 
             key = (major, minor)
             if key not in merged or build > merged[key]:
