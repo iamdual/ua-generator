@@ -20,6 +20,7 @@ class Version:
                  minor: Optional[Union[int, tuple]] = None,
                  build: Optional[Union[int, tuple]] = None,
                  patch: Optional[Union[int, tuple]] = None):
+        self.original = (major, minor, build, patch)
         self.major, self.minor, self.build, self.patch = map(
             lambda x:
             # https://docs.python.org/3/tutorial/controlflow.html#tut-unpacking-arguments
