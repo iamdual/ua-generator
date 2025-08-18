@@ -27,7 +27,7 @@ class MacOSUpdater(Updater):
     def fetch_current(self):
         from src.ua_generator.data.platforms.macos import VERSIONS
         for version in VERSIONS:
-            self.current.append((version.major, version.minor, version.build))
+            self.current.append(version.original)
 
     def update(self):
         super().update()

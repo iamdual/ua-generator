@@ -37,7 +37,11 @@ class Updater(object):
     def merge_versions(self):
         merged = {}
 
-        for major, minor, build in self.current + self.versions:
+        for major, minor, build, *_ in self.current + self.versions:
+            major = max(major) if isinstance(major, tuple) else major
+            minor = max(minor) if isinstance(minor, tuple) else minor
+            build = max(build) if isinstance(build, tuple) else build
+
             key = (major, minor)
             if key not in merged or build > merged[key]:
                 merged[key] = build
