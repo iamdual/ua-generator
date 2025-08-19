@@ -32,9 +32,9 @@ print(ua) # Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/604.1.38 
 **It takes three different parameters to customize the user-agent.**
 
 ```python
-device = ('desktop', 'mobile')
-platform = ('windows', 'macos', 'ios', 'linux', 'android')
-browser = ('chrome', 'edge', 'firefox', 'safari')
+device = ['desktop', 'mobile']
+platform = ['windows', 'macos', 'ios', 'linux', 'android']
+browser = ['chrome', 'edge', 'firefox', 'safari']
 ```
 _Note: All parameters are optional and multiple types can be specified using a list (or tuple)._
 ## Customized user-agent generation:
@@ -43,7 +43,7 @@ _Note: All parameters are optional and multiple types can be specified using a l
 import ua_generator
 
 # Example 1:
-ua = ua_generator.generate(device='desktop', browser=('chrome', 'edge'))
+ua = ua_generator.generate(device='desktop', browser=['chrome', 'edge'])
 print(ua.text) # Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.145 Safari/537.36
 print(ua.platform) # windows
 print(ua.browser) # chrome
@@ -55,7 +55,7 @@ print(ua.ch.bitness) # "64"
 print(ua.ch.architecture) # "x86"
 
 # Example 2:
-ua = ua_generator.generate(platform=('ios', 'macos'), browser='chrome')
+ua = ua_generator.generate(platform=['ios', 'macos'], browser='chrome')
 print(ua.text) # Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_2 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/119.0.6045.176 Mobile/15E148 Safari/537.36
 print(ua.platform) # ios
 print(ua.browser) # chrome
@@ -70,7 +70,7 @@ print(ua.ch.architecture) # "arm"
 # Headers
 
 ```python
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 
 # This will return a dictionary containing the generated user-agent:
 print(ua.headers.get())
@@ -100,12 +100,12 @@ print(ua.headers.get())
 import requests
 import ua_generator
 
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
 
 
 # or, usage with requests.Session():
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 s = requests.Session()
 s.headers.update(ua.headers.get())
 r = s.get('https://httpbin.org/get')
@@ -117,12 +117,12 @@ r = s.get('https://httpbin.org/get')
 import httpx
 import ua_generator
 
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 r = httpx.get('https://httpbin.org/get', headers=ua.headers.get())
 
 
 # or, usage with httpx.Client():
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 c = httpx.Client(headers=ua.headers.get())
 r = c.get('https://httpbin.org/get')
 ```
@@ -133,7 +133,7 @@ r = c.get('https://httpbin.org/get')
 import urllib.request
 import ua_generator
 
-ua = ua_generator.generate(browser=('chrome', 'edge'))
+ua = ua_generator.generate(browser=['chrome', 'edge'])
 request = urllib.request.Request('https://httpbin.org/get', headers=ua.headers.get())
 handler = urllib.request.urlopen(request)
 response = handler.read().decode('utf-8')
@@ -153,7 +153,7 @@ from ua_generator.options import Options
 # Enabling weighted versions
 options = Options()
 options.weighted_versions = True
-ua = ua_generator.generate(browser=('chrome', 'edge'), options=options)
+ua = ua_generator.generate(browser=['chrome', 'edge'], options=options)
 ```
 
 ## version_ranges
