@@ -4,17 +4,19 @@ A random user-agent generator for Python >= 3.9
 
 # Features
 
-- No external user-agent list. No downloads.
-- Templates are hardcoded into the code.
+- No dependency.
+- No external user-agent list, no downloads.
+- User-agent versions are hardcoded into the code.
 - Platform and browser versions are based on real releases.
 - Client Hints (Sec-CH-UA fields).
 - Easy to integrate into HTTP libraries.
 
-# Installing
+# Install & upgrade
 
 ```bash
-pip3 install -U ua-generator
+pip install -U ua-generator
 ```
+_Note: Upgrade ua-generator periodically to update the user-agent list._
 
 # Basic usage
 
@@ -34,7 +36,7 @@ device = ('desktop', 'mobile')
 platform = ('windows', 'macos', 'ios', 'linux', 'android')
 browser = ('chrome', 'edge', 'firefox', 'safari')
 ```
-_All parameters are optional and multiple types can be specified using a list (or tuple)._
+_Note: All parameters are optional and multiple types can be specified using a list (or tuple)._
 ## Customized user-agent generation:
 
 ```python
@@ -170,6 +172,8 @@ options.version_ranges = {
 }
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
+
+_Note: If there is no valid version within the range you set, the filter will just skip it and return a random valid version instead._
 
 # Issues
 
