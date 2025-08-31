@@ -16,7 +16,7 @@ A random user-agent generator for Python >= 3.9
 ```bash
 pip install -U ua-generator
 ```
-_Note: Upgrade ua-generator periodically to update the user-agent list._
+_Note: Upgrade ua-generator periodically to keep user-agent versions up to date._
 
 # Basic usage
 
