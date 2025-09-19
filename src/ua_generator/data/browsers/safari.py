@@ -21,6 +21,7 @@ VERSIONS: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=16, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
     ChromiumVersion(Version(major=17, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
     ChromiumVersion(Version(major=18, minor=(0, 5)), webkit=Version(major=605, minor=1, build=15)),
+    ChromiumVersion(Version(major=26, minor=0), webkit=Version(major=605, minor=1, build=15)),
 ]
 
 
