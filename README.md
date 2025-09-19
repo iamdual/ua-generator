@@ -175,6 +175,9 @@ ua = ua_generator.generate(browser='chrome', options=options)
 
 _Note: If there is no valid version within the range you set, the filter will just skip it and return a random valid version instead._
 
+## tied_safari_version
+To make Safari version tied to macOS/iOS version. Default is `False`.
+
 # Issues
 
 You can create an issue [from here](https://github.com/iamdual/ua-generator/issues) if you are experiencing a problem.

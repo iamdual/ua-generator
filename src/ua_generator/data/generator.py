@@ -36,7 +36,7 @@ class Generator:
         if self.browser == 'chrome':
             return chrome.get_version(options=self.options)
         elif self.browser == 'safari':
-            return safari.get_version(options=self.options)
+            return safari.get_version(options=self.options, platform_version=self.platform_version)
         elif self.browser == 'firefox':
             return firefox.get_version(options=self.options)
         elif self.browser == 'edge':
@@ -140,7 +140,7 @@ class Generator:
                 template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
                 template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{safari}', str(self.browser_version))
+                template = template.replace('{safari}', self.browser_version.format(trim_zero=True))
                 return template
             if self.browser == 'firefox':
                 template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}; rv:{firefox}) Gecko/20100101 Firefox/{firefox}'
@@ -165,7 +165,7 @@ class Generator:
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Mobile/15E148 Safari/{webkit}'
                 template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{safari}', self.browser_version.format(partitions=2))
+                template = template.replace('{safari}', self.browser_version.format(trim_zero=True))
                 return template
             if self.browser == 'firefox':
                 template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/{firefox} Mobile/15E148 Safari/605.1.15'

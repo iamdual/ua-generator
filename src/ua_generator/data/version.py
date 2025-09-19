@@ -86,6 +86,14 @@ class ChromiumVersion(Version):
         self.webkit = webkit
 
 
+class SafariVersion(Version):
+    webkit: Version
+
+    def __init__(self, version: Version, webkit: Version = Version(major=605, minor=1, build=15)):
+        super().__init__(version.major, version.minor, version.build, version.patch)
+        self.webkit = webkit
+
+
 class AndroidVersion(Version):
     build_number: Optional[str]
     platform_model: Optional[str]
@@ -106,6 +114,7 @@ class WindowsVersion(Version):
 VERSION_TYPES = (
     Version,
     ChromiumVersion,
+    SafariVersion,
     AndroidVersion,
     WindowsVersion,
 )

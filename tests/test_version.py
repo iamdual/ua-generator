@@ -5,7 +5,7 @@ License: Apache License 2.0
 """
 import unittest
 
-from src.ua_generator.data.version import Version, WindowsVersion, AndroidVersion, ChromiumVersion
+from src.ua_generator.data.version import Version, WindowsVersion, AndroidVersion, ChromiumVersion, SafariVersion
 
 
 class TestVersion(unittest.TestCase):
@@ -136,9 +136,14 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.build_number, 'foo')
 
     def test_version_chromium(self):
-        version = ChromiumVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(537, 36))
+        version = ChromiumVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(major=537, minor=36))
         self.assertEqual(version.format(partitions=4), '1.2.3.4')
         self.assertEqual(version.webkit.format(), '537.36')
+
+    def test_version_safari(self):
+        version = SafariVersion(Version(major=1, minor=2, build=3, patch=4), webkit=Version(major=605, minor=1, build=15))
+        self.assertEqual(version.format(partitions=4), '1.2.3.4')
+        self.assertEqual(version.webkit.format(), '605.1.15')
 
     def test_version_comparison(self):
         version_1 = Version(major=1, minor=2)

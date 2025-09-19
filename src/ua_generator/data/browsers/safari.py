@@ -7,25 +7,28 @@ import random
 from typing import List
 
 from ..filterer import Filterer
-from ..version import Version, ChromiumVersion
+from ..version import Version, SafariVersion
 from ...options import Options
 
 # https://developer.apple.com/documentation/safari-release-notes
-VERSIONS: List[ChromiumVersion] = [
-    ChromiumVersion(Version(major=10, minor=0), webkit=Version(major=602, minor=4, build=8)),
-    ChromiumVersion(Version(major=11, minor=0), webkit=Version(major=604, minor=1, build=38)),
-    ChromiumVersion(Version(major=12, minor=(0, 1)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=13, minor=(0, 1)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=14, minor=(0, 1)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=15, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=16, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=17, minor=(0, 6)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=18, minor=(0, 5)), webkit=Version(major=605, minor=1, build=15)),
-    ChromiumVersion(Version(major=26, minor=0), webkit=Version(major=605, minor=1, build=15)),
+VERSIONS: List[SafariVersion] = [
+    SafariVersion(Version(major=10, minor=0), webkit=Version(major=602, minor=4, build=8)),
+    SafariVersion(Version(major=11, minor=0), webkit=Version(major=604, minor=1, build=38)),
+    SafariVersion(Version(major=12, minor=(0, 1))),
+    SafariVersion(Version(major=13, minor=(0, 1))),
+    SafariVersion(Version(major=14, minor=(0, 1))),
+    SafariVersion(Version(major=15, minor=(0, 6))),
+    SafariVersion(Version(major=16, minor=(0, 6))),
+    SafariVersion(Version(major=17, minor=(0, 6))),
+    SafariVersion(Version(major=18, minor=(0, 5))),
+    SafariVersion(Version(major=26, minor=0)),
 ]
 
 
-def get_version(options: Options) -> ChromiumVersion:
+def get_version(options: Options, platform_version: Version) -> SafariVersion:
+    if options.tied_safari_version:
+        return SafariVersion(platform_version)
+
     filterer = Filterer(VERSIONS)
 
     if options.version_ranges and 'safari' in options.version_ranges:

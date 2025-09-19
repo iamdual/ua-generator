@@ -24,11 +24,18 @@ class TestOptions(unittest.TestCase):
         self.assertIsNone(ua.options.version_ranges)
 
         options = Options()
-        options.version_ranges={'chrome': VersionRange(125, 127)}
+        options.version_ranges = {'chrome': VersionRange(125, 127)}
 
         for i in range(0, 100):
             ua = ua_generator.generate(browser='chrome', options=options)
             self.assertIn(ua.generator.browser_version.major, (125, 126, 127))
+
+    def test_tied_safari_version(self):
+        for i in range(0, 100):
+            options = Options()
+            options.tied_safari_version = True
+            ua = ua_generator.generate(platform=('macos', 'ios'), browser='safari', options=options)
+            self.assertEqual(ua.generator.browser_version.format(), ua.generator.platform_version.format())
 
 
 if __name__ == '__main__':
