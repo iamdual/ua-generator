@@ -29,7 +29,7 @@ class Version:
         )
         self.__tuple: Optional[tuple] = None
 
-    def format(self, partitions=None, separator='.', trim_zero=False) -> str:
+    def format(self, partitions=None, limit=None, separator='.', trim_zero=False) -> str:
         versions = [self.major, self.minor, self.build, self.patch]
 
         if partitions is not None:
@@ -38,6 +38,10 @@ class Version:
             # Stop at None
             while versions and versions[-1] is None:
                 versions.pop()
+
+        if limit is not None and len(versions) > limit:
+            for i in range(limit, len(versions)):
+                versions[i] = 0
 
         # None to zero
         versions = list(part or 0 for part in versions)
