@@ -145,6 +145,22 @@ class TestVersion(unittest.TestCase):
         self.assertEqual(version.format(partitions=4), '1.2.3.4')
         self.assertEqual(version.webkit.format(), '605.1.15')
 
+    def test_version_limit(self):
+        version = ChromiumVersion(Version(major=141, minor=1, build=1418, patch=86))
+        self.assertEqual(version.format(partitions=4, limit=1), '141.0.0.0')
+
+    def test_version_limit_2(self):
+        version = ChromiumVersion(Version(major=141, minor=1, build=1418, patch=86))
+        self.assertEqual(version.format(partitions=4, limit=3), '141.1.1418.0')
+
+    def test_version_limit_3(self):
+        version = ChromiumVersion(Version(major=141, minor=1, build=1418, patch=86))
+        self.assertEqual(version.format(partitions=2, limit=4), '141.1')
+
+    def test_version_limit_4(self):
+        version = ChromiumVersion(Version(major=141))
+        self.assertEqual(version.format(partitions=4, limit=4), '141.0.0.0')
+
     def test_version_comparison(self):
         version_1 = Version(major=1, minor=2)
         version_2 = Version(major=1, minor=3)

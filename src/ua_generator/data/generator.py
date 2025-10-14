@@ -51,7 +51,7 @@ class Generator:
                 ))
                 template = template.replace('{windows}', str(self.platform_version))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'edge':
                 template = utils.choice((
@@ -59,7 +59,7 @@ class Generator:
                 ))
                 template = template.replace('{windows}', str(self.platform_version))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'firefox':
                 template = utils.choice((
@@ -77,14 +77,14 @@ class Generator:
                     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}',
                 ))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'edge':
                 template = utils.choice((
                     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}',
                 ))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'firefox':
                 template = utils.choice((
@@ -104,7 +104,7 @@ class Generator:
                     template = template.replace('{build}', '; Build/' + self.platform_version.build_number)
                 template = template.replace('{build}', '').replace('{model}', '')
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'edge':
                 template = 'Mozilla/5.0 (Linux; Android {android}{model}{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome} Mobile Safari/{webkit} EdgA/{chrome}'
@@ -115,7 +115,7 @@ class Generator:
                     template = template.replace('{build}', '; Build/' + self.platform_version.build_number)
                 template = template.replace('{build}', '').replace('{model}', '')
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'firefox':
                 template = 'Mozilla/5.0 (Android {android}; Mobile; rv:{firefox}) Gecko/{firefox} Firefox/{firefox}'
@@ -128,13 +128,13 @@ class Generator:
                 template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit}'
                 template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'edge':
                 template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Chrome/{chrome} Safari/{webkit} Edg/{chrome}'
                 template = template.replace('{macos}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{webkit}', str(self.browser_version.webkit))
-                template = template.replace('{chrome}', str(self.browser_version))
+                template = template.replace('{chrome}', self.browser_version.format(partitions=4, limit=1))
                 return template
             if self.browser == 'safari':
                 template = 'Mozilla/5.0 (Macintosh; Intel Mac OS X {macos}) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Safari/{webkit}'
@@ -150,25 +150,23 @@ class Generator:
 
         elif self.platform == 'ios':
             if self.browser == 'chrome':
-                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) CriOS/{chrome} Mobile/15E148 Safari/{webkit}'
+                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/{chrome} Mobile/15E148 Safari/604.1'
                 template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
-                template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'edge':
-                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) Version/15.0 EdgiOS/{chrome} Mobile/15E148 Safari/{webkit}'
+                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/{chrome} Version/{ios-short} Mobile/15E148 Safari/604.1'
                 template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
-                template = template.replace('{webkit}', str(self.browser_version.webkit))
+                template = template.replace('{ios-short}', self.platform_version.format(partitions=2, limit=1))
                 template = template.replace('{chrome}', str(self.browser_version))
                 return template
             if self.browser == 'safari':
-                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/{webkit} (KHTML, like Gecko) Version/{safari} Mobile/15E148 Safari/{webkit}'
+                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/{safari} Mobile/15E148 Safari/604.1'
                 template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
-                template = template.replace('{webkit}', str(self.browser_version.webkit))
                 template = template.replace('{safari}', self.browser_version.format(trim_zero=True))
                 return template
             if self.browser == 'firefox':
-                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/{firefox} Mobile/15E148 Safari/605.1.15'
+                template = 'Mozilla/5.0 (iPhone; CPU iPhone OS {ios} like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/{firefox} Mobile/15E148 Safari/604.1'
                 template = template.replace('{ios}', self.platform_version.format(partitions=3, separator='_', trim_zero=True))
                 template = template.replace('{firefox}', self.browser_version.format(partitions=2))
                 return template
