@@ -19,6 +19,8 @@ class ClientHints:
     platform_version: str
     brands: str
     brands_full_version_list: str
+    browser_version: str
+    browser_full_version: str
     bitness: str
     architecture: str
     model: str
@@ -108,6 +110,10 @@ class ClientHints:
             self.__cache[name] = serialization.ch_brand_list(self.get_brands())
         elif name == 'brands_full_version_list':
             self.__cache[name] = serialization.ch_brand_list(self.get_brands(full_version_list=True))
+        elif name == 'browser_version':
+            self.__cache[name] = serialization.ch_string(self.get_browser_version(full_version=False))
+        elif name == 'browser_full_version':
+            self.__cache[name] = serialization.ch_string(self.get_browser_version(full_version=True))
         elif name == 'bitness':
             self.__cache[name] = serialization.ch_string(self.get_bitness())
         elif name == 'architecture':
@@ -129,7 +135,10 @@ class ClientHints:
                 f"mobile={self.mobile}, "
                 f"platform={self.platform}, "
                 f"platform_version={self.platform_version}, "
+                f"brands={self.brands}, "
                 f"brands_full_version_list={self.brands_full_version_list}, "
+                f"browser_version={self.browser_version}, "
+                f"browser_full_version={self.browser_full_version}, "
                 f"bitness={self.bitness}, "
                 f"architecture={self.architecture}, "
                 f"model={self.model}, "

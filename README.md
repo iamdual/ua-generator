@@ -44,27 +44,35 @@ import ua_generator
 
 # Example 1:
 ua = ua_generator.generate(device='desktop', browser=['chrome', 'edge'])
-print(ua.text) # Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.145 Safari/537.36
+print(ua.text) # Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
 print(ua.platform) # windows
 print(ua.browser) # chrome
-print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="108", "Google Chrome";v="108"
+print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="129", "Google Chrome";v="129"
+print(ua.ch.brands_full_version_list) # "Not A(Brand";v="99.0.0.0", "Chromium";v="129.0.6668.116", "Google Chrome";v="129.0.6668.116"
 print(ua.ch.mobile) # ?0
 print(ua.ch.platform) # "Windows"
 print(ua.ch.platform_version) # "13.0.0"
+print(ua.ch.browser_version) # "129"
+print(ua.ch.browser_full_version) # "129.0.6668.116"
 print(ua.ch.bitness) # "64"
 print(ua.ch.architecture) # "x86"
+print(ua.ch.wow64) # "?1"
 
 # Example 2:
-ua = ua_generator.generate(platform=['ios', 'macos'], browser='chrome')
-print(ua.text) # Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_2 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) CriOS/119.0.6045.176 Mobile/15E148 Safari/537.36
+ua = ua_generator.generate(platform=['ios', 'macos'], browser='edge')
+print(ua.text) # Mozilla/5.0 (iPhone; CPU iPhone OS 18_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/117.0.2045.73 Version/18.0 Mobile/15E148 Safari/604.1
 print(ua.platform) # ios
-print(ua.browser) # chrome
-print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="119", "Google Chrome";v="119"
+print(ua.browser) # edge
+print(ua.ch.brands) # "Not A(Brand";v="99", "Chromium";v="117", "Microsoft Edge";v="117"
+print(ua.ch.brands_full_version_list) # "Not A(Brand";v="99.0.0.0", "Chromium";v="117.0.2045.73", "Microsoft Edge";v="117.0.2045.73"
 print(ua.ch.mobile) # ?1
 print(ua.ch.platform) # "iOS"
-print(ua.ch.platform_version) # "17.0.2"
+print(ua.ch.platform_version) # "18.6.1"
+print(ua.ch.browser_version) # "117"
+print(ua.ch.browser_full_version) # "117.0.2045.73"
 print(ua.ch.bitness) # "64"
-print(ua.ch.architecture) # "arm"
+print(ua.ch.architecture) # arm
+print(ua.ch.wow64) # ?0
 ```
 
 # Headers
