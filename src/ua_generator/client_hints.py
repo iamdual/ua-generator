@@ -46,7 +46,7 @@ class ClientHints:
         return platform
 
     def get_platform_version(self) -> str:
-        if type(self.__generator.platform_version) is WindowsVersion:
+        if isinstance(self.__generator.platform_version, WindowsVersion):
             return self.__generator.platform_version.ch_platform.format(partitions=3)
 
         return str(self.__generator.platform_version)

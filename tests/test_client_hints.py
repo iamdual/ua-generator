@@ -41,6 +41,11 @@ class TestClientHints(unittest.TestCase):
             self.assertTrue(type(ua.ch.platform_version) is str)
             self.assertEqual(ua.ch.platform_version, serialization.ch_string(ua.ch.get_platform_version()))
 
+    def test_ch_platform_version_windows_2(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='windows')
+            self.assertNotEqual(ua.ch.get_platform_version(), '0.0.0')
+
     def test_ch_mobile(self):
         for i in range(0, 100):
             ua = ua_generator.generate(browser=BROWSERS_SUPPORT_CH, platform='android')
