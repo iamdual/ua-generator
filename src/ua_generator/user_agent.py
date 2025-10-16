@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 from typing import Union, Optional
@@ -10,6 +10,7 @@ from .client_hints import ClientHints
 from .data import DEVICES, BROWSERS, PLATFORMS, PLATFORMS_DESKTOP, PLATFORMS_MOBILE, T_DEVICES, T_PLATFORMS, T_BROWSERS
 from .data.generator import Generator
 from .headers import Headers
+from .navigator import Navigator
 from .options import Options
 
 
@@ -92,6 +93,7 @@ class UserAgent:
         self.text = ua.user_agent
         self.ch = ClientHints(ua)
         self.headers = Headers(ua, self.ch)
+        self.navigator = Navigator(ua, self.ch)
         self.generator = ua
 
     def __str__(self):
