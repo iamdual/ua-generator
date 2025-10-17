@@ -17,6 +17,7 @@ class Navigator:
     mobile: bool
     platform: str
     architecture: str
+    bitness: str
     fullVersionList: list
     model: str
     platformVersion: str
