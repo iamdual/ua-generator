@@ -18,6 +18,7 @@ class Navigator:
     platform: str
     architecture: str
     bitness: str
+    formFactors: list
     fullVersionList: list
     model: str
     platformVersion: str
@@ -36,6 +37,7 @@ class Navigator:
             'platform': self.__client_hints.get_platform(),
             'architecture': self.__client_hints.get_architecture(),
             'bitness': self.__client_hints.get_bitness(),
+            'formFactors': self.__client_hints.get_form_factors(),
             'fullVersionList': self.__client_hints.get_brands(full_version_list=True),
             'model': self.__client_hints.get_model(),
             'platformVersion': self.__client_hints.get_platform_version(),

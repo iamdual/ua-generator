@@ -99,6 +99,15 @@ class TestClientHints(unittest.TestCase):
             self.assertIn(ua.ch.architecture, ('"arm"', '"x86"'))
             self.assertIn(ua.ch.get_architecture(), ('arm', 'x86'))
 
+    def test_ch_form_factors(self):
+        for i in range(0, 100):
+            ua = ua_generator.generate(device=['desktop', 'mobile'])
+            self.assertIsNotNone(ua.ch)
+            self.assertTrue(type(ua.ch.form_factors) is str)
+            self.assertIn(ua.ch.form_factors, ('"Desktop"', '"Mobile"'))
+            self.assertTrue(type(ua.ch.get_form_factors()) is list)
+            self.assertIn(ua.ch.get_form_factors(), (['Desktop'], ['Mobile']))
+
     def test_ch_model(self):
         for i in range(0, 100):
             ua = ua_generator.generate(platform='android', browser='chrome')

@@ -9,23 +9,31 @@ import src.ua_generator as ua_generator
 
 
 class TestNavigator(unittest.TestCase):
-    def test_navigator(self):
+    def test_get(self):
         ua = ua_generator.generate()
         self.assertIsNotNone(ua.navigator)
+
         navigator = ua.navigator.get()
 
         self.assertTrue('brands' in navigator)
         self.assertEqual(navigator['brands'], ua.navigator.brands)
-        self.assertTrue(isinstance(ua.navigator.brands, list))
-
         self.assertTrue('mobile' in navigator)
         self.assertEqual(navigator['mobile'], ua.navigator.mobile)
-        self.assertTrue(isinstance(ua.navigator.mobile, bool))
-
         self.assertTrue('platform' in navigator)
         self.assertEqual(navigator['platform'], ua.navigator.platform)
-        self.assertTrue(isinstance(ua.navigator.platform, str))
 
+    def test_return_types(self):
+        ua = ua_generator.generate()
+        self.assertTrue(isinstance(ua.navigator.brands, list))
+        self.assertTrue(isinstance(ua.navigator.mobile, bool))
+        self.assertTrue(isinstance(ua.navigator.platform, str))
+        self.assertTrue(isinstance(ua.navigator.architecture, str))
+        self.assertTrue(isinstance(ua.navigator.bitness, str))
+        self.assertTrue(isinstance(ua.navigator.formFactors, list))
+        self.assertTrue(isinstance(ua.navigator.fullVersionList, list))
+        self.assertTrue(isinstance(ua.navigator.model, str))
+        self.assertTrue(isinstance(ua.navigator.platformVersion, str))
+        self.assertTrue(isinstance(ua.navigator.wow64, bool))
 
 if __name__ == '__main__':
     unittest.main()

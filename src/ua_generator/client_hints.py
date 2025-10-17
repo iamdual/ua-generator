@@ -23,6 +23,7 @@ class ClientHints:
     browser_full_version: str
     bitness: str
     architecture: str
+    form_factors: str
     model: str
     wow64: str
 
@@ -96,6 +97,9 @@ class ClientHints:
     def get_wow64(self) -> bool:
         return self.__generator.platform == 'windows'
 
+    def get_form_factors(self) -> list[str]:
+        return [self.__generator.device.title()]
+
     def __getattr__(self, name) -> str:
         if name in self.__cache:
             return self.__cache[name]
@@ -118,6 +122,8 @@ class ClientHints:
             self.__cache[name] = serialization.ch_string(self.get_bitness())
         elif name == 'architecture':
             self.__cache[name] = serialization.ch_string(self.get_architecture())
+        elif name == 'form_factors':
+            self.__cache[name] = serialization.ch_list(self.get_form_factors())
         elif name == 'model':
             self.__cache[name] = serialization.ch_string(self.get_model())
         elif name == 'wow64':
@@ -141,6 +147,7 @@ class ClientHints:
                 f"browser_full_version={self.browser_full_version}, "
                 f"bitness={self.bitness}, "
                 f"architecture={self.architecture}, "
+                f"form_factors={self.form_factors}, "
                 f"model={self.model}, "
                 f"wow64={self.wow64}"
                 f")")

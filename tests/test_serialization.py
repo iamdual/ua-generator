@@ -9,6 +9,10 @@ from src.ua_generator import serialization
 
 
 class TestSerialization(unittest.TestCase):
+    def test_ch_list(self):
+        form_factors = ["Desktop", "Mobile"]
+        self.assertEqual(serialization.ch_list(form_factors), '"Desktop", "Mobile"')
+
     def test_ch_brand_list(self):
         brand_list = [
             {'brand': 'Not A(Brand', 'version': '99'},
