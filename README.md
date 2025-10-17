@@ -110,13 +110,6 @@ import ua_generator
 
 ua = ua_generator.generate(browser=['chrome', 'edge'])
 r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
-
-
-# or, usage with requests.Session():
-ua = ua_generator.generate(browser=['chrome', 'edge'])
-s = requests.Session()
-s.headers.update(ua.headers.get())
-r = s.get('https://httpbin.org/get')
 ```
 
 ## Integrating into the [httpx](https://pypi.org/project/httpx/):
@@ -127,12 +120,6 @@ import ua_generator
 
 ua = ua_generator.generate(browser=['chrome', 'edge'])
 r = httpx.get('https://httpbin.org/get', headers=ua.headers.get())
-
-
-# or, usage with httpx.Client():
-ua = ua_generator.generate(browser=['chrome', 'edge'])
-c = httpx.Client(headers=ua.headers.get())
-r = c.get('https://httpbin.org/get')
 ```
 
 ## Integrating into the [urllib](https://docs.python.org/3/library/urllib.request.html):
