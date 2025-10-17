@@ -147,6 +147,23 @@ handler = urllib.request.urlopen(request)
 response = handler.read().decode('utf-8')
 ```
 
+## Integrating into the [Selenium](https://selenium-python.readthedocs.io/):
+```python
+import time
+from selenium import webdriver
+import ua_generator
+
+ua = ua_generator.generate(browser=['chrome', 'edge'], device=['desktop'])
+driver = webdriver.Chrome()
+driver.execute_cdp_cmd('Network.setExtraHTTPHeaders', {'headers': ua.headers.get()})
+driver.execute_cdp_cmd('Network.setUserAgentOverride', {
+    'userAgent': ua.text,
+    'userAgentMetadata': ua.navigator.get()
+})
+driver.get('https://browserleaks.com/client-hints')
+time.sleep(1000)
+```
+
 # Options
 
 You can define options using the "options" parameter for further customization.
