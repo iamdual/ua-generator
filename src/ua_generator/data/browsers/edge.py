@@ -57,6 +57,7 @@ VERSIONS: List[ChromiumVersion] = [
     ChromiumVersion(Version(major=142, minor=0, build=3595, patch=(0, 99))),
     ChromiumVersion(Version(major=143, minor=0, build=3650, patch=(0, 99))),
     ChromiumVersion(Version(major=144, minor=0, build=3719, patch=(0, 99))),
+    ChromiumVersion(Version(major=145, minor=0, build=3800, patch=(0, 99))),
 ]
 
 
