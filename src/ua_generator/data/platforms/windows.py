@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2026 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 import random
@@ -22,12 +22,6 @@ VERSIONS: List[WindowsVersion] = [
 
 
 def get_version(options: Options) -> WindowsVersion:
-    filterer = Filterer(VERSIONS)
-
-    if options.version_ranges and 'windows' in options.version_ranges:
-        filterer.version_range(options.version_ranges['windows'])
-
-    if options.weighted_versions:
-        filterer.weighted_versions(max_range=2)
+    filterer = Filterer(VERSIONS, 'windows', options, max_weighted_version=2)
 
     return random.choice(filterer.versions)

@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022-2024 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2026 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 import random
@@ -29,12 +29,6 @@ def get_version(options: Options, platform_version: Version) -> SafariVersion:
     if options.tied_safari_version:
         return SafariVersion(platform_version)
 
-    filterer = Filterer(VERSIONS)
-
-    if options.version_ranges and 'safari' in options.version_ranges:
-        filterer.version_range(options.version_ranges['safari'])
-
-    if options.weighted_versions:
-        filterer.weighted_versions(max_range=3)
+    filterer = Filterer(VERSIONS, 'safari', options, max_weighted_version=3)
 
     return random.choice(filterer.versions)
