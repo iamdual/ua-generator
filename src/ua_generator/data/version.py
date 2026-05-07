@@ -132,16 +132,36 @@ class VersionRange:
         self.min_version = Version(major=min_version) if isinstance(min_version, int) else min_version
         self.max_version = Version(major=max_version) if isinstance(max_version, int) else max_version
 
+    @staticmethod
+    def _lower_bound(version: Version) -> tuple:
+        return tuple(
+            resolved_part if original_part is not None else 0
+            for original_part, resolved_part in zip(version.original, version.to_tuple())
+        )
+
+    @staticmethod
+    def _upper_bound(version: Version) -> tuple:
+        # Treat omitted components as wildcards for upper bounds. This keeps
+        # VersionRange(125, 129) matching every 129.x release, while letting
+        # Version(10, 15, 7) cap macOS at 10.15.7.
+        return tuple(
+            resolved_part if original_part is not None else 10 ** 9
+            for original_part, resolved_part in zip(version.original, version.to_tuple())
+        )
+
     def filter(self, versions: List[Version]) -> List[Version]:
         tmp_versions: List[Version] = []
 
-        # TODO: Perhaps support for full version comparison, instead of just major versions
+        min_version = self._lower_bound(self.min_version) if self.min_version is not None else None
+        max_version = self._upper_bound(self.max_version) if self.max_version is not None else None
+
         for version in versions:
-            if isinstance(self.min_version, Version) and isinstance(self.max_version, Version) and self.min_version.major <= int(version.major or 0) <= self.max_version.major: # type: ignore[operator]
-                tmp_versions.append(version)
-            elif isinstance(self.min_version, Version) and self.max_version is None and self.min_version.major <= int(version.major or 0): # type: ignore[operator]
-                tmp_versions.append(version)
-            elif self.min_version is None and isinstance(self.max_version, Version) and int(version.major or 0) <= self.max_version.major: # type: ignore[operator]
+            version_tuple = version.to_tuple()
+            if min_version is not None and version_tuple < min_version:
+                continue
+            if max_version is not None and version_tuple > max_version:
+                continue
+            if min_version is not None or max_version is not None:
                 tmp_versions.append(version)
 
         return tmp_versions
