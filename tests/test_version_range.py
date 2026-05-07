@@ -134,6 +134,41 @@ class TestVersionRange(unittest.TestCase):
             self.assertIsNotNone(ua.generator.browser_version)
             self.assertTrue(ua.generator.browser_version.major <= CHROME_MAX)
 
+    def test_version_range_int_bounds_include_entire_major_version(self):
+        versions = [
+            Version(major=124, minor=0, build=1),
+            Version(major=125, minor=0, build=99),
+            Version(major=126, minor=0, build=99),
+            Version(major=127, minor=0, build=99),
+            Version(major=128, minor=0, build=1),
+        ]
+
+        filtered = VersionRange(125, 127).filter(versions)
+
+        self.assertEqual(
+            [version.format(partitions=3) for version in filtered],
+            ['125.0.99', '126.0.99', '127.0.99'],
+        )
+
+    def test_version_range_supports_full_version_bounds(self):
+        versions = [
+            Version(major=10, minor=14, build=6),
+            Version(major=10, minor=15, build=1),
+            Version(major=10, minor=15, build=7),
+            Version(major=10, minor=15, build=8),
+            Version(major=11, minor=0, build=0),
+        ]
+
+        filtered = VersionRange(
+            min_version=Version(major=10, minor=15),
+            max_version=Version(major=10, minor=15, build=7),
+        ).filter(versions)
+
+        self.assertEqual(
+            [version.format(partitions=3) for version in filtered],
+            ['10.15.1', '10.15.7'],
+        )
+
     def test_version_range_invalid(self):
         # MUST be INVALID version range
         EDGE_MIN_INVALID = 1

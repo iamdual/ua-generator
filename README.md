@@ -174,13 +174,14 @@ To choose only versions within specified ranges. Default is `None`.
 ```python
 import ua_generator
 from ua_generator.options import Options
-from ua_generator.data.version import VersionRange
+from ua_generator.data.version import Version, VersionRange
 
 # Choosing only versions within specified ranges
 options = Options()
 options.version_ranges = {
     'chrome': VersionRange(125, 129),  # Choose version between 125 and 129
     'edge': VersionRange(min_version=120),  # Choose version 120 minimum
+    'macos': VersionRange(max_version=Version(10, 15, 7)),  # Choose macOS 10.15.7 maximum
 }
 ua = ua_generator.generate(browser='chrome', options=options)
 ```
