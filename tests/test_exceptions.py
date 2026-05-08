@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2026 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0 
 """
 import unittest
@@ -8,6 +8,7 @@ import unittest
 import src.ua_generator as ua_generator
 from src.ua_generator.data.browsers.chrome import VERSIONS as CHROME_VERSIONS
 from src.ua_generator.data.filterer import Filterer
+from src.ua_generator.options import Options
 
 
 class TestExceptions(unittest.TestCase):
@@ -59,8 +60,7 @@ class TestExceptions(unittest.TestCase):
 
     def test_type_error(self):
         def raised_call():
-            filterer = Filterer(CHROME_VERSIONS)
-            filterer.version_range(range(0, 2))
+            Filterer(CHROME_VERSIONS, 'chrome', Options(version_ranges={'chrome': range(0, 2)}))
 
         self.assertRaises(TypeError, raised_call)
 

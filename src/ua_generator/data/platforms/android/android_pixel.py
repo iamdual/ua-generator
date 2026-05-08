@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2026 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
@@ -39,13 +39,7 @@ platform_models = ('Pixel 2', 'Pixel 2 XL',
 
 
 def get_version(options: Options) -> AndroidVersion:
-    filterer = Filterer(VERSIONS)
-
-    if options.version_ranges and 'android' in options.version_ranges:
-        filterer.version_range(options.version_ranges['android'])
-
-    if options.weighted_versions:
-        filterer.weighted_versions(max_range=4)
+    filterer = Filterer(VERSIONS, 'android', options)
 
     choice: AndroidVersion = random.choice(filterer.versions)
     if choice.build_number is not None:

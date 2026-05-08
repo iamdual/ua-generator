@@ -1,6 +1,6 @@
 """
 Random User-Agent
-Copyright: 2022-2025 Ekin Karadeniz (github.com/iamdual)
+Copyright: 2022-2026 Ekin Karadeniz (github.com/iamdual)
 License: Apache License 2.0
 """
 import random
@@ -130,13 +130,7 @@ platform_models = ('SM-G390Y', 'SM-G390Y', 'SM-G525F', 'SM-G9006W', 'SM-G9209K',
 
 
 def get_version(options: Options) -> AndroidVersion:
-    filterer = Filterer(VERSIONS)
-
-    if options.version_ranges and 'android' in options.version_ranges:
-        filterer.version_range(options.version_ranges['android'])
-
-    if options.weighted_versions:
-        filterer.weighted_versions(max_range=5)
+    filterer = Filterer(VERSIONS, 'android', options, max_weighted_version=5)
 
     choice: AndroidVersion = random.choice(filterer.versions)
     if choice.build_number is not None:

@@ -188,6 +188,29 @@ ua = ua_generator.generate(browser='chrome', options=options)
 
 _Note: If there is no valid version within the range you set, the filter will just skip it and return a random valid version instead._
 
+## latest_versions
+To choose only the latest version, or one of the latest `N` versions for specified browsers or platforms. Default is `False`.
+
+```python
+import ua_generator
+from ua_generator.options import Options
+
+# Choose only the latest version for every browser and platform
+options = Options()
+options.latest_versions = True
+ua = ua_generator.generate(options=options)
+
+# Choose one of the latest N versions for specified browsers and platforms
+options = Options()
+options.latest_versions = {
+    'chrome': 3,
+    'firefox': 1,
+    'ios': 3,
+    'macos': 1,
+}
+ua = ua_generator.generate(browser='chrome', platform='ios', options=options)
+```
+
 ## tied_safari_version
 To make Safari version tied to macOS/iOS version. Default is `False`.
 
