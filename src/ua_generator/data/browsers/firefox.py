@@ -71,7 +71,7 @@ VERSIONS: List[Version] = [
     Version(major=150, minor=0, build=(0, 3)),
     Version(major=151, minor=0, build=(0, 4)),
     Version(major=152, minor=0, build=(0, 5)),
-    Version(major=153, minor=0, build=(0, 1)),
+    Version(major=153, minor=0, build=(0, 4)),
 ]
 
 
