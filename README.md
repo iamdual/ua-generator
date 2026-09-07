@@ -112,10 +112,10 @@ ua = ua_generator.generate(browser=['chrome', 'edge'])
 r = requests.get('https://httpbin.org/get', headers=ua.headers.get())
 ```
 
-## Integrating into the [httpx](https://pypi.org/project/httpx/):
+## Integrating into the [httpx](https://pypi.org/project/httpx2/):
 
 ```python
-import httpx
+import httpx2
 import ua_generator
 
 ua = ua_generator.generate(browser=['chrome', 'edge'])
